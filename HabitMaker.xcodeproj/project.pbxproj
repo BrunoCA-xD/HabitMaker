@@ -7,11 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		560E78D0244B87D500ADD546 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560E78CF244B87D500ADD546 /* SwitchTableViewCell.swift */; };
+		560E78D4244B973C00ADD546 /* AddHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560E78D3244B973C00ADD546 /* AddHabitViewController.swift */; };
+		560E78D6244B9B9F00ADD546 /* ModalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560E78D5244B9B9F00ADD546 /* ModalHeaderView.swift */; };
+		560E78D8244BF57300ADD546 /* FormFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560E78D7244BF57300ADD546 /* FormFieldTableViewCell.swift */; };
 		56876E4D24492CE70041EB5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56876E4C24492CE70041EB5C /* AppDelegate.swift */; };
 		56876E4F24492CE70041EB5C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56876E4E24492CE70041EB5C /* SceneDelegate.swift */; };
 		56876E5624492CEA0041EB5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56876E5524492CEA0041EB5C /* Assets.xcassets */; };
 		56876E5924492CEA0041EB5C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56876E5724492CEA0041EB5C /* LaunchScreen.storyboard */; };
-		56876E64244938B40041EB5C /* HabitsTableViewControllerhabitsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56876E63244938B40041EB5C /* HabitsTableViewControllerhabitsTableViewController.swift */; };
+		56876E64244938B40041EB5C /* HabitsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56876E63244938B40041EB5C /* HabitsTableViewController.swift */; };
 		56876E672449443A0041EB5C /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56876E662449443A0041EB5C /* Habit.swift */; };
 		56876E69244944590041EB5C /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56876E68244944590041EB5C /* Date+Extensions.swift */; };
 		56876E6B244944DF0041EB5C /* HabitTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56876E6A244944DF0041EB5C /* HabitTableViewCell.swift */; };
@@ -20,13 +24,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		560E78CF244B87D500ADD546 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
+		560E78D3244B973C00ADD546 /* AddHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitViewController.swift; sourceTree = "<group>"; };
+		560E78D5244B9B9F00ADD546 /* ModalHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalHeaderView.swift; sourceTree = "<group>"; };
+		560E78D7244BF57300ADD546 /* FormFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFieldTableViewCell.swift; sourceTree = "<group>"; };
 		56876E4924492CE70041EB5C /* HabitMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabitMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56876E4C24492CE70041EB5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		56876E4E24492CE70041EB5C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		56876E5524492CEA0041EB5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		56876E5824492CEA0041EB5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		56876E5A24492CEA0041EB5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		56876E63244938B40041EB5C /* HabitsTableViewControllerhabitsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsTableViewControllerhabitsTableViewController.swift; sourceTree = "<group>"; };
+		56876E63244938B40041EB5C /* HabitsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsTableViewController.swift; sourceTree = "<group>"; };
 		56876E662449443A0041EB5C /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		56876E68244944590041EB5C /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		56876E6A244944DF0041EB5C /* HabitTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTableViewCell.swift; sourceTree = "<group>"; };
@@ -45,6 +53,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		560E78CE244B87AE00ADD546 /* tableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				56876E6A244944DF0041EB5C /* HabitTableViewCell.swift */,
+				560E78CF244B87D500ADD546 /* SwitchTableViewCell.swift */,
+				560E78D7244BF57300ADD546 /* FormFieldTableViewCell.swift */,
+			);
+			path = tableViewCells;
+			sourceTree = "<group>";
+		};
 		56876E4024492CE70041EB5C = {
 			isa = PBXGroup;
 			children = (
@@ -64,8 +82,8 @@
 		56876E4B24492CE70041EB5C /* HabitMaker */ = {
 			isa = PBXGroup;
 			children = (
-				56876E6C244948090041EB5C /* Util */,
-				56876E652449442F0041EB5C /* Extension */,
+				56876E6C244948090041EB5C /* util */,
+				56876E652449442F0041EB5C /* extension */,
 				56876E62244937880041EB5C /* controller */,
 				56876E61244937850041EB5C /* view */,
 				56876E60244937800041EB5C /* model */,
@@ -89,7 +107,8 @@
 		56876E61244937850041EB5C /* view */ = {
 			isa = PBXGroup;
 			children = (
-				56876E6A244944DF0041EB5C /* HabitTableViewCell.swift */,
+				560E78CE244B87AE00ADD546 /* tableViewCells */,
+				560E78D5244B9B9F00ADD546 /* ModalHeaderView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -97,26 +116,27 @@
 		56876E62244937880041EB5C /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				56876E63244938B40041EB5C /* HabitsTableViewControllerhabitsTableViewController.swift */,
+				56876E63244938B40041EB5C /* HabitsTableViewController.swift */,
+				560E78D3244B973C00ADD546 /* AddHabitViewController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
 		};
-		56876E652449442F0041EB5C /* Extension */ = {
+		56876E652449442F0041EB5C /* extension */ = {
 			isa = PBXGroup;
 			children = (
 				56876E68244944590041EB5C /* Date+Extensions.swift */,
 				56876E6F244954E00041EB5C /* UILabel+Extensions.swift */,
 			);
-			path = Extension;
+			path = extension;
 			sourceTree = "<group>";
 		};
-		56876E6C244948090041EB5C /* Util */ = {
+		56876E6C244948090041EB5C /* util */ = {
 			isa = PBXGroup;
 			children = (
 				56876E6D244949040041EB5C /* Identifiable.swift */,
 			);
-			path = Util;
+			path = util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,12 +210,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				56876E70244954E00041EB5C /* UILabel+Extensions.swift in Sources */,
-				56876E64244938B40041EB5C /* HabitsTableViewControllerhabitsTableViewController.swift in Sources */,
+				56876E64244938B40041EB5C /* HabitsTableViewController.swift in Sources */,
 				56876E4D24492CE70041EB5C /* AppDelegate.swift in Sources */,
 				56876E672449443A0041EB5C /* Habit.swift in Sources */,
 				56876E69244944590041EB5C /* Date+Extensions.swift in Sources */,
 				56876E6E244949040041EB5C /* Identifiable.swift in Sources */,
+				560E78D0244B87D500ADD546 /* SwitchTableViewCell.swift in Sources */,
+				560E78D6244B9B9F00ADD546 /* ModalHeaderView.swift in Sources */,
+				560E78D4244B973C00ADD546 /* AddHabitViewController.swift in Sources */,
 				56876E6B244944DF0041EB5C /* HabitTableViewCell.swift in Sources */,
+				560E78D8244BF57300ADD546 /* FormFieldTableViewCell.swift in Sources */,
 				56876E4F24492CE70041EB5C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

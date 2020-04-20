@@ -11,7 +11,7 @@ import UIKit
 class HabitsTableViewController: UITableViewController {
     
     
-//    var habits = ["habito 1","habito 2","habito 3"]
+    var habits:[Habit] = [Habit(title: "habit 1")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +25,7 @@ class HabitsTableViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
     }
     
     // MARK: - Table view data source
@@ -34,7 +35,7 @@ class HabitsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+        return habits.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -42,7 +43,7 @@ class HabitsTableViewController: UITableViewController {
             fatalError("HabitTableViewCell could not load")
         }
         
-        cell.titleLabel.text = "hábito \(indexPath.row)"
+        cell.titleLabel.text = habits[indexPath.row].title
         
         return cell
     }
@@ -98,10 +99,20 @@ class HabitsTableViewController: UITableViewController {
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
         
+        let addHabitItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addHabitTapped))
+        addHabitItem.tintColor = .label
+        self.navigationItem.rightBarButtonItems = [addHabitItem]
+        
     }
     
     func registerCells() {
         tableView.register(HabitTableViewCell.self, forCellReuseIdentifier: HabitTableViewCell.defaultReuseIdentifier)
     }
     
+    
+    @objc func addHabitTapped() {
+        let vc  = AddHabitViewController()
+//        let vc = TestViewController()
+        self.present(vc, animated: true, completion: nil)
+    }
 }
