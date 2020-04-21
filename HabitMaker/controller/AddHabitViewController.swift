@@ -64,20 +64,24 @@ class AddHabitViewController: UIViewController {
 
 extension AddHabitViewController: UITableViewDataSource, UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return section%2==0 ? 2 : 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 1:
             let cell = SwitchTableViewCell()
-            cell.imageView?.image = UIImage(systemName: "bell.fill")
+            cell.icon = UIImage(systemName: "bell.fill")
             cell.label.text = "Set reminder"
-            cell.onSwitch.isOn = true
+            cell.onSwitch.isOn = false
             return cell
         case 0:
             let cell = FormFieldTableViewCell()
