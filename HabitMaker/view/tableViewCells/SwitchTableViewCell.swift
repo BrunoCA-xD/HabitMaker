@@ -43,19 +43,12 @@ public class SwitchTableViewCell: UITableViewCell {
         commonInit()
     }
     
-    func commonInit() {
-        selectionStyle = .none
-        
-        onSwitch.setOn(false, animated: false)
-        onSwitch.isAccessibilityElement = false
-        
+    fileprivate func setConstraints() {
         imgView.translatesAutoresizingMaskIntoConstraints = false
         label.translatesAutoresizingMaskIntoConstraints = false
         onSwitch.translatesAutoresizingMaskIntoConstraints = false
         
-        addSubview(imgView)
-        addSubview(label)
-        addSubview(onSwitch)
+        
         
         imgView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
         imgView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
@@ -70,6 +63,19 @@ public class SwitchTableViewCell: UITableViewCell {
         
         onSwitch.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         onSwitch.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding).isActive = true
+    }
+    
+    func commonInit() {
+        selectionStyle = .none
+        
+        onSwitch.setOn(false, animated: false)
+        onSwitch.isAccessibilityElement = false
+        
+        addSubview(imgView)
+        addSubview(label)
+        addSubview(onSwitch)
+        
+        setConstraints()
         
     }
     

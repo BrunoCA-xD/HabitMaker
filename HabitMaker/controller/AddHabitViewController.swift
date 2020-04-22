@@ -20,10 +20,15 @@ class AddHabitViewController: UIViewController {
     }()
     
     let tableview: UITableView = {
-        let tv = UITableView()
+        let tv = UITableView(frame: CGRect(), style: .grouped)
         tv.translatesAutoresizingMaskIntoConstraints = false
         return tv
     }()
+    
+    var picker: UIDatePicker? = nil
+    var label: UILabel? = nil
+    
+    
     
     fileprivate func setupConstraints() {
         //MARK: headerView
@@ -50,6 +55,7 @@ class AddHabitViewController: UIViewController {
         
         tableview.delegate = self
         tableview.dataSource = self
+        tableview.tableFooterView = UIView()
         
     }
     
@@ -71,28 +77,107 @@ extension AddHabitViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section%2==0 ? 2 : 4
+        return section%2==0 ? 1 : 3
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+
+        if indexPath.section == 1 {
+            if indexPath.row == 1 {
+                guard let label = label, !label.isHidden else {return 0.0}
+                return UITableView.automaticDimension
+            }
+            if indexPath.row == 2 {
+                guard let picker = picker, !picker.isHidden else { return  0.0 }
+                return 216.0
+            }
+        }
+        
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? PickerHeaderTableViewCell,
+        let picker = picker else {return}
+        cell.toggleIcon()
+        tableView.deselectRow(at: indexPath, animated: true)
+        picker.isHidden = !picker.isHidden
+        updateTableView()
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.row {
-        case 1:
-            let cell = SwitchTableViewCell()
-            cell.icon = UIImage(systemName: "bell.fill")
-            cell.label.text = "Set reminder"
-            cell.onSwitch.isOn = false
-            return cell
-        case 0:
+        if indexPath.section == 0 {
             let cell = FormFieldTableViewCell()
             cell.label.text = "Title"
             cell.value.placeholder = "Habit title"
             return cell
-        default:
-            let cell = SwitchTableViewCell()
-            cell.label.text = "Habit default"
-            return cell
+        }else {
+            switch indexPath.row {
+            case 0:
+                let cell = SwitchTableViewCell()
+                cell.icon = UIImage(systemName: "bell.fill")
+                cell.label.text = "Set reminder"
+                cell.onSwitch.isOn = false
+                cell.onSwitch.addTarget(self, action: #selector(Self.reminderChanged), for: .valueChanged)
+                return cell
+            case 1 :
+                let cell = PickerHeaderTableViewCell()
+                cell.textLabel?.text = "At time"
+                cell.isHidden = true
+                label = cell.textLabel
+                return cell
+            case 2:
+                let cell = DatePickerTableViewCell()
+                cell.picker.datePickerMode = .time
+                cell.picker.addTarget(self, action: #selector(Self.dateChanged), for: .valueChanged)
+                cell.picker.isHidden = true
+                picker = cell.picker
+                return cell
+            default:
+                //Collapsable cell to pick
+                let cell = SwitchTableViewCell()
+                cell.icon = UIImage(systemName: "bell.fill")
+                cell.label.text = "Set reminder"
+                cell.onSwitch.isOn = true
+                return cell
+            }
         }
+    }
+    
+    fileprivate func updateTableView() {
+        UIView.animate(withDuration: 0.3, animations: { () -> Void in
+            self.tableview.beginUpdates()
+            self.tableview.endUpdates()
+        })
+    }
+    
+    fileprivate func getPickerHeaderCell() -> PickerHeaderTableViewCell? {
+        let index = IndexPath(row: 1, section: 1)
+        guard let cell = tableview.cellForRow(at: index) as? PickerHeaderTableViewCell else {return nil}
+        return cell
+    }
+    
+    @objc func reminderChanged(sender: UISwitch) {
+       
+        guard let picker = self.picker, let cell = getPickerHeaderCell()  else {return}
+        if sender.isOn {
+            picker.isHidden = !sender.isOn
+            cell.isHidden = !cell.isHidden
+
+            updateTableView()
+        }else {
+            picker.isHidden = !sender.isOn
+            cell.isHidden = !cell.isHidden
+            updateTableView()
+        }
+    }
+    
+    @objc func dateChanged(sender: UIDatePicker) {
+        guard let cell = getPickerHeaderCell() else {return}
+        cell.textLabel?.text = "\(sender.date)"
     }
 }
 
