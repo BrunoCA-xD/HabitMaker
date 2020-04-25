@@ -18,7 +18,6 @@ class CoreDataDAO {
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "HabitMaker")
         container.loadPersistentStores { (storeDescription, error) in
-            print(storeDescription)
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error) \(error.userInfo)")
             }
