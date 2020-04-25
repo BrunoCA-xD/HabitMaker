@@ -12,24 +12,40 @@ class PickerHeaderTableViewCell: UITableViewCell {
     
     private let iconNames = ["chevron.up","chevron.down"]
     private var selectedIcon = 0
+    var imgview = UIImageView(image: UIImage(systemName: "chevron.up"))
+    
+    
     override var isHidden: Bool {
         didSet{
             textLabel?.isHidden = !oldValue
-            accessoryView?.isHidden = !oldValue
+            imgview.isHidden = !oldValue
         }
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        accessoryView = UIImageView(image: UIImage(systemName: iconNames[selectedIcon]))
         textLabel?.tintColor = .label
+        
+        addSubview(imgview)
+        
+        imgview.translatesAutoresizingMaskIntoConstraints = false
+        
+        imgview.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
+        imgview.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        imgview.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        imgview.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        
         
     }
     
     func toggleIcon() {
-        accessoryView?.isHidden = false
         selectedIcon = selectedIcon == 1 ? 0 : 1
-        accessoryView = UIImageView(image: UIImage(systemName: iconNames[selectedIcon]))
+        imgview.isHidden = false
+        imgview.image = UIImage(systemName: iconNames[selectedIcon])
+    }
+    func resetIcon() {
+        selectedIcon = 0
+        imgview.image = UIImage(systemName: iconNames[selectedIcon])
     }
     
     required init?(coder: NSCoder) {

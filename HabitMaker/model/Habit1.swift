@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct Habit: Codable{
-    var title: String
+struct Habit1: Codable{
+    var title: String!
     let dateCreated: Date = Date()
     
     var currStreak: Int = 0
@@ -20,6 +20,8 @@ struct Habit: Codable{
     var hasCompletedForToday: Bool{
         return (lastCompletionDate.contains(Date()))
     }
+    
+    init(){}
     
     init(title: String) {
         self.title = title

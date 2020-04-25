@@ -9,8 +9,11 @@
 import Foundation
 
 extension Date {
-    var stringValue: String {
+    var dateValue: String {
         return DateFormatter.localizedString(from: self, dateStyle: .medium, timeStyle: .none)
+    }
+    var timeValue: String {
+        return DateFormatter.localizedString(from: self, dateStyle: .none, timeStyle: .short)
     }
     
     var isToday: Bool {

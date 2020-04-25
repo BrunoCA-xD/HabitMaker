@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		560C413D2451311B00588859 /* HabitMaker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 560C413B2451311B00588859 /* HabitMaker.xcdatamodeld */; };
+		560C41462451D6A400588859 /* Habit+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560C41442451D6A400588859 /* Habit+CoreDataClass.swift */; };
+		560C41472451D6A400588859 /* Habit+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560C41452451D6A400588859 /* Habit+CoreDataProperties.swift */; };
+		560C414A2451DB1E00588859 /* CoreDataDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560C41492451DB1E00588859 /* CoreDataDAO.swift */; };
+		560C414C2451DC3800588859 /* HabitDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560C414B2451DC3800588859 /* HabitDAO.swift */; };
 		560E78D0244B87D500ADD546 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560E78CF244B87D500ADD546 /* SwitchTableViewCell.swift */; };
 		560E78D4244B973C00ADD546 /* AddHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560E78D3244B973C00ADD546 /* AddHabitViewController.swift */; };
 		560E78D6244B9B9F00ADD546 /* ModalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560E78D5244B9B9F00ADD546 /* ModalHeaderView.swift */; };
@@ -16,16 +21,24 @@
 		56876E5624492CEA0041EB5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56876E5524492CEA0041EB5C /* Assets.xcassets */; };
 		56876E5924492CEA0041EB5C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56876E5724492CEA0041EB5C /* LaunchScreen.storyboard */; };
 		56876E64244938B40041EB5C /* HabitsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56876E63244938B40041EB5C /* HabitsTableViewController.swift */; };
-		56876E672449443A0041EB5C /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56876E662449443A0041EB5C /* Habit.swift */; };
+		56876E672449443A0041EB5C /* Habit1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56876E662449443A0041EB5C /* Habit1.swift */; };
 		56876E69244944590041EB5C /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56876E68244944590041EB5C /* Date+Extensions.swift */; };
 		56876E6B244944DF0041EB5C /* HabitTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56876E6A244944DF0041EB5C /* HabitTableViewCell.swift */; };
 		56876E6E244949040041EB5C /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56876E6D244949040041EB5C /* Identifiable.swift */; };
 		56876E70244954E00041EB5C /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56876E6F244954E00041EB5C /* UILabel+Extensions.swift */; };
 		569952C8244F794F00678786 /* PickerHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569952C7244F794F00678786 /* PickerHeaderTableViewCell.swift */; };
 		56A0D5D8244E97EF00E4F29D /* DatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A0D5D7244E97EF00E4F29D /* DatePickerTableViewCell.swift */; };
+		56C296DA24512B3300FFD725 /* AlertUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C296D924512B3300FFD725 /* AlertUtility.swift */; };
+		56C296DC24512B6B00FFD725 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C296DB24512B6B00FFD725 /* UIView+Extensions.swift */; };
+		56C296DE24512B8D00FFD725 /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C296DD24512B8D00FFD725 /* UIDevice+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		560C413C2451311B00588859 /* HabitMaker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HabitMaker.xcdatamodel; sourceTree = "<group>"; };
+		560C41442451D6A400588859 /* Habit+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Habit+CoreDataClass.swift"; sourceTree = "<group>"; };
+		560C41452451D6A400588859 /* Habit+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Habit+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		560C41492451DB1E00588859 /* CoreDataDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataDAO.swift; sourceTree = "<group>"; };
+		560C414B2451DC3800588859 /* HabitDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDAO.swift; sourceTree = "<group>"; };
 		560E78CF244B87D500ADD546 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		560E78D3244B973C00ADD546 /* AddHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitViewController.swift; sourceTree = "<group>"; };
 		560E78D5244B9B9F00ADD546 /* ModalHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalHeaderView.swift; sourceTree = "<group>"; };
@@ -37,13 +50,16 @@
 		56876E5824492CEA0041EB5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		56876E5A24492CEA0041EB5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		56876E63244938B40041EB5C /* HabitsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsTableViewController.swift; sourceTree = "<group>"; };
-		56876E662449443A0041EB5C /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
+		56876E662449443A0041EB5C /* Habit1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit1.swift; sourceTree = "<group>"; };
 		56876E68244944590041EB5C /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		56876E6A244944DF0041EB5C /* HabitTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTableViewCell.swift; sourceTree = "<group>"; };
 		56876E6D244949040041EB5C /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		56876E6F244954E00041EB5C /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		569952C7244F794F00678786 /* PickerHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		56A0D5D7244E97EF00E4F29D /* DatePickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTableViewCell.swift; sourceTree = "<group>"; };
+		56C296D924512B3300FFD725 /* AlertUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertUtility.swift; sourceTree = "<group>"; };
+		56C296DB24512B6B00FFD725 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		56C296DD24512B8D00FFD725 /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +73,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		560C41482451DB0E00588859 /* DAO */ = {
+			isa = PBXGroup;
+			children = (
+				560C41492451DB1E00588859 /* CoreDataDAO.swift */,
+				560C414B2451DC3800588859 /* HabitDAO.swift */,
+			);
+			path = DAO;
+			sourceTree = "<group>";
+		};
 		560E78CE244B87AE00ADD546 /* tableViewCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -88,16 +113,17 @@
 		56876E4B24492CE70041EB5C /* HabitMaker */ = {
 			isa = PBXGroup;
 			children = (
-				56876E6C244948090041EB5C /* util */,
-				56876E652449442F0041EB5C /* extension */,
-				56876E62244937880041EB5C /* controller */,
-				56876E61244937850041EB5C /* view */,
-				56876E60244937800041EB5C /* model */,
+				56876E5A24492CEA0041EB5C /* Info.plist */,
 				56876E4C24492CE70041EB5C /* AppDelegate.swift */,
 				56876E4E24492CE70041EB5C /* SceneDelegate.swift */,
 				56876E5524492CEA0041EB5C /* Assets.xcassets */,
+				560C413B2451311B00588859 /* HabitMaker.xcdatamodeld */,
 				56876E5724492CEA0041EB5C /* LaunchScreen.storyboard */,
-				56876E5A24492CEA0041EB5C /* Info.plist */,
+				56876E62244937880041EB5C /* controller */,
+				56876E652449442F0041EB5C /* extension */,
+				56876E60244937800041EB5C /* model */,
+				56876E6C244948090041EB5C /* util */,
+				56876E61244937850041EB5C /* view */,
 			);
 			path = HabitMaker;
 			sourceTree = "<group>";
@@ -105,7 +131,10 @@
 		56876E60244937800041EB5C /* model */ = {
 			isa = PBXGroup;
 			children = (
-				56876E662449443A0041EB5C /* Habit.swift */,
+				560C41482451DB0E00588859 /* DAO */,
+				560C41442451D6A400588859 /* Habit+CoreDataClass.swift */,
+				560C41452451D6A400588859 /* Habit+CoreDataProperties.swift */,
+				56876E662449443A0041EB5C /* Habit1.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -133,6 +162,8 @@
 			children = (
 				56876E68244944590041EB5C /* Date+Extensions.swift */,
 				56876E6F244954E00041EB5C /* UILabel+Extensions.swift */,
+				56C296DB24512B6B00FFD725 /* UIView+Extensions.swift */,
+				56C296DD24512B8D00FFD725 /* UIDevice+Extensions.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -141,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				56876E6D244949040041EB5C /* Identifiable.swift */,
+				56C296D924512B3300FFD725 /* AlertUtility.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -219,14 +251,22 @@
 				56876E70244954E00041EB5C /* UILabel+Extensions.swift in Sources */,
 				56876E64244938B40041EB5C /* HabitsTableViewController.swift in Sources */,
 				56876E4D24492CE70041EB5C /* AppDelegate.swift in Sources */,
-				56876E672449443A0041EB5C /* Habit.swift in Sources */,
+				560C414A2451DB1E00588859 /* CoreDataDAO.swift in Sources */,
+				560C41462451D6A400588859 /* Habit+CoreDataClass.swift in Sources */,
+				56C296DA24512B3300FFD725 /* AlertUtility.swift in Sources */,
+				56876E672449443A0041EB5C /* Habit1.swift in Sources */,
+				56C296DC24512B6B00FFD725 /* UIView+Extensions.swift in Sources */,
+				560C414C2451DC3800588859 /* HabitDAO.swift in Sources */,
 				56876E69244944590041EB5C /* Date+Extensions.swift in Sources */,
 				56876E6E244949040041EB5C /* Identifiable.swift in Sources */,
+				56C296DE24512B8D00FFD725 /* UIDevice+Extensions.swift in Sources */,
 				560E78D0244B87D500ADD546 /* SwitchTableViewCell.swift in Sources */,
 				560E78D6244B9B9F00ADD546 /* ModalHeaderView.swift in Sources */,
 				560E78D4244B973C00ADD546 /* AddHabitViewController.swift in Sources */,
 				56876E6B244944DF0041EB5C /* HabitTableViewCell.swift in Sources */,
 				56A0D5D8244E97EF00E4F29D /* DatePickerTableViewCell.swift in Sources */,
+				560C41472451D6A400588859 /* Habit+CoreDataProperties.swift in Sources */,
+				560C413D2451311B00588859 /* HabitMaker.xcdatamodeld in Sources */,
 				560E78D8244BF57300ADD546 /* FormFieldTableViewCell.swift in Sources */,
 				56876E4F24492CE70041EB5C /* SceneDelegate.swift in Sources */,
 			);
@@ -420,6 +460,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		560C413B2451311B00588859 /* HabitMaker.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				560C413C2451311B00588859 /* HabitMaker.xcdatamodel */,
+			);
+			currentVersion = 560C413C2451311B00588859 /* HabitMaker.xcdatamodel */;
+			path = HabitMaker.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 56876E4124492CE70041EB5C /* Project object */;
 }
