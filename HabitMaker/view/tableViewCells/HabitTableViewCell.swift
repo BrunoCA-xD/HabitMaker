@@ -32,22 +32,32 @@ class HabitTableViewCell: UITableViewCell,Identifiable {
         label.textColor =  UIColor.label
         return label
     }()
+    let colorView: UIView = {
+        let v  = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        self.contentView.addSubview(titleLabel)
-        self.contentView.addSubview(streakLabel)
+        addSubview(colorView)
+        addSubview(titleLabel)
+        addSubview(streakLabel)
         
-        self.contentView.clipsToBounds = true
-        self.contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 71).isActive = true
+        clipsToBounds = true
+        heightAnchor.constraint(greaterThanOrEqualToConstant: 71).isActive = true
+        
+        colorView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        colorView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1.0).isActive = true
+        colorView.widthAnchor.constraint(equalToConstant: 5).isActive = true
         
         titleLabel.topAnchor.constraint(equalTo: titleLabel.superview!.topAnchor, constant: 10).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: titleLabel.superview!.leadingAnchor, constant: 10).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: colorView.trailingAnchor, constant: 10).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: titleLabel.superview!.trailingAnchor, constant: -10).isActive = true
         
         streakLabel.topAnchor.constraint(lessThanOrEqualTo: titleLabel.bottomAnchor, constant: 10).isActive = true
-        streakLabel.leadingAnchor.constraint(equalTo: streakLabel.superview!.leadingAnchor, constant: 15).isActive = true
+        streakLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: 5).isActive = true
         streakLabel.bottomAnchor.constraint(equalTo: streakLabel.superview!.bottomAnchor, constant: -10).isActive = true
         
     }

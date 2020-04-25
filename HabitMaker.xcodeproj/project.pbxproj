@@ -28,6 +28,7 @@
 		56876E70244954E00041EB5C /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56876E6F244954E00041EB5C /* UILabel+Extensions.swift */; };
 		569952C8244F794F00678786 /* PickerHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569952C7244F794F00678786 /* PickerHeaderTableViewCell.swift */; };
 		56A0D5D8244E97EF00E4F29D /* DatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A0D5D7244E97EF00E4F29D /* DatePickerTableViewCell.swift */; };
+		56AD239C2454B55100F2708A /* WeekDaysStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AD239B2454B55100F2708A /* WeekDaysStackView.swift */; };
 		56C296DA24512B3300FFD725 /* AlertUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C296D924512B3300FFD725 /* AlertUtility.swift */; };
 		56C296DC24512B6B00FFD725 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C296DB24512B6B00FFD725 /* UIView+Extensions.swift */; };
 		56C296DE24512B8D00FFD725 /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C296DD24512B8D00FFD725 /* UIDevice+Extensions.swift */; };
@@ -57,6 +58,7 @@
 		56876E6F244954E00041EB5C /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		569952C7244F794F00678786 /* PickerHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		56A0D5D7244E97EF00E4F29D /* DatePickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTableViewCell.swift; sourceTree = "<group>"; };
+		56AD239B2454B55100F2708A /* WeekDaysStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDaysStackView.swift; sourceTree = "<group>"; };
 		56C296D924512B3300FFD725 /* AlertUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertUtility.swift; sourceTree = "<group>"; };
 		56C296DB24512B6B00FFD725 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		56C296DD24512B8D00FFD725 /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 		56876E61244937850041EB5C /* view */ = {
 			isa = PBXGroup;
 			children = (
+				56AD239A2454B53F00F2708A /* Calendar */,
 				560E78CE244B87AE00ADD546 /* tableViewCells */,
 				560E78D5244B9B9F00ADD546 /* ModalHeaderView.swift */,
 			);
@@ -175,6 +178,14 @@
 				56C296D924512B3300FFD725 /* AlertUtility.swift */,
 			);
 			path = util;
+			sourceTree = "<group>";
+		};
+		56AD239A2454B53F00F2708A /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				56AD239B2454B55100F2708A /* WeekDaysStackView.swift */,
+			);
+			path = Calendar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,6 +262,7 @@
 				56876E70244954E00041EB5C /* UILabel+Extensions.swift in Sources */,
 				56876E64244938B40041EB5C /* HabitsTableViewController.swift in Sources */,
 				56876E4D24492CE70041EB5C /* AppDelegate.swift in Sources */,
+				56AD239C2454B55100F2708A /* WeekDaysStackView.swift in Sources */,
 				560C414A2451DB1E00588859 /* CoreDataDAO.swift in Sources */,
 				560C41462451D6A400588859 /* Habit+CoreDataClass.swift in Sources */,
 				56C296DA24512B3300FFD725 /* AlertUtility.swift in Sources */,

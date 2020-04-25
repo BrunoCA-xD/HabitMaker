@@ -54,6 +54,7 @@ class HabitsTableViewController: UITableViewController {
         
         cell.titleLabel.text = habits[indexPath.row].title
         cell.streakLabel.text = "Streak: \(habits[indexPath.row].currStreak)"
+        cell.colorView.backgroundColor = .red
         
         return cell
     }
