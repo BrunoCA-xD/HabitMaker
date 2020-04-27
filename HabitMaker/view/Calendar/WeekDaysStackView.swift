@@ -9,10 +9,9 @@
 import UIKit
 
 class WeekDaysStackView: UIStackView {
-    
-    
+
     init(){
-        super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         setupView()
     }
     required init(coder: NSCoder) {
@@ -21,6 +20,7 @@ class WeekDaysStackView: UIStackView {
     }
     
     func setupView(){
+//        spacing = 10
         self.distribution = .fillEqually
         
         var calendar = Calendar(identifier: .gregorian)
