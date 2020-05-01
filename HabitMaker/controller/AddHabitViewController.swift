@@ -16,14 +16,7 @@ protocol AddHabitViewControllerDelegate {
 class AddHabitViewController: UIViewController {
     
     //MARK: - Outlets
-    let headerView: ModalHeaderView = {
-        let v = ModalHeaderView(needsConfirmButton: true)
-        v.headerTitle.text = "New Habit"
-        v.closeButton.addTarget(self, action: #selector(Self.closeModalTapped), for: .touchDown)
-        v.confirmButton!.addTarget(self, action: #selector(Self.confirmButtonTapped), for: .touchDown)
-        v.backgroundColor = UIColor.systemBackground
-        return v
-    }()
+    var headerView: ModalHeaderView!
     let tableview: UITableView = {
         let tv = UITableView(frame: CGRect(), style: .grouped)
         tv.translatesAutoresizingMaskIntoConstraints = false
@@ -43,6 +36,14 @@ class AddHabitViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.modalTransitionStyle = .coverVertical
+
+        headerView = {
+            let v = ModalHeaderView(needsConfirmButton: true)
+            v.headerTitle.text = "New Habit"
+            v.delegate = self
+            v.backgroundColor = UIColor.systemBackground
+            return v
+        }()
         
         view.addSubview(headerView)
         view.addSubview(tableview)
@@ -73,28 +74,6 @@ class AddHabitViewController: UIViewController {
     }
     
     //MARK: - Actions
-    @objc private func closeModalTapped() {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @objc private func confirmButtonTapped() {
-        print("Salvar")
-        let titleIndex = IndexPath(row: 0, section: 0)
-        guard
-            let habitField = getFormField(titleIndex) else {return}
-        guard
-            let habitTitle = habitField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
-            !habitTitle.isEmpty
-            else {
-                AlertUtility.validationAlertWithTitle(title: "Invalid data", message: "The field is required!", ViewController: self, input: habitField)
-                return
-        }
-        
-        newHabit.title = habitTitle
-        delegate.addHabit(newHabit)
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     @objc func reminderChanged(sender: UISwitch) {
        let pickerHeaderIndex = IndexPath(row: 1, section: 1)
         guard let picker = self.picker, let cell = getPickerHeaderCell(pickerHeaderIndex)  else {return}
@@ -220,4 +199,29 @@ extension AddHabitViewController{
         guard let cell = tableview.cellForRow(at: indexPath) as? FormFieldTableViewCell else {return nil}
         return cell.value
     }
+}
+
+extension AddHabitViewController: ModalHeaderActionsDelegate {
+    func closeButtonTapped() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func confirmButtonTapped() {
+        print("Salvar")
+        let titleIndex = IndexPath(row: 0, section: 0)
+        guard
+            let habitField = getFormField(titleIndex) else {return}
+        guard
+            let habitTitle = habitField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+            !habitTitle.isEmpty
+            else {
+                AlertUtility.validationAlertWithTitle(title: "Invalid data", message: "The field is required!", ViewController: self, input: habitField)
+                return
+        }
+        
+        newHabit.title = habitTitle
+        delegate.addHabit(newHabit)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }

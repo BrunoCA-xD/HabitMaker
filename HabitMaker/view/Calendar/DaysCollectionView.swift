@@ -61,6 +61,7 @@ class DaysCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let dayCell = collectionView.cellForItem(at: indexPath) as! CalendarDayCollectionViewCell
         dayCellDelegate?.didDayCellClicked(cell: dayCell)
+        print("clicked \(indexPath.section) \(indexPath.row)" )
     }
     
     

@@ -15,5 +15,6 @@ public class Habit: NSManagedObject {
 
     public override func awakeFromInsert() {
         self.createdAt = Date()
+        self.completions = NSSet(array: [])
     }
 }

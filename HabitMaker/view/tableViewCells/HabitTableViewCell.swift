@@ -46,7 +46,12 @@ class HabitTableViewCell: UITableViewCell,Identifiable {
         addSubview(streakLabel)
         
         clipsToBounds = true
-        heightAnchor.constraint(greaterThanOrEqualToConstant: 71).isActive = true
+        let heightConstraint = heightAnchor.constraint(greaterThanOrEqualToConstant: 71)
+            
+        heightConstraint.priority = .init(UILayoutPriority .defaultHigh.rawValue-1)
+        
+        print(heightConstraint.priority.rawValue)
+            heightConstraint.isActive = true
         
         colorView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         colorView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1.0).isActive = true

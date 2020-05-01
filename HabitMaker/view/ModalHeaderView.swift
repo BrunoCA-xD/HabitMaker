@@ -8,6 +8,17 @@
 
 import UIKit
 
+protocol ModalHeaderActionsDelegate: class {
+    func closeButtonTapped()
+    func confirmButtonTapped()
+}
+
+extension ModalHeaderActionsDelegate {
+    func confirmButtonTapped() {
+        
+    }
+}
+
 class ModalHeaderView: UIView {
 
     let headerTitle: UILabel = {
@@ -24,6 +35,7 @@ class ModalHeaderView: UIView {
     }()
     
     var confirmButton: UIButton? = nil
+    weak var delegate: ModalHeaderActionsDelegate?
     
     init(needsConfirmButton:Bool) {
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
@@ -40,6 +52,8 @@ class ModalHeaderView: UIView {
         closeButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         closeButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
         
+        closeButton.addTarget(self, action: #selector(Self.closeModalTapped), for: .touchDown)
+        
         if needsConfirmButton {
             confirmButton = genConfirmButton()
             
@@ -47,6 +61,8 @@ class ModalHeaderView: UIView {
             
             confirmButton!.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
             confirmButton!.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
+            
+            confirmButton!.addTarget(self, action: #selector(Self.confirmButtonTapped), for: .touchDown)
         }
         
     }
@@ -64,4 +80,14 @@ class ModalHeaderView: UIView {
         return b
     }
 
+}
+
+extension ModalHeaderView {
+    @objc private func closeModalTapped() {
+        delegate?.closeButtonTapped()
+    }
+    
+    @objc private func confirmButtonTapped() {
+        delegate?.confirmButtonTapped()
+    }
 }

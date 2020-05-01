@@ -46,6 +46,12 @@ class HabitsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView()
     }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let habit = habits[indexPath.row]
+        let vc = HabitDetailsTableViewController()
+        vc.habit = habit
+        present(vc, animated: true)
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HabitTableViewCell.defaultReuseIdentifier, for: indexPath) as? HabitTableViewCell else {
