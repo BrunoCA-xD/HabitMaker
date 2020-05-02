@@ -8,8 +8,8 @@
 
 import UIKit
 
-protocol dayCellClicked{
-    func didDayCellClicked(cell: CalendarDayCollectionViewCell)
+protocol DayCellActionsDelegate: class {
+    func dayCellTapped(date: Date)
 }
 
 class DaysCollectionView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -21,13 +21,25 @@ class DaysCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
     var presentYear = 0
     var todaysDate = 0
     var firstWeekdayOfMonth = 0 //(Sunday-Saturday 1-7)
-    var habit : Habit!
-    var dayCellDelegate: dayCellClicked? = nil
-    
+    var habit : Habit!{
+        didSet {
+            refreshData()
+        }
+    }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let numDays = numOfDaysByMonth[calendarView.showingMonthIndex-1]
         let num = numDays + firstWeekdayOfMonth-1
         return num
+    }
+    
+    fileprivate func formatTodaysCell(_ cell: CalendarDayCollectionViewCell) {
+        cell.backgroundColor = UIColor.systemBlue
+        cell.lbl.textColor =  UIColor.white
+        cell.layer.cornerRadius = 15.0
+    }
+    
+    fileprivate func formatNormalCells(_ cell: CalendarDayCollectionViewCell) {
+        cell.lbl.textColor = UIColor.label
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -42,26 +54,24 @@ class DaysCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
             if calcDate == todaysDate &&
                 calendarView.showingMonthIndex == presentMonthIndex &&
                 calendarView.showingYear == presentYear {
-                cell.backgroundColor = UIColor.systemYellow
-                cell.lbl.textColor = UIColor.labelOpposite
+                formatTodaysCell(cell)
             }else {
-                cell.backgroundColor = UIColor.systemBackground
-                cell.lbl.textColor = UIColor.label
+                formatNormalCells(cell)
             }
-//            if habit.lastCompletionDate.contains(cell.date!){
-//                cell.contentView.layer.cornerRadius = 15.0
-//                cell.contentView.layer.borderWidth = 1.0
-//                cell.contentView.layer.borderColor = UIColor.green.cgColor
-//                cell.contentView.layer.masksToBounds = true
-//            }
+            if habit.completionsContains(cell.date!){
+                cell.layer.cornerRadius = 15.0
+                cell.layer.borderWidth = 1.0
+                cell.layer.borderColor = UIColor.systemGreen.cgColor
+                cell.layer.masksToBounds = true
+            }
         }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let dayCell = collectionView.cellForItem(at: indexPath) as! CalendarDayCollectionViewCell
-        dayCellDelegate?.didDayCellClicked(cell: dayCell)
-        print("clicked \(indexPath.section) \(indexPath.row)" )
+        calendarView.dayCellActionsDelegate?.dayCellTapped(date: dayCell.date!)
+        collectionView.reloadData()
     }
     
     
@@ -80,7 +90,7 @@ class DaysCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
     }
     
     func initializeView(){
-        self.backgroundColor = .systemBackground
+        self.backgroundColor = .clear
         self.isScrollEnabled = false
         clipsToBounds = true
         
@@ -97,24 +107,10 @@ class DaysCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
         firstWeekdayOfMonth = getFirstWeekday()
         
         presentMonthIndex = Calendar.current.component(.month, from: Date())
+        
         presentYear = Calendar.current.component(.year, from: Date())
         
         reloadData()
-        
-        for cell in self.visibleCells as! [CalendarDayCollectionViewCell]{
-            cell.layer.borderWidth = 0
-            cell.layer.borderColor = .none
-            cell.layer.backgroundColor = .none
-//            cell.lbl.textColor = UIColor.darkText
-            if let date = cell.date{
-//                if habit.lastCompletionDate.contains(date){
-//                    cell.contentView.layer.cornerRadius = 15.0
-//                    cell.contentView.layer.borderWidth = 1.0
-//                    cell.contentView.layer.borderColor = UIColor.green.cgColor
-//                    cell.contentView.layer.masksToBounds = true
-//                }
-            }
-        }
     }
     
     func getFirstWeekday() -> Int{

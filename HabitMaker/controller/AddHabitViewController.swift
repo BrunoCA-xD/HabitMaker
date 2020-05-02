@@ -207,7 +207,6 @@ extension AddHabitViewController: ModalHeaderActionsDelegate {
     }
     
     func confirmButtonTapped() {
-        print("Salvar")
         let titleIndex = IndexPath(row: 0, section: 0)
         guard
             let habitField = getFormField(titleIndex) else {return}

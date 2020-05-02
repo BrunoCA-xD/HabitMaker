@@ -50,7 +50,6 @@ class HabitTableViewCell: UITableViewCell,Identifiable {
             
         heightConstraint.priority = .init(UILayoutPriority .defaultHigh.rawValue-1)
         
-        print(heightConstraint.priority.rawValue)
             heightConstraint.isActive = true
         
         colorView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true

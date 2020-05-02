@@ -49,6 +49,7 @@ class HabitsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let habit = habits[indexPath.row]
         let vc = HabitDetailsTableViewController()
+        vc.delegate = self
         vc.habit = habit
         present(vc, animated: true)
     }
@@ -109,5 +110,14 @@ extension HabitsTableViewController: AddHabitViewControllerDelegate{
         habits.append(item)
         let index = IndexPath(row: habits.count-1, section: 0)
         tableView.insertRows(at: [index], with: .automatic)
+    }
+}
+
+extension HabitsTableViewController: HabitDetailsTableViewControllerDelegate{
+    func close(viewController: HabitDetailsTableViewController, item: Habit) {
+        let index = habits.firstIndex(of: item)!
+        let indexPath = IndexPath(row: index, section: 0)
+        viewController.dismiss(animated: true, completion: nil)
+        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }

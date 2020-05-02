@@ -11,13 +11,15 @@ import UIKit
 
 class CalendarView: UIStackView {
     
+    
+    weak var dayCellActionsDelegate: DayCellActionsDelegate?
     var monthControl: MonthControl!
     var weekdaysView: WeekDaysStackView!
     var daysCollection: DaysCollectionView?
-    
+    //TODO: fix showingIndex getting out of range (0-11)
     var showingMonthIndex = 0 {
         didSet {
-            daysCollection?.numOfDaysByMonth = Date.numOfDaysByMonth(inYear: showingYear)
+            daysCollection?.numOfDaysByMonth = Date.numOfDaysByMonth(inYear: showingYear-1)
         }
     }
     var showingYear = 0

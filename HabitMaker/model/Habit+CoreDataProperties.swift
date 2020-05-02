@@ -2,7 +2,7 @@
 //  Habit+CoreDataProperties.swift
 //  HabitMaker
 //
-//  Created by Bruno Cardoso Ambrosio on 01/05/20.
+//  Created by Bruno Cardoso Ambrosio on 02/05/20.
 //  Copyright © 2020 Bruno Cardoso Ambrosio. All rights reserved.
 //
 //

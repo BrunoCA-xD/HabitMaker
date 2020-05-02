@@ -40,7 +40,7 @@ class MonthControl: UIView {
     let monthSymbols = Calendar.current.monthSymbols
     
     func updateMonthSymbol(monthIndex index:Int, year: Int){
-        monthSymbol.text = "\(monthSymbols[index]), \(year)"
+        monthSymbol.text = "\(monthSymbols[index-1]), \(year)"
     }
     
     private func commonInit() {

@@ -24,7 +24,7 @@ class CalendarDayCollectionViewCell: UICollectionViewCell,Identifiable {
     
         layer.borderWidth = 0
         layer.borderColor = .none
-        layer.backgroundColor = .none
+        backgroundColor = .none
         
     }
     
