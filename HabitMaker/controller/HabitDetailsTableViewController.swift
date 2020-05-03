@@ -51,6 +51,11 @@ class HabitDetailsTableViewController: UIViewController {
         
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        delegate?.close(viewController: self, item: habit)
+    }
+    
     fileprivate func setupConstraints() {
         //MARK: headerView constraints
         headerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true

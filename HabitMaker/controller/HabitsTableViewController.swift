@@ -51,6 +51,7 @@ class HabitsTableViewController: UITableViewController {
         let vc = HabitDetailsTableViewController()
         vc.delegate = self
         vc.habit = habit
+        tableView.deselectRow(at: indexPath, animated: true)
         present(vc, animated: true)
     }
     
