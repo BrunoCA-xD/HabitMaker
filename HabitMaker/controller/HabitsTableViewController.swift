@@ -19,6 +19,7 @@ class HabitsTableViewController: UITableViewController {
         super.viewDidLoad()
         setupNavigation()
         setupCells()
+        view.backgroundColor = .systemBackground
         
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
@@ -101,7 +102,8 @@ class HabitsTableViewController: UITableViewController {
     @objc func addHabitTapped() {
         let vc  = AddHabitViewController()
         vc.delegate = self
-        self.present(vc, animated: true, completion: nil)
+        let newNav = UINavigationController(rootViewController: vc)
+        self.present(newNav, animated: true, completion: nil)
     }
 }
 

@@ -9,10 +9,11 @@
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="currStreak" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="title" attributeType="String"/>
+        <attribute name="type" attributeType="Integer 16" valueTransformerName="CompletionTypeTransformer" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="completions" toMany="YES" deletionRule="Cascade" destinationEntity="Completion" inverseName="habit" inverseEntity="Completion"/>
     </entity>
     <elements>
         <element name="Completion" positionX="-63" positionY="9" width="128" height="73"/>
-        <element name="Habit" positionX="-235.82421875" positionY="-104.00390625" width="128" height="118"/>
+        <element name="Habit" positionX="-235.82421875" positionY="-104.00390625" width="128" height="133"/>
     </elements>
 </model>

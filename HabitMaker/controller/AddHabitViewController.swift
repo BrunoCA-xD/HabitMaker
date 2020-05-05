@@ -16,7 +16,6 @@ protocol AddHabitViewControllerDelegate {
 class AddHabitViewController: UIViewController {
     
     //MARK: - Outlets
-    var headerView: ModalHeaderView!
     let tableview: UITableView = {
         let tv = UITableView(frame: CGRect(), style: .grouped)
         tv.translatesAutoresizingMaskIntoConstraints = false
@@ -36,18 +35,10 @@ class AddHabitViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.modalTransitionStyle = .coverVertical
-
-        headerView = {
-            let v = ModalHeaderView(needsConfirmButton: true)
-            v.headerTitle.text = "New Habit"
-            v.delegate = self
-            v.backgroundColor = UIColor.systemBackground
-            return v
-        }()
         
-        view.addSubview(headerView)
         view.addSubview(tableview)
         
+        setupNavigation()
         setupConstraints()
         
         tableview.delegate = self
@@ -59,23 +50,47 @@ class AddHabitViewController: UIViewController {
     }
     
     //MARK: - Setup's
+    func setupNavigation() {
+        navigationItem.title = "New Habit"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
+        let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelTapped))
+        self.navigationItem.leftBarButtonItems = [cancelItem]
+        let confirmItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.confirmTapped))
+        self.navigationItem.rightBarButtonItems = [confirmItem]
+    }
+    
+    
+    
     fileprivate func setupConstraints() {
-        //MARK: headerView constraints
-        headerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        headerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
         //MARK: tableview constraints
-        tableview.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
+        tableview.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         tableview.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableview.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         tableview.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
     //MARK: - Actions
+    @objc func cancelTapped() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    @objc func confirmTapped() {
+        let titleIndex = IndexPath(row: 0, section: 0)
+        guard
+            let habitField = getFormField(titleIndex) else {return}
+        guard
+            let habitTitle = habitField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+            !habitTitle.isEmpty
+            else {
+                AlertUtility.validationAlertWithTitle(title: "Invalid data", message: "The field is required!", ViewController: self, input: habitField)
+                return
+        }
+        
+        newHabit.title = habitTitle
+        delegate.addHabit(newHabit)
+        self.dismiss(animated: true, completion: nil)
+    }
     @objc func reminderChanged(sender: UISwitch) {
-       let pickerHeaderIndex = IndexPath(row: 1, section: 1)
+        let pickerHeaderIndex = IndexPath(row: 1, section: 1)
         guard let picker = self.picker, let cell = getPickerHeaderCell(pickerHeaderIndex)  else {return}
         if sender.isOn {
             picker.isHidden = !sender.isOn
@@ -120,6 +135,14 @@ extension AddHabitViewController:  UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 && indexPath.row == 1 {
+            let vc = HabitTypeSelectorTableViewController()
+            vc.delegate = self
+            vc.selected = CompletionType(rawValue: newHabit.type)!
+            navigationController?.show(vc, sender: self)
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+        
         guard let cell = tableView.cellForRow(at: indexPath) as? PickerHeaderTableViewCell,
             let picker = picker else {return}
         cell.toggleIcon()
@@ -127,8 +150,8 @@ extension AddHabitViewController:  UITableViewDelegate {
         picker.isHidden = !picker.isHidden
         cell.textLabel?.text = "At time: \(picker.date.timeValue)"
         updateTableView()
-        
     }
+    
 }
 
 //MARK: - UITableViewDataSource
@@ -139,17 +162,27 @@ extension AddHabitViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section%2==0 ? 1 : 3
+        return section%2==0 ? 2 : 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            let cell = FormFieldTableViewCell()
-            cell.label.text = "Title"
-            cell.value.placeholder = "Habit title"
-            return cell
+        let section = indexPath.section
+        let row = indexPath.row
+        if section == 0 {
+            if row == 0{
+                let cell = FormFieldTableViewCell()
+                cell.label.text = "Title"
+                cell.value.placeholder = "Habit title"
+                return cell
+            }else{
+                let cell = UITableViewCell(style: .value1, reuseIdentifier: "type")
+                cell.textLabel?.text = "Type"
+                cell.detailTextLabel?.text = CompletionType(rawValue: newHabit.type)?.description
+                cell.accessoryType = .disclosureIndicator
+                return cell
+            }
         }else {
-            switch indexPath.row {
+            switch row {
             case 0:
                 let cell = SwitchTableViewCell()
                 cell.icon = UIImage(systemName: "bell.fill")
@@ -180,7 +213,6 @@ extension AddHabitViewController: UITableViewDataSource {
 
 //MARK: - TableView Helpers
 extension AddHabitViewController{
-    
     fileprivate func updateTableView() {
         UIView.animate(withDuration: 0.3, animations: { () -> Void in
             self.tableview.beginUpdates()
@@ -201,26 +233,9 @@ extension AddHabitViewController{
     }
 }
 
-extension AddHabitViewController: ModalHeaderActionsDelegate {
-    func closeButtonTapped() {
-        self.dismiss(animated: true, completion: nil)
+extension AddHabitViewController: HabitTypeSelectorActions {
+    func didSelect( type: CompletionType) {
+        newHabit.type = type.rawValue
+        tableview.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
     }
-    
-    func confirmButtonTapped() {
-        let titleIndex = IndexPath(row: 0, section: 0)
-        guard
-            let habitField = getFormField(titleIndex) else {return}
-        guard
-            let habitTitle = habitField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
-            !habitTitle.isEmpty
-            else {
-                AlertUtility.validationAlertWithTitle(title: "Invalid data", message: "The field is required!", ViewController: self, input: habitField)
-                return
-        }
-        
-        newHabit.title = habitTitle
-        delegate.addHabit(newHabit)
-        self.dismiss(animated: true, completion: nil)
-    }
-    
 }
