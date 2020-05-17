@@ -22,14 +22,28 @@ class AddHabitViewController: UIViewController {
         return tv
     }()
     
-    //MARK: - cell outltets references
-    var picker: UIDatePicker? = nil
-    var label: UILabel? = nil
-    
     //MARK: - Attributes
     var delegate: AddHabitViewControllerDelegate!
     var habitDAO = HabitDAO()
     var newHabit: Habit!
+    var successfullPhrase: String = ""
+    
+    var selectedItem: GoalCriterion?{
+        didSet {
+            if selectedItem != nil {
+                newHabit.goalMetric = selectedItem!.rawValue
+                tableview.reloadRows(at: [IndexPath(row: 1, section: 1)], with: .automatic)
+                updateSectionFooter()
+            }
+        }
+    }
+    private lazy var pickerViewPresenter: PickerViewPresenter = {
+        let pickerViewPresenter = PickerViewPresenter()
+        pickerViewPresenter.didSelectItem = { [weak self] item in
+            self?.selectedItem = item
+        }
+        return pickerViewPresenter
+    }()
     
     //MARK: - View life cycles
     override func viewDidLoad() {
@@ -38,6 +52,7 @@ class AddHabitViewController: UIViewController {
         
         view.addSubview(tableview)
         
+        newHabit = habitDAO.genNew()
         setupNavigation()
         setupConstraints()
         
@@ -45,7 +60,7 @@ class AddHabitViewController: UIViewController {
         tableview.dataSource = self
         tableview.tableFooterView = UIView()
         
-        newHabit = habitDAO.genNew()
+        self.view.addSubview(pickerViewPresenter)
         
     }
     
@@ -59,8 +74,6 @@ class AddHabitViewController: UIViewController {
         self.navigationItem.rightBarButtonItems = [confirmItem]
     }
     
-    
-    
     fileprivate func setupConstraints() {
         //MARK: tableview constraints
         tableview.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
@@ -70,9 +83,23 @@ class AddHabitViewController: UIViewController {
     }
     
     //MARK: - Actions
+    @objc func numberTextFieldDidChange(_ textField: UITextField) {
+        //TODO: set number on model
+        updateSectionFooter()
+    }
+    @objc func actionTextFieldDidChange(_ textField: UITextField) {
+        //TODO: set number on model
+        updateSectionFooter()
+    }
+    @objc func unitTextFieldDidChange(_ textField: UITextField) {
+        //TODO: set number on model
+        updateSectionFooter()
+    }
+    
     @objc func cancelTapped() {
         self.dismiss(animated: true, completion: nil)
     }
+    
     @objc func confirmTapped() {
         let titleIndex = IndexPath(row: 0, section: 0)
         guard
@@ -89,47 +116,12 @@ class AddHabitViewController: UIViewController {
         delegate.addHabit(newHabit)
         self.dismiss(animated: true, completion: nil)
     }
-    @objc func reminderChanged(sender: UISwitch) {
-        let pickerHeaderIndex = IndexPath(row: 1, section: 1)
-        guard let picker = self.picker, let cell = getPickerHeaderCell(pickerHeaderIndex)  else {return}
-        if sender.isOn {
-            picker.isHidden = !sender.isOn
-            cell.isHidden = !cell.isHidden
-            updateTableView()
-        }else {
-            picker.isHidden = !sender.isOn
-            cell.isHidden = !cell.isHidden
-            cell.resetIcon()
-            updateTableView()
-        }
-    }
-    
-    @objc func dateChanged(sender: UIDatePicker) {
-        let pickerHeaderIndex = IndexPath(row: 1, section: 1)
-        guard let cell = getPickerHeaderCell(pickerHeaderIndex) else {return}
-        cell.textLabel?.text = "At time: \(sender.date.timeValue)"
-    }
 }
 
 //MARK: - UITableViewDelegate
 extension AddHabitViewController:  UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView()
-    }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        if indexPath.section == 1 {
-            if indexPath.row == 1 {
-                guard let label = label, !label.isHidden else {return 0.0}
-                return UITableView.automaticDimension
-            }
-            if indexPath.row == 2 {
-                guard let picker = picker, !picker.isHidden else { return  0.0 }
-                return 216.0
-            }
-        }
         
         return UITableView.automaticDimension
     }
@@ -140,16 +132,11 @@ extension AddHabitViewController:  UITableViewDelegate {
             vc.delegate = self
             vc.selected = CompletionType(rawValue: newHabit.type)!
             navigationController?.show(vc, sender: self)
-            tableView.deselectRow(at: indexPath, animated: true)
+        }else if indexPath.section == 1 && indexPath.row == 1{
+            pickerViewPresenter.selectedItem = GoalCriterion(rawValue: newHabit.goalMetric ?? GoalCriterion.lessThanOrEqual.rawValue )
+            pickerViewPresenter.showPicker()
         }
-        
-        guard let cell = tableView.cellForRow(at: indexPath) as? PickerHeaderTableViewCell,
-            let picker = picker else {return}
-        cell.toggleIcon()
         tableView.deselectRow(at: indexPath, animated: true)
-        picker.isHidden = !picker.isHidden
-        cell.textLabel?.text = "At time: \(picker.date.timeValue)"
-        updateTableView()
     }
     
 }
@@ -162,7 +149,11 @@ extension AddHabitViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section%2==0 ? 2 : 3
+        if newHabit.type == CompletionType.yesNo.rawValue && section == 1 {
+            return 0
+        }
+        
+        return section%2==0 ? 2 : 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -184,24 +175,31 @@ extension AddHabitViewController: UITableViewDataSource {
         }else {
             switch row {
             case 0:
-                let cell = SwitchTableViewCell()
-                cell.icon = UIImage(systemName: "bell.fill")
-                cell.label.text = "Set reminder"
-                cell.onSwitch.isOn = false
-                cell.onSwitch.addTarget(self, action: #selector(Self.reminderChanged), for: .valueChanged)
+                let cell = FormFieldTableViewCell()
+                cell.label.text = "Action"
+                cell.value.placeholder = "e.g: run, drink, read..."
+                cell.value.returnKeyType = .next
+                cell.value.addTarget(self, action: #selector(Self.actionTextFieldDidChange(_:)), for: .editingChanged)
                 return cell
             case 1 :
-                let cell = PickerHeaderTableViewCell()
-                cell.textLabel?.text = "At time"
-                cell.isHidden = true
-                label = cell.textLabel
+                let cell = UITableViewCell(style: .value1, reuseIdentifier: "metric")
+                cell.textLabel?.text = "Metric"
+                cell.detailTextLabel?.text = GoalCriterion(rawValue: newHabit.goalMetric ?? GoalCriterion.lessThanOrEqual.rawValue)?.description
                 return cell
             case 2:
-                let cell = DatePickerTableViewCell()
-                cell.picker.datePickerMode = .time
-                cell.picker.addTarget(self, action: #selector(Self.dateChanged), for: .valueChanged)
-                cell.picker.isHidden = true
-                picker = cell.picker
+                let cell = FormFieldTableViewCell()
+                cell.label.text = "Number"
+                cell.value.placeholder = "e.g: 5, 10, 20"
+                cell.value.keyboardType = .numberPad
+                cell.value.addDoneButtonOnKeyboard()
+                cell.value.addTarget(self, action: #selector(Self.numberTextFieldDidChange(_:)), for: .editingChanged)
+                
+                return cell
+            case 3:
+                let cell = FormFieldTableViewCell()
+                cell.label.text = "Unit"
+                cell.value.placeholder = "e.g: pages, cups, miles"
+                cell.value.addTarget(self, action: #selector(Self.unitTextFieldDidChange(_:)), for: .editingChanged)
                 return cell
             default:
                 return UITableViewCell()
@@ -209,10 +207,50 @@ extension AddHabitViewController: UITableViewDataSource {
         }
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 1 && newHabit.type == CompletionType.numeric.rawValue {
+            return "When is a day successfull?"
+        }
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        if section == 1 && newHabit.type == CompletionType.numeric.rawValue {
+            return successfullPhrase
+        }
+        return nil
+    }
+    
 }
 
 //MARK: - TableView Helpers
 extension AddHabitViewController{
+    
+    private func updateSectionFooter() {
+        
+        let actionField = getFormField(IndexPath(item: 0, section: 1))
+        let metricCell = tableview.cellForRow(at: IndexPath(item: 1, section: 1))
+        let numberField = getFormField(IndexPath(item: 2, section: 1))
+        let unitField = getFormField(IndexPath(item: 3, section: 1))
+        
+        successfullPhrase = "When I "
+        
+        successfullPhrase += (actionField?.text ?? "") + " "
+        successfullPhrase += (metricCell?.detailTextLabel?.text ?? "") + " "
+        successfullPhrase += (numberField?.text ?? "") + " "
+        successfullPhrase += unitField?.text ?? ""
+        UIView.setAnimationsEnabled(false)
+        tableview.beginUpdates()
+        
+        if let containerView = tableview.footerView(forSection: 1) {
+            containerView.textLabel!.text = successfullPhrase
+            containerView.sizeToFit()
+        }
+        
+        tableview.endUpdates()
+        UIView.setAnimationsEnabled(true)
+    }
+    
     fileprivate func updateTableView() {
         UIView.animate(withDuration: 0.3, animations: { () -> Void in
             self.tableview.beginUpdates()
@@ -236,6 +274,7 @@ extension AddHabitViewController{
 extension AddHabitViewController: HabitTypeSelectorActions {
     func didSelect( type: CompletionType) {
         newHabit.type = type.rawValue
+        tableview.reloadSections(IndexSet(arrayLiteral: 1), with: .automatic)
         tableview.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
     }
 }

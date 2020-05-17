@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Completion" representedClassName="Completion" syncable="YES">
+        <attribute name="achievedNumber" optional="YES" attributeType="Integer 64" minValueString="0" usesScalarValueType="YES"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="habit" maxCount="1" deletionRule="Nullify" destinationEntity="Habit" inverseName="completions" inverseEntity="Habit"/>
     </entity>
@@ -8,12 +9,13 @@
         <attribute name="bestStreak" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="currStreak" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="goalMetric" optional="YES" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
         <attribute name="type" attributeType="Integer 16" valueTransformerName="CompletionTypeTransformer" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="completions" toMany="YES" deletionRule="Cascade" destinationEntity="Completion" inverseName="habit" inverseEntity="Completion"/>
     </entity>
     <elements>
-        <element name="Completion" positionX="-63" positionY="9" width="128" height="73"/>
-        <element name="Habit" positionX="-235.82421875" positionY="-104.00390625" width="128" height="133"/>
+        <element name="Completion" positionX="-63" positionY="9" width="128" height="88"/>
+        <element name="Habit" positionX="-235.82421875" positionY="-104.00390625" width="128" height="148"/>
     </elements>
 </model>

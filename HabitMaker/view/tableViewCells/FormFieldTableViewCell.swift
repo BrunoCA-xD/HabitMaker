@@ -52,5 +52,6 @@ class FormFieldTableViewCell: UITableViewCell {
         value.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding).isActive = true
         value.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
+        value.textAlignment = .right
     }
 }
