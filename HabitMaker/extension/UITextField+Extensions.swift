@@ -31,4 +31,14 @@ extension UITextField {
     @objc func doneButtonAction(sender: UITextField){
         self.resignFirstResponder()
     }
+    
+    func resetErrorFormat() {
+        self.layer.borderWidth = 0.0
+        self.layer.borderColor = UIColor.clear.cgColor
+    }
+    
+    func applyErrorFormat() {
+        self.layer.borderWidth = 1.0
+        self.layer.borderColor = UIColor.systemRed.cgColor
+    }
 }

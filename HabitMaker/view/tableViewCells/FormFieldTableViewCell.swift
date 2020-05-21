@@ -53,5 +53,6 @@ class FormFieldTableViewCell: UITableViewCell {
         value.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
         value.textAlignment = .right
+        value.clearButtonMode = .whileEditing
     }
 }

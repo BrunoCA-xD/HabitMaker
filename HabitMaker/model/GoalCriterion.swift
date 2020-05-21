@@ -13,7 +13,7 @@ enum GoalCriterion: String, CaseIterable{
     case exactly
     case greaterThanOrEqual
     
-    var description: String  {
+    var showValue: String  {
         switch self {
         case .lessThanOrEqual:
             return "No more than"

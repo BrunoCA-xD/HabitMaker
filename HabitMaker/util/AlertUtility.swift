@@ -22,8 +22,8 @@ class AlertUtility {
     static func action(_ input: UIControl?) {
         input?.shake()
         input?.becomeFirstResponder()
-        input?.layer.borderWidth = 1.0
-        input?.layer.borderColor = UIColor.red.cgColor
+        guard let textField = input as? UITextField else {return}
+        textField.applyErrorFormat()
         
     }
 }

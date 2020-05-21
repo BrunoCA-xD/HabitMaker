@@ -68,7 +68,7 @@ class PickerViewPresenter: UITextField, UIPickerViewDataSource, UIPickerViewDele
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return items[row].description
+        return items[row].showValue
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
