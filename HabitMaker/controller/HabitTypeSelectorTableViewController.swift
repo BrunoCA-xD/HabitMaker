@@ -14,6 +14,11 @@ protocol HabitTypeSelectorActions: class {
 
 class HabitTypeSelectorTableViewController: UITableViewController {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.tableFooterView = UIView()
+    }
+    
     var selected: CompletionType!
     let completionTypes = CompletionType.allCases
     weak var delegate: HabitTypeSelectorActions?

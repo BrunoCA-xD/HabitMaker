@@ -13,4 +13,9 @@ import CoreData
 @objc(Completion)
 public class Completion: NSManagedObject {
 
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        self.achievedNumber = 0.0
+        self.isAchived = false
+    }
 }

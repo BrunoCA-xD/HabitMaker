@@ -78,7 +78,7 @@ class AddHabitViewController: UIViewController {
     
     fileprivate func setupConstraints() {
         //MARK: tableview constraints
-        tableview.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        tableview.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableview.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableview.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         tableview.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -98,7 +98,7 @@ class AddHabitViewController: UIViewController {
         confirmItem.isEnabled = checkFields()
         guard textField.text != nil,
             !textField.text!.isEmpty,
-            let number = Int64(textField.text!)
+            let number = Double(textField.text!)
         else{ return }
         newHabit.goalNumber = number
         updateSectionFooter()

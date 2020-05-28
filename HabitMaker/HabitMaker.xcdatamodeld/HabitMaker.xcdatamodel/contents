@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Completion" representedClassName="Completion" syncable="YES">
-        <attribute name="achievedNumber" optional="YES" attributeType="Integer 64" minValueString="0" usesScalarValueType="YES"/>
+        <attribute name="achievedNumber" optional="YES" attributeType="Double" minValueString="0" usesScalarValueType="YES"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="isAchived" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <relationship name="habit" maxCount="1" deletionRule="Nullify" destinationEntity="Habit" inverseName="completions" inverseEntity="Habit"/>
@@ -12,7 +12,7 @@
         <attribute name="currStreak" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="goalAction" optional="YES" attributeType="String"/>
         <attribute name="goalCriterion" optional="YES" attributeType="String"/>
-        <attribute name="goalNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="goalNumber" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="goalUnit" optional="YES" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
         <attribute name="type" attributeType="Integer 16" valueTransformerName="CompletionTypeTransformer" defaultValueString="0" usesScalarValueType="YES"/>

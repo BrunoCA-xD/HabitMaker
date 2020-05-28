@@ -148,18 +148,39 @@ extension HabitDetailsTableViewController: ModalHeaderActionsDelegate {
 extension HabitDetailsTableViewController: DayCellActionsDelegate {
    
     func dayCellTapped(date: Date) {
-        if habit.completionsContains(date) {
-            return
+        let vc = AddNumericCompletionTableViewController()
+        vc.habit = habit
+        vc.date = date
+        let completion = habit.findCompletion(withDate: date)
+        if completion != nil {
+            vc.completion = completion!
+            vc.oldCompletion = completion!
         }
-        let newCompletion = Completion(entity: Completion.entity(), insertInto: CoreDataDAO.shared.persistentContainer.viewContext)
+        vc.delegate = self
         
-        newCompletion.date = date
+        let newNav = UINavigationController(rootViewController: vc)
+        self.present(newNav, animated: true, completion: nil)
+    }
+    
+}
+
+extension HabitDetailsTableViewController: AddNumericCompletionDelegate {
+    func didSave(vc: AddNumericCompletionTableViewController, newCompletion: Completion, oldCompletion: Completion?) {
+        vc.dismiss(animated: true, completion: nil)
         newCompletion.habit = habit
-        
-        habit.addToCompletions([newCompletion])
+        if oldCompletion == nil {
+            print("print1")
+            habit.addToCompletions(newCompletion)
+        }else {
+            print("print2")
+            habit.removeFromCompletions(oldCompletion!)
+            habit.addToCompletions(newCompletion)
+        }
         habitDAO.makeHabitCompleted(item: habit)
-        
-        reloadData()
+        let cell = tableview.cellForRow(at: IndexPath(item: 0, section: 0)) as? CalendarViewTableViewCell
+        cell?.calendarView.daysCollection?.refreshData()
+        cell?.calendarView.daysCollection?.reloadData()
+        self.reloadData()
     }
     
 }

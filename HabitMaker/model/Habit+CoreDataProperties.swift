@@ -23,7 +23,7 @@ extension Habit {
     @NSManaged public var goalCriterion: String?
     @NSManaged public var title: String?
     @NSManaged public var type: Int16
-    @NSManaged public var goalNumber: Int64
+    @NSManaged public var goalNumber: Double
     @NSManaged public var goalAction: String?
     @NSManaged public var goalUnit: String?
     @NSManaged public var completions: NSSet?

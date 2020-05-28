@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		56064D042477153E003EBDC8 /* Habit+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56064D022477153E003EBDC8 /* Habit+CoreDataProperties.swift */; };
-		56064D052477153E003EBDC8 /* Completion+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56064D032477153E003EBDC8 /* Completion+CoreDataProperties.swift */; };
 		560C413D2451311B00588859 /* HabitMaker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 560C413B2451311B00588859 /* HabitMaker.xcdatamodeld */; };
 		560C41462451D6A400588859 /* Habit+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560C41442451D6A400588859 /* Habit+CoreDataClass.swift */; };
 		560C414A2451DB1E00588859 /* CoreDataDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560C41492451DB1E00588859 /* CoreDataDAO.swift */; };
@@ -17,7 +16,11 @@
 		560E78D4244B973C00ADD546 /* AddHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560E78D3244B973C00ADD546 /* AddHabitViewController.swift */; };
 		560E78D6244B9B9F00ADD546 /* ModalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560E78D5244B9B9F00ADD546 /* ModalHeaderView.swift */; };
 		560E78D8244BF57300ADD546 /* FormFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560E78D7244BF57300ADD546 /* FormFieldTableViewCell.swift */; };
+		5642AEDC24788E04005F4358 /* AddNumericCompletionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5642AEDB24788E04005F4358 /* AddNumericCompletionTableViewController.swift */; };
+		5642AEDE2478912E005F4358 /* StepperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5642AEDD2478912E005F4358 /* StepperTableViewCell.swift */; };
 		564628B2246B6AD90017C95E /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564628B1246B6AD90017C95E /* UITextField+Extensions.swift */; };
+		5652677E247D8A9E00E4060A /* Completion+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5652677D247D8A9E00E4060A /* Completion+CoreDataProperties.swift */; };
+		56526782247EC31700E4060A /* FormTextViewFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56526781247EC31700E4060A /* FormTextViewFieldTableViewCell.swift */; };
 		565EFCF72460BF44004CA21A /* HabitTypeSelectorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EFCF62460BF44004CA21A /* HabitTypeSelectorTableViewController.swift */; };
 		56876E4D24492CE70041EB5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56876E4C24492CE70041EB5C /* AppDelegate.swift */; };
 		56876E4F24492CE70041EB5C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56876E4E24492CE70041EB5C /* SceneDelegate.swift */; };
@@ -50,7 +53,6 @@
 
 /* Begin PBXFileReference section */
 		56064D022477153E003EBDC8 /* Habit+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Habit+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		56064D032477153E003EBDC8 /* Completion+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Completion+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		560C413C2451311B00588859 /* HabitMaker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HabitMaker.xcdatamodel; sourceTree = "<group>"; };
 		560C41442451D6A400588859 /* Habit+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Habit+CoreDataClass.swift"; sourceTree = "<group>"; };
 		560C41492451DB1E00588859 /* CoreDataDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataDAO.swift; sourceTree = "<group>"; };
@@ -59,7 +61,11 @@
 		560E78D3244B973C00ADD546 /* AddHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitViewController.swift; sourceTree = "<group>"; };
 		560E78D5244B9B9F00ADD546 /* ModalHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalHeaderView.swift; sourceTree = "<group>"; };
 		560E78D7244BF57300ADD546 /* FormFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFieldTableViewCell.swift; sourceTree = "<group>"; };
+		5642AEDB24788E04005F4358 /* AddNumericCompletionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNumericCompletionTableViewController.swift; sourceTree = "<group>"; };
+		5642AEDD2478912E005F4358 /* StepperTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperTableViewCell.swift; sourceTree = "<group>"; };
 		564628B1246B6AD90017C95E /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
+		5652677D247D8A9E00E4060A /* Completion+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Completion+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		56526781247EC31700E4060A /* FormTextViewFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextViewFieldTableViewCell.swift; sourceTree = "<group>"; };
 		565EFCF62460BF44004CA21A /* HabitTypeSelectorTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTypeSelectorTableViewController.swift; sourceTree = "<group>"; };
 		56876E4924492CE70041EB5C /* HabitMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabitMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56876E4C24492CE70041EB5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -118,9 +124,11 @@
 				56876E6A244944DF0041EB5C /* HabitTableViewCell.swift */,
 				560E78CF244B87D500ADD546 /* SwitchTableViewCell.swift */,
 				560E78D7244BF57300ADD546 /* FormFieldTableViewCell.swift */,
+				56526781247EC31700E4060A /* FormTextViewFieldTableViewCell.swift */,
 				56A0D5D7244E97EF00E4F29D /* DatePickerTableViewCell.swift */,
 				569952C7244F794F00678786 /* PickerHeaderTableViewCell.swift */,
 				56E5448D24579C2000650481 /* CalendarViewTableViewCell.swift */,
+				5642AEDD2478912E005F4358 /* StepperTableViewCell.swift */,
 			);
 			path = tableViewCells;
 			sourceTree = "<group>";
@@ -164,7 +172,7 @@
 			children = (
 				560C41482451DB0E00588859 /* DAO */,
 				56DDD173245DF0DD002C737B /* Completion+CoreDataClass.swift */,
-				56064D032477153E003EBDC8 /* Completion+CoreDataProperties.swift */,
+				5652677D247D8A9E00E4060A /* Completion+CoreDataProperties.swift */,
 				569DB5C2245FB68900EE326E /* CompletionType.swift */,
 				5691004E2471E76900F58A7D /* GoalCriterion.swift */,
 				560C41442451D6A400588859 /* Habit+CoreDataClass.swift */,
@@ -191,6 +199,7 @@
 				560E78D3244B973C00ADD546 /* AddHabitViewController.swift */,
 				56E5448B245797ED00650481 /* HabitDetailsTableViewController.swift */,
 				565EFCF62460BF44004CA21A /* HabitTypeSelectorTableViewController.swift */,
+				5642AEDB24788E04005F4358 /* AddNumericCompletionTableViewController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -316,10 +325,11 @@
 				56876E4D24492CE70041EB5C /* AppDelegate.swift in Sources */,
 				56AD239C2454B55100F2708A /* WeekDaysStackView.swift in Sources */,
 				56DDD176245DF0DD002C737B /* Completion+CoreDataClass.swift in Sources */,
-				56064D052477153E003EBDC8 /* Completion+CoreDataProperties.swift in Sources */,
 				560C414A2451DB1E00588859 /* CoreDataDAO.swift in Sources */,
 				560C41462451D6A400588859 /* Habit+CoreDataClass.swift in Sources */,
+				5642AEDC24788E04005F4358 /* AddNumericCompletionTableViewController.swift in Sources */,
 				5691004F2471E76900F58A7D /* GoalCriterion.swift in Sources */,
+				5642AEDE2478912E005F4358 /* StepperTableViewCell.swift in Sources */,
 				56C296DA24512B3300FFD725 /* AlertUtility.swift in Sources */,
 				564628B2246B6AD90017C95E /* UITextField+Extensions.swift in Sources */,
 				56963DD524552C0F00DAD05F /* CalendarDayCollectionViewCell.swift in Sources */,
@@ -333,6 +343,7 @@
 				56C296DE24512B8D00FFD725 /* UIDevice+Extensions.swift in Sources */,
 				560E78D0244B87D500ADD546 /* SwitchTableViewCell.swift in Sources */,
 				56963DD12454FAC500DAD05F /* MonthControl.swift in Sources */,
+				56526782247EC31700E4060A /* FormTextViewFieldTableViewCell.swift in Sources */,
 				560E78D6244B9B9F00ADD546 /* ModalHeaderView.swift in Sources */,
 				565EFCF72460BF44004CA21A /* HabitTypeSelectorTableViewController.swift in Sources */,
 				560E78D4244B973C00ADD546 /* AddHabitViewController.swift in Sources */,
@@ -344,6 +355,7 @@
 				560E78D8244BF57300ADD546 /* FormFieldTableViewCell.swift in Sources */,
 				56E635D22456328A001E4105 /* UIImage+Extensions.swift in Sources */,
 				56876E4F24492CE70041EB5C /* SceneDelegate.swift in Sources */,
+				5652677E247D8A9E00E4060A /* Completion+CoreDataProperties.swift in Sources */,
 				56963DD72455F55A00DAD05F /* CalendarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

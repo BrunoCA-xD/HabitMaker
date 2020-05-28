@@ -58,11 +58,21 @@ class DaysCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
             }else {
                 formatNormalCells(cell)
             }
-            if habit.completionsContains(cell.date!){
-                cell.layer.cornerRadius = 15.0
-                cell.layer.borderWidth = 1.0
-                cell.layer.borderColor = UIColor.systemGreen.cgColor
-                cell.layer.masksToBounds = true
+            let completion = habit.findCompletion(withDate: cell.date!)
+            if completion != nil  {
+                if completion!.isAchived {
+                    cell.layer.cornerRadius = 15.0
+                    cell.layer.borderWidth = 1.0
+                    cell.layer.borderColor = UIColor.systemGreen.cgColor
+                    cell.layer.masksToBounds = true
+                } else {
+                    cell.layer.cornerRadius = 15.0
+                    cell.layer.borderWidth = 1.0
+                    cell.layer.borderColor = UIColor.systemRed.cgColor
+                    cell.layer.masksToBounds = true
+                }
+            }else {
+                formatNormalCells(cell)
             }
         }
         return cell
