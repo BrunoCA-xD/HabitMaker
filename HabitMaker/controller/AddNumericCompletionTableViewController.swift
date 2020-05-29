@@ -10,10 +10,16 @@ import UIKit
 
 protocol AddNumericCompletionDelegate: class {
     func didSave(vc: AddNumericCompletionTableViewController, newCompletion: Completion, oldCompletion: Completion?)
+    func didDelete(vc: AddNumericCompletionTableViewController, oldCompletion: Completion?)
 }
 
 class AddNumericCompletionTableViewController: UITableViewController {
 
+    var confirmItem: UIBarButtonItem!
+    var deleteItem: UIBarButtonItem!
+    var editItem: UIBarButtonItem!
+    
+    
     //MARK: - Attributes
     var date: Date?
     var completion: Completion!
@@ -29,9 +35,33 @@ class AddNumericCompletionTableViewController: UITableViewController {
         if habit != nil && date != nil && completion == nil{
             completion = Completion(entity: Completion.entity(), insertInto: CoreDataDAO.shared.persistentContainer.viewContext)
             completion?.date = date
+            completion?.habit = habit
         }
         updateSectionHeader()
         tableView.tableFooterView = UIView()
+        
+        print(habit?.completions?.count)
+    }
+    
+    func toggleCellsEnabled() {
+        let indices: [IndexPath] = [
+            IndexPath(row: 1, section: 0),
+            IndexPath(row: 3, section: 0)
+        ]
+        guard let stepCell = tableView.cellForRow(at: indices[0]) as? StepperTableViewCell,
+            let formCell = tableView.cellForRow(at: indices[1]) as? FormTextViewFieldTableViewCell else {return}
+        updateTableView{
+            stepCell.toggleStepperEnabled()
+            formCell.toggleFieldEditable()
+        }
+    }
+    
+    fileprivate func setupRightNavItems(isEditingCompletion: Bool) {
+        if isEditingCompletion {
+            self.navigationItem.rightBarButtonItems = [confirmItem]
+        }else {
+            self.navigationItem.rightBarButtonItems = [editItem,deleteItem]
+        }
     }
     
     func setupNavigation() {
@@ -39,8 +69,11 @@ class AddNumericCompletionTableViewController: UITableViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
         let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelTapped))
         self.navigationItem.leftBarButtonItems = [cancelItem]
-        let confirmItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.confirmTapped))
-        self.navigationItem.rightBarButtonItems = [confirmItem]
+        confirmItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.confirmTapped))
+        deleteItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(Self.deleteTapped))
+        editItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(Self.editTapped))
+        setupRightNavItems(isEditingCompletion: oldCompletion == nil)
+        
     }
     
     @objc func cancelTapped() {
@@ -48,8 +81,16 @@ class AddNumericCompletionTableViewController: UITableViewController {
     }
     
     @objc func confirmTapped() {
-        delegate?.didSave(vc:self, newCompletion: completion, oldCompletion: oldCompletion )
-        
+        delegate?.didSave(vc: self, newCompletion: completion, oldCompletion: oldCompletion )
+    }
+    
+    @objc func deleteTapped() {
+        delegate?.didDelete(vc: self, oldCompletion: oldCompletion)
+    }
+    
+    @objc func editTapped() {
+        setupRightNavItems(isEditingCompletion: true)
+        toggleCellsEnabled()
     }
     
     @objc func achivedNumberChanged(stepper: UIStepper) {
@@ -107,11 +148,17 @@ class AddNumericCompletionTableViewController: UITableViewController {
             cell.stepper.value = completion.achievedNumber
             cell.label.text = "\(cell.stepper.value)"
             cell.stepper.addTarget(self, action: #selector(Self.achivedNumberChanged(stepper:)), for: .valueChanged)
+            if oldCompletion != nil {
+                cell.toggleStepperEnabled()
+            }
             resultCell = cell
         case 3:
             let cell  = FormTextViewFieldTableViewCell()
             cell.label.text = "Comment"
             cell.value.delegate = self
+            if oldCompletion != nil {
+                cell.toggleFieldEditable()
+            }
             resultCell = cell
         case 2:
             resultCell = UITableViewCell(style: .value1, reuseIdentifier: "")

@@ -92,6 +92,10 @@ public class StepperTableViewCell: UITableViewCell {
         label.text = "\(stepper.value)".replacingOccurrences(of: ".", with: decimalSeparator)
     }
     
+    func toggleStepperEnabled() {
+        stepper.isEnabled = !stepper.isEnabled
+    }
+    
 }
 extension StepperTableViewCell: UITextFieldDelegate  {
     

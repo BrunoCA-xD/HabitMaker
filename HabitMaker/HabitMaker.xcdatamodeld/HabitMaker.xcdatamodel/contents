@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Completion" representedClassName="Completion" syncable="YES">
+    <entity name="Completion" representedClassName=".Completion" syncable="YES">
         <attribute name="achievedNumber" optional="YES" attributeType="Double" minValueString="0" usesScalarValueType="YES"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="isAchived" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <relationship name="habit" maxCount="1" deletionRule="Nullify" destinationEntity="Habit" inverseName="completions" inverseEntity="Habit"/>
+        <relationship name="habit" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Habit" inverseName="completions" inverseEntity="Habit"/>
     </entity>
     <entity name="Habit" representedClassName=".Habit" syncable="YES">
         <attribute name="bestStreak" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>

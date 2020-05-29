@@ -55,4 +55,8 @@ class FormFieldTableViewCell: UITableViewCell {
         value.textAlignment = .right
         value.clearButtonMode = .whileEditing
     }
+    
+    func toggleFieldEnabled() {
+        value.isEnabled = !value.isEnabled
+    }
 }

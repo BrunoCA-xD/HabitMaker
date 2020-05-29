@@ -188,6 +188,7 @@ extension HabitDetailsTableViewController: DayCellActionsDelegate {
                     habit.removeFromCompletions(completion!)
                 }
             }
+            habitDAO.makeHabitCompleted(item: habit)
             reloadCalendar()
         }
     }
@@ -205,10 +206,13 @@ extension HabitDetailsTableViewController: AddNumericCompletionDelegate {
             habit.addToCompletions(newCompletion)
         }
         habitDAO.makeHabitCompleted(item: habit)
-        let cell = tableview.cellForRow(at: IndexPath(item: 0, section: 0)) as? CalendarViewTableViewCell
-        cell?.calendarView.daysCollection?.refreshData()
-        cell?.calendarView.daysCollection?.reloadData()
-        self.reloadData()
+        reloadCalendar()
+    }
+    func didDelete(vc: AddNumericCompletionTableViewController, oldCompletion: Completion?) {
+        vc.dismiss(animated: true, completion: nil)
+        habit.removeFromCompletions(oldCompletion!)
+        habitDAO.makeHabitCompleted(item: habit)
+        reloadCalendar()
     }
     
 }

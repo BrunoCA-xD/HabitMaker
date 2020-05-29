@@ -55,4 +55,8 @@ class FormTextViewFieldTableViewCell: UITableViewCell {
         value.textAlignment = .right
         value.isScrollEnabled = false
     }
+    
+    func toggleFieldEditable() {
+        value.isEditable = !value.isEditable
+    }
 }
