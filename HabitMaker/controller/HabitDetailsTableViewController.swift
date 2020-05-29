@@ -147,19 +147,49 @@ extension HabitDetailsTableViewController: ModalHeaderActionsDelegate {
 
 extension HabitDetailsTableViewController: DayCellActionsDelegate {
    
+    fileprivate func reloadCalendar() {
+        let cell = tableview.cellForRow(at: IndexPath(item: 0, section: 0)) as? CalendarViewTableViewCell
+        cell?.calendarView.daysCollection?.refreshData()
+        cell?.calendarView.daysCollection?.reloadData()
+        self.reloadData()
+    }
+    
     func dayCellTapped(date: Date) {
-        let vc = AddNumericCompletionTableViewController()
-        vc.habit = habit
-        vc.date = date
-        let completion = habit.findCompletion(withDate: date)
-        if completion != nil {
-            vc.completion = completion!
-            vc.oldCompletion = completion!
-        }
-        vc.delegate = self
         
-        let newNav = UINavigationController(rootViewController: vc)
-        self.present(newNav, animated: true, completion: nil)
+        guard let completionType = CompletionType(rawValue: habit.type) else {
+            print("error on type")
+            return
+        }
+        var completion = habit.findCompletion(withDate: date)
+        if completionType == .numeric {
+            let vc = AddNumericCompletionTableViewController()
+            vc.habit = habit
+            vc.date = date
+            
+            if completion != nil {
+                vc.completion = completion!
+                vc.oldCompletion = completion!
+            }
+            vc.delegate = self
+            
+            let newNav = UINavigationController(rootViewController: vc)
+            self.present(newNav, animated: true, completion: nil)
+        }else {
+            if completion == nil {
+                completion = Completion(entity: Completion.entity(), insertInto: CoreDataDAO.shared.persistentContainer.viewContext)
+                completion!.date = date
+                completion!.habit = habit
+                completion!.isAchived = true
+                habit.addToCompletions(completion!)
+            }else {
+                if completion?.isAchived == true {
+                    completion?.isAchived = false
+                }else {
+                    habit.removeFromCompletions(completion!)
+                }
+            }
+            reloadCalendar()
+        }
     }
     
 }
@@ -169,10 +199,8 @@ extension HabitDetailsTableViewController: AddNumericCompletionDelegate {
         vc.dismiss(animated: true, completion: nil)
         newCompletion.habit = habit
         if oldCompletion == nil {
-            print("print1")
             habit.addToCompletions(newCompletion)
         }else {
-            print("print2")
             habit.removeFromCompletions(oldCompletion!)
             habit.addToCompletions(newCompletion)
         }
