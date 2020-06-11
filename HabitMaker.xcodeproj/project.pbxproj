@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		56064D042477153E003EBDC8 /* Habit+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56064D022477153E003EBDC8 /* Habit+CoreDataProperties.swift */; };
+		5602D33E2481A76C007436C1 /* CompletionDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5602D33D2481A76C007436C1 /* CompletionDAO.swift */; };
+		5602D3552481DAEB007436C1 /* Completion+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5602D3532481DAEB007436C1 /* Completion+CoreDataProperties.swift */; };
+		5602D3562481DAEB007436C1 /* Habit+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5602D3542481DAEB007436C1 /* Habit+CoreDataProperties.swift */; };
 		560C413D2451311B00588859 /* HabitMaker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 560C413B2451311B00588859 /* HabitMaker.xcdatamodeld */; };
 		560C41462451D6A400588859 /* Habit+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560C41442451D6A400588859 /* Habit+CoreDataClass.swift */; };
 		560C414A2451DB1E00588859 /* CoreDataDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560C41492451DB1E00588859 /* CoreDataDAO.swift */; };
@@ -19,7 +21,6 @@
 		5642AEDC24788E04005F4358 /* AddNumericCompletionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5642AEDB24788E04005F4358 /* AddNumericCompletionTableViewController.swift */; };
 		5642AEDE2478912E005F4358 /* StepperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5642AEDD2478912E005F4358 /* StepperTableViewCell.swift */; };
 		564628B2246B6AD90017C95E /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564628B1246B6AD90017C95E /* UITextField+Extensions.swift */; };
-		5652677E247D8A9E00E4060A /* Completion+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5652677D247D8A9E00E4060A /* Completion+CoreDataProperties.swift */; };
 		56526782247EC31700E4060A /* FormTextViewFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56526781247EC31700E4060A /* FormTextViewFieldTableViewCell.swift */; };
 		565EFCF72460BF44004CA21A /* HabitTypeSelectorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EFCF62460BF44004CA21A /* HabitTypeSelectorTableViewController.swift */; };
 		56876E4D24492CE70041EB5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56876E4C24492CE70041EB5C /* AppDelegate.swift */; };
@@ -52,7 +53,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		56064D022477153E003EBDC8 /* Habit+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Habit+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		5602D33D2481A76C007436C1 /* CompletionDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionDAO.swift; sourceTree = "<group>"; };
+		5602D3532481DAEB007436C1 /* Completion+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Completion+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		5602D3542481DAEB007436C1 /* Habit+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Habit+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		560C413C2451311B00588859 /* HabitMaker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HabitMaker.xcdatamodel; sourceTree = "<group>"; };
 		560C41442451D6A400588859 /* Habit+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Habit+CoreDataClass.swift"; sourceTree = "<group>"; };
 		560C41492451DB1E00588859 /* CoreDataDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataDAO.swift; sourceTree = "<group>"; };
@@ -64,7 +67,6 @@
 		5642AEDB24788E04005F4358 /* AddNumericCompletionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNumericCompletionTableViewController.swift; sourceTree = "<group>"; };
 		5642AEDD2478912E005F4358 /* StepperTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperTableViewCell.swift; sourceTree = "<group>"; };
 		564628B1246B6AD90017C95E /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
-		5652677D247D8A9E00E4060A /* Completion+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Completion+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		56526781247EC31700E4060A /* FormTextViewFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextViewFieldTableViewCell.swift; sourceTree = "<group>"; };
 		565EFCF62460BF44004CA21A /* HabitTypeSelectorTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTypeSelectorTableViewController.swift; sourceTree = "<group>"; };
 		56876E4924492CE70041EB5C /* HabitMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabitMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,6 +116,7 @@
 			children = (
 				560C41492451DB1E00588859 /* CoreDataDAO.swift */,
 				560C414B2451DC3800588859 /* HabitDAO.swift */,
+				5602D33D2481A76C007436C1 /* CompletionDAO.swift */,
 			);
 			path = DAO;
 			sourceTree = "<group>";
@@ -172,11 +175,11 @@
 			children = (
 				560C41482451DB0E00588859 /* DAO */,
 				56DDD173245DF0DD002C737B /* Completion+CoreDataClass.swift */,
-				5652677D247D8A9E00E4060A /* Completion+CoreDataProperties.swift */,
+				5602D3532481DAEB007436C1 /* Completion+CoreDataProperties.swift */,
 				569DB5C2245FB68900EE326E /* CompletionType.swift */,
 				5691004E2471E76900F58A7D /* GoalCriterion.swift */,
+				5602D3542481DAEB007436C1 /* Habit+CoreDataProperties.swift */,
 				560C41442451D6A400588859 /* Habit+CoreDataClass.swift */,
-				56064D022477153E003EBDC8 /* Habit+CoreDataProperties.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 				56DDD176245DF0DD002C737B /* Completion+CoreDataClass.swift in Sources */,
 				560C414A2451DB1E00588859 /* CoreDataDAO.swift in Sources */,
 				560C41462451D6A400588859 /* Habit+CoreDataClass.swift in Sources */,
+				5602D33E2481A76C007436C1 /* CompletionDAO.swift in Sources */,
 				5642AEDC24788E04005F4358 /* AddNumericCompletionTableViewController.swift in Sources */,
 				5691004F2471E76900F58A7D /* GoalCriterion.swift in Sources */,
 				5642AEDE2478912E005F4358 /* StepperTableViewCell.swift in Sources */,
@@ -335,9 +339,9 @@
 				56963DD524552C0F00DAD05F /* CalendarDayCollectionViewCell.swift in Sources */,
 				56C296DC24512B6B00FFD725 /* UIView+Extensions.swift in Sources */,
 				560C414C2451DC3800588859 /* HabitDAO.swift in Sources */,
-				56064D042477153E003EBDC8 /* Habit+CoreDataProperties.swift in Sources */,
 				56876E69244944590041EB5C /* Date+Extensions.swift in Sources */,
 				5692971F246B5D5800B58D0F /* PickerViewPresenter.swift in Sources */,
+				5602D3562481DAEB007436C1 /* Habit+CoreDataProperties.swift in Sources */,
 				56876E6E244949040041EB5C /* Identifiable.swift in Sources */,
 				56963DD324552B6700DAD05F /* DaysCollectionView.swift in Sources */,
 				56C296DE24512B8D00FFD725 /* UIDevice+Extensions.swift in Sources */,
@@ -352,10 +356,10 @@
 				560C413D2451311B00588859 /* HabitMaker.xcdatamodeld in Sources */,
 				56E5448E24579C2000650481 /* CalendarViewTableViewCell.swift in Sources */,
 				56E5448C245797ED00650481 /* HabitDetailsTableViewController.swift in Sources */,
+				5602D3552481DAEB007436C1 /* Completion+CoreDataProperties.swift in Sources */,
 				560E78D8244BF57300ADD546 /* FormFieldTableViewCell.swift in Sources */,
 				56E635D22456328A001E4105 /* UIImage+Extensions.swift in Sources */,
 				56876E4F24492CE70041EB5C /* SceneDelegate.swift in Sources */,
-				5652677E247D8A9E00E4060A /* Completion+CoreDataProperties.swift in Sources */,
 				56963DD72455F55A00DAD05F /* CalendarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

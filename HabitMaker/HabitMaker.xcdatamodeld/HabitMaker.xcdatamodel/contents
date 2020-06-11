@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F96" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Completion" representedClassName=".Completion" syncable="YES">
         <attribute name="achievedNumber" optional="YES" attributeType="Double" minValueString="0" usesScalarValueType="YES"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
@@ -16,10 +16,10 @@
         <attribute name="goalUnit" optional="YES" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
         <attribute name="type" attributeType="Integer 16" valueTransformerName="CompletionTypeTransformer" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="completions" toMany="YES" deletionRule="Cascade" destinationEntity="Completion" inverseName="habit" inverseEntity="Completion"/>
+        <relationship name="completions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Completion" inverseName="habit" inverseEntity="Completion"/>
     </entity>
     <elements>
-        <element name="Completion" positionX="-63" positionY="9" width="128" height="103"/>
+        <element name="Completion" positionX="4.890625" positionY="6.66796875" width="128" height="103"/>
         <element name="Habit" positionX="-235.82421875" positionY="-104.00390625" width="128" height="193"/>
     </elements>
 </model>

@@ -2,7 +2,7 @@
 //  Habit+CoreDataProperties.swift
 //  HabitMaker
 //
-//  Created by Bruno Cardoso Ambrosio on 21/05/20.
+//  Created by Bruno Cardoso Ambrosio on 29/05/20.
 //  Copyright © 2020 Bruno Cardoso Ambrosio. All rights reserved.
 //
 //
@@ -20,12 +20,12 @@ extension Habit {
     @NSManaged public var bestStreak: Int64
     @NSManaged public var createdAt: Date?
     @NSManaged public var currStreak: Int64
+    @NSManaged public var goalAction: String?
     @NSManaged public var goalCriterion: String?
+    @NSManaged public var goalNumber: Double
+    @NSManaged public var goalUnit: String?
     @NSManaged public var title: String?
     @NSManaged public var type: Int16
-    @NSManaged public var goalNumber: Double
-    @NSManaged public var goalAction: String?
-    @NSManaged public var goalUnit: String?
     @NSManaged public var completions: NSSet?
 
 }

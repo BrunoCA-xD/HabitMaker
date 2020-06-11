@@ -9,6 +9,10 @@
 import Foundation
 
 extension Date {
+    func nextDate() -> Date? {
+        return Calendar.current.date(byAdding: DateComponents(day:1), to: self)
+    }
+    
     private var calendar: Calendar {
         return Calendar.current
     }

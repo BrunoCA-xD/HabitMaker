@@ -28,45 +28,102 @@ class HabitDAO {
         return Habit(entity: Habit.entity(), insertInto: context)
     }
     
-    private func calculateStreaks(_ item: Habit) {
-        var longest = 0 // length of longest subsequence of consecutive dates
-        var current = 1 // length of current subsequence of consecutive dates
+    fileprivate func resetStreaks(_ item: Habit) {
+        item.currStreak = 0
+        item.bestStreak = 0
+    }
+    
+    func calculateStreaks(_ item: Habit) {
+        var complets = item.completions?.allObjects as! [Completion]
+        var current = 0
+        var longest = 0
         
+        resetStreaks(item)
         
-        let complets = item.completions?.allObjects as! [Completion]
+        complets.sort { return $0.date! < $1.date!}
         
-        var arrayDates:[Date] = complets.map { (element) -> Date in
-            return element.date!
-        }
-        arrayDates.sort()
-        for (prev, next) in zip(arrayDates, arrayDates.dropFirst()) {
-            let nextToPrev = Calendar.current.date(byAdding: DateComponents(day:1), to: prev)
-            if next > nextToPrev! {
-                // dates are not consecutive, start a new subsequence.
+        if complets.count > 0 {
+            if complets.last?.isAchived == true {
                 current = 1
-            } else if next == nextToPrev {
-                // dates are consecutive, increase current length
-                current += 1
+                longest = 1
+            }else {
+                if complets.count == 2 && complets[0].isAchived {
+                    longest = 1
+                    print("acertou miseravi")
+                }
+            }
+        }else {
+            resetStreaks(item)
+        }
+        for (previous, next) in zip(complets, complets.dropFirst()) {
+            if (next.date == previous.date?.nextDate()) == true {
+                //consecutive
+                if previous.isAchived {
+                    current+=1
+                }else{
+                    current = 1
+
+                }
+            }else {
+                current = 1
             }
             if current > longest {
                 longest = current
             }
         }
-        item.currStreak = Int64(current)
-        if longest > item.bestStreak {
-            item.bestStreak = Int64(longest)
+        
+        if complets.last?.isAchived == false {
+            current = 0
+            
         }
+        item.currStreak = Int64(current)
+        item.bestStreak = Int64(longest)
+
+        save()
+        /*
+         if complets.count == 0 {
+                    return resetStreaks(item)
+                }else {
+                    if complets.last?.isAchived == true {
+                        current = 1
+                        longest = 1
+                    }else {
+                        current = 0
+                    }
+                    if item.bestStreak > complets.count {
+                        item.bestStreak = 0
+                    }
+                }
+
+                
+                for (p,n) in zip(complets,complets.dropFirst()) {
+                    
+                    if n.date! > p.date!.nextDate()! {
+                        //dates not consecutive, re start streak count
+                        current = 1
+                    } else if n.date! == p.date!.nextDate()! {
+                        //dates are consecutive
+                        current+=1
+                    }
+                    if current > longest {
+                        longest = current
+                    }
+                }
+                
+                
+                item.currStreak = Int64(current)
+                if longest > item.bestStreak {
+                    item.bestStreak = Int64(longest)
+                }
+         
+         */
     }
     
     func save() {
         CoreDataDAO.shared.saveContext()
     }
-    func makeHabitCompleted(item: Habit) {
-        calculateStreaks(item)
-        save()
-    }
     
-    func delete(item:Habit) {
+    func delete(item: Habit) {
         CoreDataDAO.shared.delete(item: item)
     }
     

@@ -33,9 +33,8 @@ class AddNumericCompletionTableViewController: UITableViewController {
         setupNavigation()
         
         if habit != nil && date != nil && completion == nil{
-            completion = Completion(entity: Completion.entity(), insertInto: CoreDataDAO.shared.persistentContainer.viewContext)
+            completion = CompletionDAO().genNew(withHabit: habit!)
             completion?.date = date
-            completion?.habit = habit
         }
         updateSectionHeader()
         tableView.tableFooterView = UIView()

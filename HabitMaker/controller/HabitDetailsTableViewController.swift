@@ -152,6 +152,7 @@ extension HabitDetailsTableViewController: DayCellActionsDelegate {
         cell?.calendarView.daysCollection?.refreshData()
         cell?.calendarView.daysCollection?.reloadData()
         self.reloadData()
+        print(CompletionDAO().listAll().count)
     }
     
     func dayCellTapped(date: Date) {
@@ -176,9 +177,8 @@ extension HabitDetailsTableViewController: DayCellActionsDelegate {
             self.present(newNav, animated: true, completion: nil)
         }else {
             if completion == nil {
-                completion = Completion(entity: Completion.entity(), insertInto: CoreDataDAO.shared.persistentContainer.viewContext)
+                completion = CompletionDAO().genNew(withHabit: habit)
                 completion!.date = date
-                completion!.habit = habit
                 completion!.isAchived = true
                 habit.addToCompletions(completion!)
             }else {
@@ -186,9 +186,10 @@ extension HabitDetailsTableViewController: DayCellActionsDelegate {
                     completion?.isAchived = false
                 }else {
                     habit.removeFromCompletions(completion!)
+                    CompletionDAO().delete(completion: completion!)
                 }
             }
-            habitDAO.makeHabitCompleted(item: habit)
+            habitDAO.calculateStreaks(habit)
             reloadCalendar()
         }
     }
@@ -198,21 +199,22 @@ extension HabitDetailsTableViewController: DayCellActionsDelegate {
 extension HabitDetailsTableViewController: AddNumericCompletionDelegate {
     func didSave(vc: AddNumericCompletionTableViewController, newCompletion: Completion, oldCompletion: Completion?) {
         vc.dismiss(animated: true, completion: nil)
-        newCompletion.habit = habit
         if oldCompletion == nil {
             habit.addToCompletions(newCompletion)
         }else {
             habit.removeFromCompletions(oldCompletion!)
             habit.addToCompletions(newCompletion)
         }
-        habitDAO.makeHabitCompleted(item: habit)
+        habitDAO.calculateStreaks(habit)
         reloadCalendar()
     }
     func didDelete(vc: AddNumericCompletionTableViewController, oldCompletion: Completion?) {
         vc.dismiss(animated: true, completion: nil)
         habit.removeFromCompletions(oldCompletion!)
-        habitDAO.makeHabitCompleted(item: habit)
+        CompletionDAO().delete(completion: oldCompletion!)
+        habitDAO.calculateStreaks(habit)
         reloadCalendar()
+        
     }
     
 }
