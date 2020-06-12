@@ -18,4 +18,14 @@ public class Completion: NSManagedObject {
         self.achievedNumber = 0.0
         self.isAchived = false
     }
+    
+    /// Checks if this completions is the consecutive of another by looking on its dates
+    /// - Parameter completion: Another completion to be check if its the next
+    /// - Returns: true if this date is right after the given completion date
+    func isConsecutive(of completion: Completion) -> Bool {
+        if (self.date == completion.date?.nextDate()) == true {
+            return true
+        }
+        return false
+    }
 }

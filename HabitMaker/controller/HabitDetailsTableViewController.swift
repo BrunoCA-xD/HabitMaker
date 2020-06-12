@@ -120,7 +120,7 @@ extension HabitDetailsTableViewController: UITableViewDataSource {
                 return cell
             case 2:
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: "total")
-                cell.textLabel?.text = "Total times done"
+                cell.textLabel?.text = "Days Tracked"
                 cell.detailTextLabel?.text = "\(habit.numberOfCompletions)"
                 return cell
             case 3:
@@ -152,7 +152,6 @@ extension HabitDetailsTableViewController: DayCellActionsDelegate {
         cell?.calendarView.daysCollection?.refreshData()
         cell?.calendarView.daysCollection?.reloadData()
         self.reloadData()
-        print(CompletionDAO().listAll().count)
     }
     
     func dayCellTapped(date: Date) {
