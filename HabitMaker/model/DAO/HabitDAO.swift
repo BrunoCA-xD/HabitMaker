@@ -12,6 +12,8 @@ class HabitDAO {
     
     private let context = CoreDataDAO.shared.persistentContainer.viewContext
     
+    /// List all the habits in the database
+    /// - Returns: a list with all habits in database
     func listAll() -> [Habit] {
         var habits: [Habit] = []
         
@@ -24,10 +26,14 @@ class HabitDAO {
         return habits
     }
     
+    /// Generates a new habit using its entity and the context
+    /// - Returns: a new habit to be used
     func genNew() -> Habit {
         return Habit(entity: Habit.entity(), insertInto: context)
     }
     
+    /// Calculates the streaks of a habit before save it
+    /// - Parameter item: item to be calculated and then saved
     func calculateStreaks(_ item: Habit) {
         var complets = item.completions?.allObjects as! [Completion]
         var longest = 0
@@ -52,10 +58,13 @@ class HabitDAO {
         
     }
     
+    /// Calls the generic method to save the database context
     func save() {
         CoreDataDAO.shared.saveContext()
     }
     
+    /// Calls the generic method to delete an item
+    /// - Parameter item: item to be deleted
     func delete(item: Habit) {
         CoreDataDAO.shared.delete(item: item)
     }
