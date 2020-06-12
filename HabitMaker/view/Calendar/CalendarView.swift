@@ -75,6 +75,8 @@ class CalendarView: UIStackView {
 }
 
 extension CalendarView: MonthControlActions {
+    
+    /// Changes the viewing month to the previous of the current
     func previousMonthTapped() {
         showingMonthIndex -= 1
         if showingMonthIndex < 0 {
@@ -85,7 +87,7 @@ extension CalendarView: MonthControlActions {
         daysCollection?.refreshData()
         
     }
-    
+    /// Changes the viewing month to the next of the current
     func nextMonthTapped() {
         showingMonthIndex += 1
         if(showingMonthIndex > 11){

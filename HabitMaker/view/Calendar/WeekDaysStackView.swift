@@ -14,6 +14,7 @@ class WeekDaysStackView: UIStackView {
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         setupView()
     }
+    
     required init(coder: NSCoder) {
         super.init(coder: coder)
         setupView()

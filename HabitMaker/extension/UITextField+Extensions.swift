@@ -9,6 +9,9 @@
 import UIKit
 
 extension UITextField {
+    
+    /// Adds a toolbar to the keyboard view with a done button (used on keyboard views that haven't done buttons)
+    /// - Parameter onDone: an option action to be setted to the done button, if nil a standard action will be applised
     func addDoneButtonOnKeyboard(onDone:(target: Any, action: Selector)? = nil){
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
         doneToolbar.barStyle = UIBarStyle.default
@@ -31,6 +34,8 @@ extension UITextField {
     @objc func doneButtonAction(sender: UITextField){
         self.resignFirstResponder()
     }
+    
+    //TODO: Both two below are to be used if i need to paint a textfield (But it appears to not be a good practice on UI/UX)
     
     func resetErrorFormat() {
         self.layer.borderWidth = 0.0

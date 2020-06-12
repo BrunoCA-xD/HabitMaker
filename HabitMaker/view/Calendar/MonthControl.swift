@@ -39,6 +39,10 @@ class MonthControl: UIView {
     
     let monthSymbols = Calendar.current.monthSymbols
     
+    /// Updates the viweing month details
+    /// - Parameters:
+    ///   - index: the index of the month ex: January = 1, february = 2
+    ///   - year: the year that will be shown on the calendar
     func updateMonthSymbol(monthIndex index:Int, year: Int){
         monthSymbol.text = "\(monthSymbols[index-1]), \(year)"
     }
@@ -82,10 +86,11 @@ class MonthControl: UIView {
         commonInit()
     }
     
+    /// Changes the viewing month to the previous of the current
     @objc func previousMonthTapped() {
         delegate?.previousMonthTapped()
     }
-    
+    /// Changes the viewing month to the next of the current
     @objc func nextMonthTapped() {
         delegate?.nextMonthTapped()
     }

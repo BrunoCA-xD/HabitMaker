@@ -9,6 +9,8 @@
 import UIKit
 
 extension UILabel {
+    
+    /// Applys a font with dynamic type to self
     var dynamicFont: UIFont {
         set {
             self.numberOfLines = 0

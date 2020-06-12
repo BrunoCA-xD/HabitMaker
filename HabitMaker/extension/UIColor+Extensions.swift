@@ -9,6 +9,7 @@
 import UIKit
 
 extension UIColor {
+    //TODO: Saved only to remember how to create semantic color
     public static var labelOpposite: UIColor = {
         return UIColor { (UITraitCollection: UITraitCollection) -> UIColor in
             if UITraitCollection.userInterfaceStyle == .dark {
