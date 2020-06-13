@@ -13,6 +13,7 @@ import CoreData
 
 public class Habit: NSManagedObject {
     
+    /// Returns the number of time that this habit was tracked
     var numberOfCompletions: Int{
         get {
             return completions?.count ?? 0
@@ -23,6 +24,10 @@ public class Habit: NSManagedObject {
         super.awakeFromInsert()
         self.createdAt = Date()
     }
+    
+    /// Checks if the completions of this habit has a given date
+    /// - Parameter date: date to be found
+    /// - Returns: true if date was found, otherwise, false
     func completionsContains(_ date: Date) -> Bool{
         guard let elements = completions else {return false}
         let dates = elements.map { element -> Date in
@@ -31,6 +36,9 @@ public class Habit: NSManagedObject {
         return dates.contains(date)
     }
     
+    /// Finds a completion by a given date
+    /// - Parameter date: used to search on the list
+    /// - Returns: a completion that was on the given Date
     func findCompletion(withDate date: Date) -> Completion? {
         var completionFound: Completion? = nil
         
