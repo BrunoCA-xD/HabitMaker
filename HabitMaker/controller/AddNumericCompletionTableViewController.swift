@@ -145,7 +145,7 @@ class AddNumericCompletionTableViewController: UITableViewController {
             let cell = StepperTableViewCell()
             cell.icon = UIImage(systemName: "pin.fill")
             cell.stepper.value = completion.achievedNumber
-            cell.label.text = "\(cell.stepper.value)"
+            cell.value.text = "\(cell.stepper.value)"
             cell.stepper.addTarget(self, action: #selector(Self.achivedNumberChanged(stepper:)), for: .valueChanged)
             if oldCompletion != nil {
                 cell.toggleStepperEnabled()

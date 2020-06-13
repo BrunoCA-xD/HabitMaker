@@ -56,6 +56,7 @@ class FormFieldTableViewCell: UITableViewCell {
         value.clearButtonMode = .whileEditing
     }
     
+    /// Toggles its UITextField isEnable
     func toggleFieldEnabled() {
         value.isEnabled = !value.isEnabled
     }

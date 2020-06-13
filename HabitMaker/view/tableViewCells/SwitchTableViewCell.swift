@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+//TODO: Not in use yet
 public class SwitchTableViewCell: UITableViewCell {
     
     let label: UILabel!
@@ -48,8 +48,6 @@ public class SwitchTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         onSwitch.translatesAutoresizingMaskIntoConstraints = false
         
-        
-        
         imgView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
         imgView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         imgView.heightAnchor.constraint(equalToConstant: 20).isActive = true
@@ -78,5 +76,4 @@ public class SwitchTableViewCell: UITableViewCell {
         setConstraints()
         
     }
-    
 }

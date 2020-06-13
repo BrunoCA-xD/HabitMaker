@@ -10,18 +10,20 @@ import UIKit
 
 public class StepperTableViewCell: UITableViewCell {
     
-    let label: UITextField!
+    let value: UITextField!
     let stepper: UIStepper!
-    private let imgView: UIImageView!
     private let padding: CGFloat = 30.0
+    private let imgView: UIImageView!
+    // when the icon changes it updates the imgView
     var icon: UIImage! = nil {
         didSet {
             imgView.image = icon
             updateConstraints()
         }
     }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        label = UITextField()
+        value = UITextField()
         stepper = UIStepper()
         imgView = UIImageView()
         
@@ -31,7 +33,7 @@ public class StepperTableViewCell: UITableViewCell {
     }
     
     required init?(coder: NSCoder) {
-        label = UITextField()
+        value = UITextField()
         stepper = UIStepper()
         imgView = UIImageView()
         
@@ -42,7 +44,7 @@ public class StepperTableViewCell: UITableViewCell {
     
     fileprivate func setConstraints() {
         imgView.translatesAutoresizingMaskIntoConstraints = false
-        label.translatesAutoresizingMaskIntoConstraints = false
+        value.translatesAutoresizingMaskIntoConstraints = false
         stepper.translatesAutoresizingMaskIntoConstraints = false
         
         imgView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
@@ -51,10 +53,10 @@ public class StepperTableViewCell: UITableViewCell {
         imgView.widthAnchor.constraint(equalToConstant: 20).isActive = true
         imgView.setContentHuggingPriority(.init(251), for: .horizontal)
         
-        label.setContentHuggingPriority(.init(251), for: .horizontal)
-        label.leadingAnchor.constraint(equalTo: imgView.trailingAnchor, constant: 10).isActive = true
-        label.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        label.trailingAnchor.constraint(equalTo: stepper.leadingAnchor, constant: -padding).isActive = true
+        value.setContentHuggingPriority(.init(251), for: .horizontal)
+        value.leadingAnchor.constraint(equalTo: imgView.trailingAnchor, constant: 10).isActive = true
+        value.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        value.trailingAnchor.constraint(equalTo: stepper.leadingAnchor, constant: -padding).isActive = true
         
         stepper.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         stepper.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding).isActive = true
@@ -64,32 +66,33 @@ public class StepperTableViewCell: UITableViewCell {
         selectionStyle = .none
         
         addSubview(imgView)
-        addSubview(label)
+        addSubview(value)
         addSubview(stepper)
         
         setConstraints()
-        label.delegate = self
-        label.keyboardType = .decimalPad
-        label.returnKeyType = .done
-        label.text = "\(stepper.value)"
-        label.enablesReturnKeyAutomatically = true
-        label.addTarget(self, action: #selector(Self.textChanged), for: .allEditingEvents)
+        value.delegate = self
+        value.keyboardType = .decimalPad
+        value.returnKeyType = .done
+        value.text = "\(stepper.value)"
+        value.enablesReturnKeyAutomatically = true
+        value.addTarget(self, action: #selector(Self.textChanged), for: .allEditingEvents)
         stepper.addTarget(self, action: #selector(Self.stepperChanged), for: .valueChanged)
         
     }
     
+    /// The stepper can be updated by the value textField
     @objc private func textChanged() {
-        print("valueChanged")
-        var text = label.text ?? "0.0"
+        var text = value.text ?? "0.0"
         let decimalSeparator = Locale.current.decimalSeparator ?? "."
         text = text.replacingOccurrences(of: decimalSeparator, with: ".")
         let number = Double(text) ?? 0.0
         stepper.value = number
     }
     
+    /// When the stepper value changes, it updates the value textField
     @objc private func stepperChanged() {
         let decimalSeparator = Locale.current.decimalSeparator ?? "."
-        label.text = "\(stepper.value)".replacingOccurrences(of: ".", with: decimalSeparator)
+        value.text = "\(stepper.value)".replacingOccurrences(of: ".", with: decimalSeparator)
     }
     
     func toggleStepperEnabled() {
@@ -97,8 +100,10 @@ public class StepperTableViewCell: UITableViewCell {
     }
     
 }
+
 extension StepperTableViewCell: UITextFieldDelegate  {
     
+    /// Limits the grouping separator to one in the textField and dont allow it to be the first character
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let decimalSeparator = Locale.current.decimalSeparator ?? "."
         

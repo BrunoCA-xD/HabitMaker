@@ -56,6 +56,7 @@ class FormTextViewFieldTableViewCell: UITableViewCell {
         value.isScrollEnabled = false
     }
     
+    /// Toggles its UITextView isEditable
     func toggleFieldEditable() {
         value.isEditable = !value.isEditable
     }
