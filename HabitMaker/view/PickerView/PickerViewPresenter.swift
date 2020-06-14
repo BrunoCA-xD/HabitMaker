@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// TODO: I wish it was more decoupled, like it was one component that i could put on a pod
+//TODO: I wish it was more decoupled, like it was one component that i could put on a pod
 class PickerViewPresenter: UITextField, UIPickerViewDataSource, UIPickerViewDelegate {
     
     private lazy var doneToolbar: UIToolbar = {

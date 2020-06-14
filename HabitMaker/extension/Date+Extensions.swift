@@ -54,10 +54,10 @@ extension Date {
         return calendar.date(byAdding: DateComponents(month: 1, day: -1), to: self.startOfMonth(date: date))!
     }
     
-    /// Return the number of days by month given an year
+    /// Return the number of days by month given an year, if year is nil it will use the current year
     /// - Parameter year: In which year the function will get the amount of days
     /// - Returns: An array representing the number of days by month in the year
-    static func numOfDaysByMonth(inYear year:Int?) -> [Int] {
+    static func numOfDaysByMonth(inYear year: Int?) -> [Int] {
         var numOfDaysByMonth: [Int] = []
         let monthCount = calendar.monthSymbols.count
         

@@ -38,8 +38,6 @@ class AddNumericCompletionTableViewController: UITableViewController {
         }
         updateSectionHeader()
         tableView.tableFooterView = UIView()
-        
-        print(habit?.completions?.count)
     }
     
     func toggleCellsEnabled() {

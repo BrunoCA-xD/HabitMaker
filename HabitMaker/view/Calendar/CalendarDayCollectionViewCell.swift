@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CalendarDayCollectionViewCell: UICollectionViewCell,Identifiable {
+class CalendarDayCollectionViewCell: UICollectionViewCell, Identifiable {
      
     var date: Date?
     let lbl: UILabel = {

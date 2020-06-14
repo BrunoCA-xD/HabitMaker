@@ -12,26 +12,56 @@ protocol DayCellActionsDelegate: class {
     func dayCellTapped(date: Date)
 }
 
+
+//TODO: represents the days collection in a month, but it is coupled to Habit and i wish i could decouple it to make a calendar componenet
 class DaysCollectionView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
+    //The view that its collection will be inside
     weak var calendarView: CalendarView!
+    
     var numOfDaysByMonth = Date.numOfDaysByMonth(inYear: nil)
-   
     var presentMonthIndex = 0
     var presentYear = 0
     var todaysDate = 0
     var firstWeekdayOfMonth = 0 //(Sunday-Saturday 1-7)
+    
     var habit : Habit!{
         didSet {
             refreshData()
         }
     }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let numDays = numOfDaysByMonth[calendarView.showingMonthIndex-1]
-        let num = numDays + firstWeekdayOfMonth-1
-        return num
+    
+    func setupView(){
+        self.backgroundColor = .clear
+        self.isScrollEnabled = false
+        clipsToBounds = true
+        
+        delegate = self
+        dataSource = self
+        self.register(CalendarDayCollectionViewCell.self, forCellWithReuseIdentifier: CalendarDayCollectionViewCell.defaultReuseIdentifier)
+        
     }
     
+    func refreshData(){
+        
+        todaysDate = Calendar.current.component(.day, from: Date())
+        firstWeekdayOfMonth = getFirstWeekday()
+        
+        presentMonthIndex = Calendar.current.component(.month, from: Date())
+        
+        presentYear = Calendar.current.component(.year, from: Date())
+        
+        reloadData()
+    }
+    
+    func getFirstWeekday() -> Int{
+        let monthDate = Calendar.current.date(from: DateComponents(year: calendarView.showingYear, month: calendarView.showingMonthIndex,day:1))!
+        
+        let day = Calendar.current.component(.weekday, from: monthDate )
+        
+        return day == 7 ? 1 : day
+    }
+    
+    //MARK: - Cell format methods
     fileprivate func formatTodaysCell(_ cell: CalendarDayCollectionViewCell) {
         cell.backgroundColor = UIColor.systemBlue
         cell.lbl.textColor =  UIColor.white
@@ -42,6 +72,7 @@ class DaysCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
         cell.lbl.textColor = UIColor.label
     }
     
+    //MARK: - CollectionView Delegate & DataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarDayCollectionViewCell.defaultReuseIdentifier,for: indexPath) as! CalendarDayCollectionViewCell
@@ -84,51 +115,27 @@ class DaysCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
         collectionView.reloadData()
     }
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let numDays = numOfDaysByMonth[calendarView.showingMonthIndex-1]
+        let num = numDays + firstWeekdayOfMonth-1
+        return num
+    }
     
+    //MARK: - Initializers
     init(collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 250), collectionViewLayout: layout)
-        initializeView()
+        setupView()
     }
+    
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
-        initializeView()
+        setupView()
     }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        initializeView()
+        setupView()
         
-    }
-    
-    func initializeView(){
-        self.backgroundColor = .clear
-        self.isScrollEnabled = false
-        clipsToBounds = true
-        
-        delegate = self
-        dataSource = self
-        self.register(CalendarDayCollectionViewCell.self, forCellWithReuseIdentifier: CalendarDayCollectionViewCell.defaultReuseIdentifier)
-        
-    }
-    
-    
-    func refreshData(){
-        
-        todaysDate = Calendar.current.component(.day, from: Date())
-        firstWeekdayOfMonth = getFirstWeekday()
-        
-        presentMonthIndex = Calendar.current.component(.month, from: Date())
-        
-        presentYear = Calendar.current.component(.year, from: Date())
-        
-        reloadData()
-    }
-    
-    func getFirstWeekday() -> Int{
-        let monthDate = Calendar.current.date(from: DateComponents(year: calendarView.showingYear, month: calendarView.showingMonthIndex,day:1))!
-        
-        let day = Calendar.current.component(.weekday, from: monthDate )
-        
-        return day == 7 ? 1 : day
     }
     
 }
