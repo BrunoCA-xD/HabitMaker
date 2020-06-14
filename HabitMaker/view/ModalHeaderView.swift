@@ -8,19 +8,19 @@
 
 import UIKit
 
+//MARK: - ModalHeader Actions
 protocol ModalHeaderActionsDelegate: class {
     func closeButtonTapped()
     func confirmButtonTapped()
 }
-
+//Turns the confirmButtonTapped a not required implementation
 extension ModalHeaderActionsDelegate {
-    func confirmButtonTapped() {
-        
-    }
+    func confirmButtonTapped() {}
 }
 
 class ModalHeaderView: UIView {
 
+    // MARK: - outlets
     let headerTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -35,16 +35,17 @@ class ModalHeaderView: UIView {
     }()
     
     var confirmButton: UIButton? = nil
+    
     weak var delegate: ModalHeaderActionsDelegate?
     
-    init(needsConfirmButton:Bool) {
+    /// Initializes a header to a modal view, with close button(x)
+    /// - Parameter needsConfirmButton: defines if the header will have a confirm button with text "Save"
+    init(needsConfirmButton: Bool) {
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         self.clipsToBounds = true
         self.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(headerTitle)
         self.addSubview(closeButton)
-        
-
         
         headerTitle.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         headerTitle.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
@@ -72,6 +73,8 @@ class ModalHeaderView: UIView {
     }
     
     
+    /// Used when the initializer parameter is true and the modal need to have a confirm button
+    /// - Returns: an UIButton of type .system and title 'save'
     fileprivate func genConfirmButton() -> UIButton {
         let b = UIButton(type: .system)
         b.setTitle("Save", for: .normal)
@@ -79,9 +82,9 @@ class ModalHeaderView: UIView {
         b.tintColor = .systemBlue
         return b
     }
-
 }
 
+//MARK: - ModalHeader Actions implementation
 extension ModalHeaderView {
     @objc private func closeModalTapped() {
         delegate?.closeButtonTapped()
