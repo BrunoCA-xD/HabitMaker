@@ -8,22 +8,18 @@
 
 import Foundation
 import UIKit
-
+//TODO: I'm not using this utility class anymore
 class AlertUtility {
-    static func validationAlertWithTitle(title: String!, message: String, ViewController: UIViewController, input: UIControl?) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel, handler:{ action in
-            self.action(input)
-        })
-        alert.addAction(action)
-        ViewController.present(alert, animated: true, completion: nil)
-    }
     
-    static func action(_ input: UIControl?) {
-        input?.shake()
-        input?.becomeFirstResponder()
-        guard let textField = input as? UITextField else {return}
-        textField.applyErrorFormat()
-        
+    /// Shows a standard information alert 
+    /// - Parameters:
+    ///   - title: alert title
+    ///   - message: alert message
+    ///   - viewController: who'll present the alert
+    static func alertWithTitle(title: String!, message: String, viewController: UIViewController) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(action)
+        viewController.present(alert, animated: true, completion: nil)
     }
 }

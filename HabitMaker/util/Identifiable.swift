@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// This protocol provides a reusable Identifier for all that implement it
 protocol Identifiable: class {
     static var defaultReuseIdentifier: String { get }
 }
