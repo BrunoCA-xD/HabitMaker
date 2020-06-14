@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// TODO: I wish it was more decoupled, like it was one component that i could put on a pod
 class PickerViewPresenter: UITextField, UIPickerViewDataSource, UIPickerViewDelegate {
     
     private lazy var doneToolbar: UIToolbar = {
@@ -29,7 +30,8 @@ class PickerViewPresenter: UITextField, UIPickerViewDataSource, UIPickerViewDele
         pickerView.delegate = self
         return pickerView
     }()
-
+    
+    // This makes this PickerView coupled to GoalCriterion
     var items: [GoalCriterion] = GoalCriterion.allCases
     var didSelectItem: ((GoalCriterion) -> Void)?
 
@@ -49,16 +51,18 @@ class PickerViewPresenter: UITextField, UIPickerViewDataSource, UIPickerViewDele
         inputAccessoryView = doneToolbar
     }
 
-    @objc  func doneButtonTapped() {
+    func showPicker() {
+        becomeFirstResponder()
+    }
+    // MARK: - Actions
+    @objc func doneButtonTapped() {
         if let selectedItem = selectedItem {
             didSelectItem?(selectedItem)
         }
         resignFirstResponder()
     }
-    func showPicker() {
-        becomeFirstResponder()
-    }
-        
+    
+    // MARK: - UIPickerVie dataSource & Delegate
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
