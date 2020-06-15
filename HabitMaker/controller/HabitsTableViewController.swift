@@ -33,10 +33,6 @@ class HabitsTableViewController: UITableViewController {
     }
     
     // MARK: - Table view data source
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return WeekDaysStackView()
-    }
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

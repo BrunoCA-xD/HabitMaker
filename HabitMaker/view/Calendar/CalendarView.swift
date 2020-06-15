@@ -24,7 +24,7 @@ class CalendarView: UIStackView {
     var showingYear = 0
     
     fileprivate func initializeAttributes() {
-        showingMonthIndex = Calendar.current.component(.month, from: Date())
+        showingMonthIndex = Calendar.current.component(.month, from: Date())-1
         showingYear = Calendar.current.component(.year, from: Date())
         
         monthControl.updateMonthSymbol(monthIndex: showingMonthIndex, year: showingYear)
@@ -78,7 +78,7 @@ extension CalendarView: MonthControlActions {
     /// Changes the viewing month to the previous of the current
     func previousMonthTapped() {
         showingMonthIndex -= 1
-        if showingMonthIndex < 0 {
+        if showingMonthIndex < 1 {
             showingMonthIndex = 11
             showingYear -= 1
         }

@@ -72,14 +72,19 @@ class HabitDetailsTableViewController: UIViewController {
 }
 
 extension HabitDetailsTableViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 && indexPath.row == 0 {
             return 390
         }
         return UITableView.automaticDimension
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return section == 0 ? nil : UIView()
+    }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0
+        return section == 0 ? 0 : UITableView.automaticDimension
     }
 }
 extension HabitDetailsTableViewController: UITableViewDataSource {

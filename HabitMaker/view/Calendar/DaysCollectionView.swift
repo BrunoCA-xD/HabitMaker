@@ -46,7 +46,7 @@ class DaysCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
         todaysDate = Calendar.current.component(.day, from: Date())
         firstWeekdayOfMonth = getFirstWeekday()
         
-        presentMonthIndex = Calendar.current.component(.month, from: Date())
+        presentMonthIndex = Calendar.current.component(.month, from: Date())-1
         
         presentYear = Calendar.current.component(.year, from: Date())
         
@@ -116,7 +116,7 @@ class DaysCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let numDays = numOfDaysByMonth[calendarView.showingMonthIndex-1]
+        let numDays = numOfDaysByMonth[calendarView.showingMonthIndex]
         let num = numDays + firstWeekdayOfMonth-1
         return num
     }
