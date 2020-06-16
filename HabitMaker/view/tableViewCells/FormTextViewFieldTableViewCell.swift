@@ -39,7 +39,7 @@ class FormTextViewFieldTableViewCell: UITableViewCell {
         value.translatesAutoresizingMaskIntoConstraints = false
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        label.setContentHuggingPriority(.init(251), for: .horizontal)
+        label.setContentCompressionResistancePriority(.init(1000), for: .horizontal)
         
         addSubview(label)
         addSubview(value)

@@ -96,6 +96,10 @@ class AddNumericCompletionTableViewController: UITableViewController {
         setIsAchived(achievedNumber)
     }
     
+    @objc func commentTextChanged(_ textView: UITextView) {
+        completion?.comment = textView.text
+    }
+    
     func setIsAchived(_ achievedNumber: Double) {
         let goalNumber = completion?.habit?.goalNumber ?? 0.0
         let criterionAsString = completion?.habit?.goalCriterion ?? ""
@@ -152,6 +156,7 @@ class AddNumericCompletionTableViewController: UITableViewController {
         case 3:
             let cell  = FormTextViewFieldTableViewCell()
             cell.label.text = "Comment"
+            cell.value.text = completion.comment
             cell.value.delegate = self
             if oldCompletion != nil {
                 cell.toggleFieldEditable()
@@ -208,5 +213,7 @@ class AddNumericCompletionTableViewController: UITableViewController {
 extension AddNumericCompletionTableViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         updateTableView(codeBlock: nil)
+        
+        commentTextChanged(textView)
     }
 }

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5602D33E2481A76C007436C1 /* CompletionDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5602D33D2481A76C007436C1 /* CompletionDAO.swift */; };
-		5602D3552481DAEB007436C1 /* Completion+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5602D3532481DAEB007436C1 /* Completion+CoreDataProperties.swift */; };
 		5602D3562481DAEB007436C1 /* Habit+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5602D3542481DAEB007436C1 /* Habit+CoreDataProperties.swift */; };
 		560C413D2451311B00588859 /* HabitMaker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 560C413B2451311B00588859 /* HabitMaker.xcdatamodeld */; };
 		560C41462451D6A400588859 /* Habit+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560C41442451D6A400588859 /* Habit+CoreDataClass.swift */; };
@@ -45,6 +44,7 @@
 		56C296DA24512B3300FFD725 /* AlertUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C296D924512B3300FFD725 /* AlertUtility.swift */; };
 		56C296DC24512B6B00FFD725 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C296DB24512B6B00FFD725 /* UIView+Extensions.swift */; };
 		56C296DE24512B8D00FFD725 /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C296DD24512B8D00FFD725 /* UIDevice+Extensions.swift */; };
+		56D07DE624983D520011FFFF /* Completion+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D07DE524983D520011FFFF /* Completion+CoreDataProperties.swift */; };
 		56DDD176245DF0DD002C737B /* Completion+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DDD173245DF0DD002C737B /* Completion+CoreDataClass.swift */; };
 		56E5448C245797ED00650481 /* HabitDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E5448B245797ED00650481 /* HabitDetailsTableViewController.swift */; };
 		56E5448E24579C2000650481 /* CalendarViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E5448D24579C2000650481 /* CalendarViewTableViewCell.swift */; };
@@ -55,7 +55,6 @@
 
 /* Begin PBXFileReference section */
 		5602D33D2481A76C007436C1 /* CompletionDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionDAO.swift; sourceTree = "<group>"; };
-		5602D3532481DAEB007436C1 /* Completion+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Completion+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		5602D3542481DAEB007436C1 /* Habit+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Habit+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		560C413C2451311B00588859 /* HabitMaker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HabitMaker.xcdatamodel; sourceTree = "<group>"; };
 		560C41442451D6A400588859 /* Habit+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Habit+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -94,6 +93,7 @@
 		56C296D924512B3300FFD725 /* AlertUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertUtility.swift; sourceTree = "<group>"; };
 		56C296DB24512B6B00FFD725 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		56C296DD24512B8D00FFD725 /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
+		56D07DE524983D520011FFFF /* Completion+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Completion+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		56DDD173245DF0DD002C737B /* Completion+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Completion+CoreDataClass.swift"; sourceTree = "<group>"; };
 		56E5448B245797ED00650481 /* HabitDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsTableViewController.swift; sourceTree = "<group>"; };
 		56E5448D24579C2000650481 /* CalendarViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewTableViewCell.swift; sourceTree = "<group>"; };
@@ -177,7 +177,7 @@
 			children = (
 				560C41482451DB0E00588859 /* DAO */,
 				56DDD173245DF0DD002C737B /* Completion+CoreDataClass.swift */,
-				5602D3532481DAEB007436C1 /* Completion+CoreDataProperties.swift */,
+				56D07DE524983D520011FFFF /* Completion+CoreDataProperties.swift */,
 				569DB5C2245FB68900EE326E /* CompletionType.swift */,
 				5691004E2471E76900F58A7D /* GoalCriterion.swift */,
 				5602D3542481DAEB007436C1 /* Habit+CoreDataProperties.swift */,
@@ -354,13 +354,13 @@
 				56526782247EC31700E4060A /* FormTextViewFieldTableViewCell.swift in Sources */,
 				560E78D6244B9B9F00ADD546 /* ModalHeaderView.swift in Sources */,
 				565EFCF72460BF44004CA21A /* HabitTypeSelectorTableViewController.swift in Sources */,
+				56D07DE624983D520011FFFF /* Completion+CoreDataProperties.swift in Sources */,
 				560E78D4244B973C00ADD546 /* AddHabitViewController.swift in Sources */,
 				56876E6B244944DF0041EB5C /* HabitTableViewCell.swift in Sources */,
 				56A0D5D8244E97EF00E4F29D /* DatePickerTableViewCell.swift in Sources */,
 				560C413D2451311B00588859 /* HabitMaker.xcdatamodeld in Sources */,
 				56E5448E24579C2000650481 /* CalendarViewTableViewCell.swift in Sources */,
 				56E5448C245797ED00650481 /* HabitDetailsTableViewController.swift in Sources */,
-				5602D3552481DAEB007436C1 /* Completion+CoreDataProperties.swift in Sources */,
 				560E78D8244BF57300ADD546 /* FormFieldTableViewCell.swift in Sources */,
 				56E635D22456328A001E4105 /* UIImage+Extensions.swift in Sources */,
 				56876E4F24492CE70041EB5C /* SceneDelegate.swift in Sources */,

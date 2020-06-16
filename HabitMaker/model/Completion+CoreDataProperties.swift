@@ -2,7 +2,7 @@
 //  Completion+CoreDataProperties.swift
 //  HabitMaker
 //
-//  Created by Bruno Cardoso Ambrosio on 29/05/20.
+//  Created by Bruno Cardoso Ambrosio on 15/06/20.
 //  Copyright © 2020 Bruno Cardoso Ambrosio. All rights reserved.
 //
 //
@@ -20,6 +20,7 @@ extension Completion {
     @NSManaged public var achievedNumber: Double
     @NSManaged public var date: Date?
     @NSManaged public var isAchived: Bool
+    @NSManaged public var comment: String?
     @NSManaged public var habit: Habit?
 
 }

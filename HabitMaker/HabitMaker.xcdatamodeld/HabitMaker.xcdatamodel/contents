@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F96" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Completion" representedClassName=".Completion" syncable="YES">
         <attribute name="achievedNumber" optional="YES" attributeType="Double" minValueString="0" usesScalarValueType="YES"/>
+        <attribute name="comment" optional="YES" attributeType="String"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="isAchived" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <relationship name="habit" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Habit" inverseName="completions" inverseEntity="Habit"/>
@@ -19,7 +20,7 @@
         <relationship name="completions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Completion" inverseName="habit" inverseEntity="Completion"/>
     </entity>
     <elements>
-        <element name="Completion" positionX="4.890625" positionY="6.66796875" width="128" height="103"/>
+        <element name="Completion" positionX="4.890625" positionY="6.66796875" width="128" height="118"/>
         <element name="Habit" positionX="-235.82421875" positionY="-104.00390625" width="128" height="193"/>
     </elements>
 </model>
