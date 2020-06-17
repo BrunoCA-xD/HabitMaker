@@ -201,6 +201,9 @@ extension HabitDetailsTableViewController: DayCellActionsDelegate {
 }
 
 extension HabitDetailsTableViewController: AddNumericCompletionDelegate {
+    func didCancel(vc: AddNumericCompletionTableViewController) {
+        vc.dismiss(animated: true, completion: nil)
+    }
     func didSave(vc: AddNumericCompletionTableViewController, newCompletion: Completion, oldCompletion: Completion?) {
         vc.dismiss(animated: true, completion: nil)
         if oldCompletion == nil {

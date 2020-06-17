@@ -9,6 +9,7 @@
 import UIKit
 
 protocol AddNumericCompletionDelegate: class {
+    func didCancel(vc: AddNumericCompletionTableViewController)
     func didSave(vc: AddNumericCompletionTableViewController, newCompletion: Completion, oldCompletion: Completion?)
     func didDelete(vc: AddNumericCompletionTableViewController, oldCompletion: Completion?)
 }
@@ -74,7 +75,8 @@ class AddNumericCompletionTableViewController: UITableViewController {
     }
     
     @objc func cancelTapped() {
-        self.dismiss(animated: true, completion: nil)
+        habit?.removeFromCompletions(completion)
+        delegate?.didCancel(vc: self)
     }
     
     @objc func confirmTapped() {
