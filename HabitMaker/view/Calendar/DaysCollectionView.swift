@@ -12,8 +12,12 @@ protocol DayCellActionsDelegate: class {
     func dayCellTapped(date: Date)
 }
 
+protocol DaysCollectionViewFormattingDelegate: class {
+    func shouldApplyCustomFormatting(_ date: Date?) -> Bool
+    func applyCustomFormat(_ cell: CalendarDayCollectionViewCell)
+}
 
-//TODO: represents the days collection in a month, but it is coupled to Habit and i wish i could decouple it to make a calendar componenet
+/// Represents the days collection in a month
 class DaysCollectionView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     //The view that its collection will be inside
     weak var calendarView: CalendarView!
@@ -24,12 +28,8 @@ class DaysCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
     var todaysDate = 0
     var firstWeekdayOfMonth = 0 //(Sunday-Saturday 1-7)
     
-    var habit : Habit!{
-        didSet {
-            refreshData()
-        }
-    }
-    
+    weak var formattingDelegate: DaysCollectionViewFormattingDelegate?
+
     func setupView(){
         self.backgroundColor = .clear
         self.isScrollEnabled = false
@@ -73,6 +73,12 @@ class DaysCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
     }
     
     //MARK: - CollectionView Delegate & DataSource
+    fileprivate func itemsDayIsToday(_ item: CalendarDayCollectionViewCell) -> Bool {
+        guard let itemsDate = item.date else {return false}
+        let rightDate = Calendar.current.date(byAdding: .month, value: 1, to: itemsDate)
+        return rightDate?.isToday == true
+    }
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarDayCollectionViewCell.defaultReuseIdentifier,for: indexPath) as! CalendarDayCollectionViewCell
@@ -81,27 +87,14 @@ class DaysCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
         }else {
             let calcDate = indexPath.row-firstWeekdayOfMonth+2
             cell.isHidden = false
-            cell.configure(day: calcDate, components:  DateComponents(year:calendarView.showingYear,month:calendarView.showingMonthIndex))
-            if calcDate == todaysDate &&
-                calendarView.showingMonthIndex == presentMonthIndex &&
-                calendarView.showingYear == presentYear {
+            cell.configure(day: calcDate, components:  DateComponents(year: calendarView.showingYear, month: calendarView.showingMonthIndex))
+            if itemsDayIsToday(cell) {
                 formatTodaysCell(cell)
             }else {
                 formatNormalCells(cell)
             }
-            let completion = habit.findCompletion(withDate: cell.date!)
-            if completion != nil  {
-                if completion!.isAchived {
-                    cell.layer.cornerRadius = 15.0
-                    cell.layer.borderWidth = 1.0
-                    cell.layer.borderColor = UIColor.systemGreen.cgColor
-                    cell.layer.masksToBounds = true
-                } else {
-                    cell.layer.cornerRadius = 15.0
-                    cell.layer.borderWidth = 1.0
-                    cell.layer.borderColor = UIColor.systemRed.cgColor
-                    cell.layer.masksToBounds = true
-                }
+            if formattingDelegate?.shouldApplyCustomFormatting(cell.date) == true {
+                formattingDelegate?.applyCustomFormat(cell)
             }else {
                 formatNormalCells(cell)
             }

@@ -108,7 +108,7 @@ extension HabitDetailsTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = CalendarViewTableViewCell()
-            cell.calendarView.daysCollection?.habit = habit
+            cell.calendarView.daysCollection?.formattingDelegate = self
             cell.calendarView.dayCellActionsDelegate = self
             return cell
         }else if indexPath.section == 1 {
@@ -197,6 +197,34 @@ extension HabitDetailsTableViewController: DayCellActionsDelegate {
             reloadCalendar()
         }
     }
+    
+}
+
+extension HabitDetailsTableViewController: DaysCollectionViewFormattingDelegate {
+    func shouldApplyCustomFormatting(_ date: Date?) -> Bool {
+        if date == nil {
+            return false
+        }
+        return habit.completionsContains(date!)
+    }
+    func applyCustomFormat(_ cell: CalendarDayCollectionViewCell) {
+        guard let date = cell.date else {return}
+        let completion = habit.findCompletion(withDate: date)
+        if completion != nil  {
+            if completion!.isAchived {
+                cell.layer.cornerRadius = 15.0
+                cell.layer.borderWidth = 1.0
+                cell.layer.borderColor = UIColor.systemGreen.cgColor
+                cell.layer.masksToBounds = true
+            } else {
+                cell.layer.cornerRadius = 15.0
+                cell.layer.borderWidth = 1.0
+                cell.layer.borderColor = UIColor.systemRed.cgColor
+                cell.layer.masksToBounds = true
+            }
+        }
+    }
+    
     
 }
 
