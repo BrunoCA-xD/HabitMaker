@@ -38,11 +38,12 @@ class AddHabitViewController: UIViewController {
             }
         }
     }
-    private lazy var pickerViewPresenter: PickerViewPresenter = {
-        let pickerViewPresenter = PickerViewPresenter()
-        pickerViewPresenter.didSelectItem = { [weak self] item in
-            self?.selectedItem = item
+    private lazy var pickerViewPresenter: PickerViewPresenter<GoalCriterion> = {
+        let items = GoalCriterion.allCases.map {
+            GenericRow<GoalCriterion>(type: $0, showText: $0.showValue)
         }
+        let pickerViewPresenter = PickerViewPresenter<GoalCriterion>(withItems: items)
+        pickerViewPresenter.pickerDelegate = self
         return pickerViewPresenter
     }()
     
@@ -173,7 +174,8 @@ extension AddHabitViewController:  UITableViewDelegate {
             vc.selected = CompletionType(rawValue: newHabit.type)!
             navigationController?.show(vc, sender: self)
         }else if indexPath.section == 1 && indexPath.row == 1{
-            pickerViewPresenter.selectedItem = GoalCriterion(rawValue: newHabit.goalCriterion ?? GoalCriterion.lessThanOrEqual.rawValue )
+            let itemSelected = GoalCriterion(rawValue: newHabit.goalCriterion ?? "") ?? GoalCriterion.lessThanOrEqual
+            pickerViewPresenter.selectedItem = GenericRow<GoalCriterion>(type:itemSelected, showText: itemSelected.showValue)
             pickerViewPresenter.showPicker()
         }
         tableView.deselectRow(at: indexPath, animated: true)
@@ -305,6 +307,7 @@ extension AddHabitViewController{
 }
 
 extension AddHabitViewController: HabitTypeSelectorActions {
+    //Item Selection on the view controller selector
     func didSelect( type: CompletionType) {
         newHabit.type = type.rawValue
         updateTableView {
@@ -312,5 +315,18 @@ extension AddHabitViewController: HabitTypeSelectorActions {
             self.tableview.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
         }
         confirmItem.isEnabled = checkFields()
+    }
+}
+
+extension AddHabitViewController: PickerViewPresenterDelegate {
+    //Item Selection on pickerView
+    func selected(item: Any) {
+        if let row = item as? GenericRow<GoalCriterion> {
+            let criterion = row.type
+            if newHabit.goalCriterion != criterion.rawValue {
+                newHabit.goalCriterion = criterion.rawValue
+                self.tableview.reloadRows(at: [IndexPath(row: 1, section: 1)], with: .automatic)
+            }
+        }
     }
 }

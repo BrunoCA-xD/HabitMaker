@@ -2,15 +2,19 @@
 //  PickerViewPresenter.swift
 //  HabitMaker
 //
-//  Created by Bruno Cardoso Ambrosio on 12/05/20.
+//  Created by Bruno Cardoso Ambrosio on 17/06/20.
 //  Copyright © 2020 Bruno Cardoso Ambrosio. All rights reserved.
 //
 
 import UIKit
 
-//TODO: I wish it was more decoupled, like it was one component that i could put on a pod
-class PickerViewPresenter: UITextField, UIPickerViewDataSource, UIPickerViewDelegate {
+protocol PickerViewPresenterDelegate: AnyObject {
+    func selected(item: Any)
+}
+
+class PickerViewPresenter<T>: UITextField, UIPickerViewDelegate, UIPickerViewDataSource{
     
+    //MARK: - Outlets
     private lazy var doneToolbar: UIToolbar = {
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
 
@@ -23,7 +27,6 @@ class PickerViewPresenter: UITextField, UIPickerViewDataSource, UIPickerViewDele
 
         return toolbar
     }()
-
     private lazy var pickerView: UIPickerView = {
         let pickerView = UIPickerView()
         pickerView.dataSource = self
@@ -31,21 +34,11 @@ class PickerViewPresenter: UITextField, UIPickerViewDataSource, UIPickerViewDele
         return pickerView
     }()
     
-    // This makes this PickerView coupled to GoalCriterion
-    var items: [GoalCriterion] = GoalCriterion.allCases
-    var didSelectItem: ((GoalCriterion) -> Void)?
-
-    var selectedItem: GoalCriterion!
-
-    init() {
-        super.init(frame: .zero)
-        setupView()
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
+    //MARK: Attributes
+    var items: [GenericRow<T>]
+    var selectedItem: GenericRow<T>?
+    weak var pickerDelegate: PickerViewPresenterDelegate?
+    
     private func setupView() {
         inputView = pickerView
         inputAccessoryView = doneToolbar
@@ -56,26 +49,35 @@ class PickerViewPresenter: UITextField, UIPickerViewDataSource, UIPickerViewDele
     }
     // MARK: - Actions
     @objc func doneButtonTapped() {
-        if let selectedItem = selectedItem {
-            didSelectItem?(selectedItem)
-        }
         resignFirstResponder()
     }
     
-    // MARK: - UIPickerVie dataSource & Delegate
+    // MARK: - UIPickerView dataSource & Delegate
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return items.count
+        items.count
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return items[row].showValue
+        return items[row].showText
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedItem = items[row]
+        pickerDelegate?.selected(item: items[row])
+    }
+    
+    // MARK: - Initializers
+    init(withItems items: [GenericRow<T>]) {
+        self.items = items
+        super.init(frame: .zero)
+        setupView()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

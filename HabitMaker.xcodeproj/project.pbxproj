@@ -32,7 +32,6 @@
 		56876E6E244949040041EB5C /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56876E6D244949040041EB5C /* Identifiable.swift */; };
 		56876E70244954E00041EB5C /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56876E6F244954E00041EB5C /* UILabel+Extensions.swift */; };
 		5691004F2471E76900F58A7D /* GoalCriterion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5691004E2471E76900F58A7D /* GoalCriterion.swift */; };
-		5692971F246B5D5800B58D0F /* PickerViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5692971E246B5D5800B58D0F /* PickerViewPresenter.swift */; };
 		56963DD12454FAC500DAD05F /* MonthControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56963DD02454FAC500DAD05F /* MonthControl.swift */; };
 		56963DD324552B6700DAD05F /* DaysCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56963DD224552B6700DAD05F /* DaysCollectionView.swift */; };
 		56963DD524552C0F00DAD05F /* CalendarDayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56963DD424552C0F00DAD05F /* CalendarDayCollectionViewCell.swift */; };
@@ -51,6 +50,8 @@
 		56E635D22456328A001E4105 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E635D12456328A001E4105 /* UIImage+Extensions.swift */; };
 		56E635D52456465A001E4105 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E635D42456465A001E4105 /* UIColor+Extensions.swift */; };
 		56F02B44249300F30076D1CC /* Collection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F02B43249300F30076D1CC /* Collection+Extensions.swift */; };
+		56FC848C249A670B0041C61B /* GenericRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FC848B249A670B0041C61B /* GenericRow.swift */; };
+		56FC8490249A75140041C61B /* PickerViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FC848F249A75140041C61B /* PickerViewPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,7 +82,6 @@
 		56876E6D244949040041EB5C /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		56876E6F244954E00041EB5C /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		5691004E2471E76900F58A7D /* GoalCriterion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCriterion.swift; sourceTree = "<group>"; };
-		5692971E246B5D5800B58D0F /* PickerViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewPresenter.swift; sourceTree = "<group>"; };
 		56963DD02454FAC500DAD05F /* MonthControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthControl.swift; sourceTree = "<group>"; };
 		56963DD224552B6700DAD05F /* DaysCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysCollectionView.swift; sourceTree = "<group>"; };
 		56963DD424552C0F00DAD05F /* CalendarDayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -100,6 +100,8 @@
 		56E635D12456328A001E4105 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		56E635D42456465A001E4105 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		56F02B43249300F30076D1CC /* Collection+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extensions.swift"; sourceTree = "<group>"; };
+		56FC848B249A670B0041C61B /* GenericRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericRow.swift; sourceTree = "<group>"; };
+		56FC848F249A75140041C61B /* PickerViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,7 +238,8 @@
 		5692971D246B5D3B00B58D0F /* PickerView */ = {
 			isa = PBXGroup;
 			children = (
-				5692971E246B5D5800B58D0F /* PickerViewPresenter.swift */,
+				56FC848B249A670B0041C61B /* GenericRow.swift */,
+				56FC848F249A75140041C61B /* PickerViewPresenter.swift */,
 			);
 			path = PickerView;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56FC848C249A670B0041C61B /* GenericRow.swift in Sources */,
 				569952C8244F794F00678786 /* PickerHeaderTableViewCell.swift in Sources */,
 				569DB5C3245FB68900EE326E /* CompletionType.swift in Sources */,
 				56E635D52456465A001E4105 /* UIColor+Extensions.swift in Sources */,
@@ -343,11 +347,11 @@
 				56C296DC24512B6B00FFD725 /* UIView+Extensions.swift in Sources */,
 				560C414C2451DC3800588859 /* HabitDAO.swift in Sources */,
 				56876E69244944590041EB5C /* Date+Extensions.swift in Sources */,
-				5692971F246B5D5800B58D0F /* PickerViewPresenter.swift in Sources */,
 				5602D3562481DAEB007436C1 /* Habit+CoreDataProperties.swift in Sources */,
 				56876E6E244949040041EB5C /* Identifiable.swift in Sources */,
 				56F02B44249300F30076D1CC /* Collection+Extensions.swift in Sources */,
 				56963DD324552B6700DAD05F /* DaysCollectionView.swift in Sources */,
+				56FC8490249A75140041C61B /* PickerViewPresenter.swift in Sources */,
 				56C296DE24512B8D00FFD725 /* UIDevice+Extensions.swift in Sources */,
 				560E78D0244B87D500ADD546 /* SwitchTableViewCell.swift in Sources */,
 				56963DD12454FAC500DAD05F /* MonthControl.swift in Sources */,
