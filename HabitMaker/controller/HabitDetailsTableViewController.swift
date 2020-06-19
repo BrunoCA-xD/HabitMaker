@@ -211,17 +211,16 @@ extension HabitDetailsTableViewController: DaysCollectionViewFormattingDelegate 
         guard let date = cell.date else {return}
         let completion = habit.findCompletion(withDate: date)
         if completion != nil  {
+            cell.imageBadgeIcon = completion?.comment != nil ? UIImage(systemName: "bubble.left.fill") : nil
+            cell.layer.cornerRadius = 15.0
+            cell.layer.masksToBounds = false
             if completion!.isAchived {
-                cell.layer.cornerRadius = 15.0
-                cell.layer.borderWidth = 1.0
-                cell.layer.borderColor = UIColor.systemGreen.cgColor
-                cell.layer.masksToBounds = true
+                cell.layer.backgroundColor = UIColor.systemGreen.cgColor
             } else {
-                cell.layer.cornerRadius = 15.0
-                cell.layer.borderWidth = 1.0
-                cell.layer.borderColor = UIColor.systemRed.cgColor
-                cell.layer.masksToBounds = true
+                cell.layer.backgroundColor = UIColor.systemRed.cgColor
             }
+        } else {
+            cell.imageBadgeIcon = nil
         }
     }
     

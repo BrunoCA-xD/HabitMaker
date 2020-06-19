@@ -70,6 +70,7 @@ class DaysCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
     
     fileprivate func formatNormalCells(_ cell: CalendarDayCollectionViewCell) {
         cell.lbl.textColor = UIColor.label
+        cell.imageBadgeIcon = nil
     }
     
     //MARK: - CollectionView Delegate & DataSource
