@@ -15,7 +15,6 @@
 		560C414C2451DC3800588859 /* HabitDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560C414B2451DC3800588859 /* HabitDAO.swift */; };
 		560E78D0244B87D500ADD546 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560E78CF244B87D500ADD546 /* SwitchTableViewCell.swift */; };
 		560E78D4244B973C00ADD546 /* AddHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560E78D3244B973C00ADD546 /* AddHabitViewController.swift */; };
-		560E78D6244B9B9F00ADD546 /* ModalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560E78D5244B9B9F00ADD546 /* ModalHeaderView.swift */; };
 		560E78D8244BF57300ADD546 /* FormFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560E78D7244BF57300ADD546 /* FormFieldTableViewCell.swift */; };
 		5642AEDC24788E04005F4358 /* AddNumericCompletionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5642AEDB24788E04005F4358 /* AddNumericCompletionTableViewController.swift */; };
 		5642AEDE2478912E005F4358 /* StepperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5642AEDD2478912E005F4358 /* StepperTableViewCell.swift */; };
@@ -63,7 +62,6 @@
 		560C414B2451DC3800588859 /* HabitDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDAO.swift; sourceTree = "<group>"; };
 		560E78CF244B87D500ADD546 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		560E78D3244B973C00ADD546 /* AddHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitViewController.swift; sourceTree = "<group>"; };
-		560E78D5244B9B9F00ADD546 /* ModalHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalHeaderView.swift; sourceTree = "<group>"; };
 		560E78D7244BF57300ADD546 /* FormFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFieldTableViewCell.swift; sourceTree = "<group>"; };
 		5642AEDB24788E04005F4358 /* AddNumericCompletionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNumericCompletionTableViewController.swift; sourceTree = "<group>"; };
 		5642AEDD2478912E005F4358 /* StepperTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperTableViewCell.swift; sourceTree = "<group>"; };
@@ -194,7 +192,6 @@
 				5692971D246B5D3B00B58D0F /* PickerView */,
 				56AD239A2454B53F00F2708A /* Calendar */,
 				560E78CE244B87AE00ADD546 /* tableViewCells */,
-				560E78D5244B9B9F00ADD546 /* ModalHeaderView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -356,7 +353,6 @@
 				560E78D0244B87D500ADD546 /* SwitchTableViewCell.swift in Sources */,
 				56963DD12454FAC500DAD05F /* MonthControl.swift in Sources */,
 				56526782247EC31700E4060A /* FormTextViewFieldTableViewCell.swift in Sources */,
-				560E78D6244B9B9F00ADD546 /* ModalHeaderView.swift in Sources */,
 				565EFCF72460BF44004CA21A /* HabitTypeSelectorTableViewController.swift in Sources */,
 				56D07DE624983D520011FFFF /* Completion+CoreDataProperties.swift in Sources */,
 				560E78D4244B973C00ADD546 /* AddHabitViewController.swift in Sources */,

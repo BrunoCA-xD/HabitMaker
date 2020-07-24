@@ -15,7 +15,6 @@ protocol HabitDetailsTableViewControllerDelegate: class {
 class HabitDetailsTableViewController: UIViewController {
     
     //MARK: - Outlets
-    var headerView: ModalHeaderView!
     let tableview: UITableView = {
         let tv = UITableView(frame: CGRect(), style: .grouped)
         tv.translatesAutoresizingMaskIntoConstraints = false
@@ -30,14 +29,8 @@ class HabitDetailsTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        headerView = {
-            let v = ModalHeaderView(needsConfirmButton: false)
-            v.headerTitle.text = "Habit "
-            v.delegate = self
-            v.backgroundColor = UIColor.systemBackground
-            return v
-        }()
-        view.addSubview(headerView)
+        setupNavigation()
+        
         view.addSubview(tableview)
         
         tableview.delegate = self
@@ -47,24 +40,24 @@ class HabitDetailsTableViewController: UIViewController {
         
         setupConstraints()
         
-        headerView.headerTitle.text = habit?.title
         
     }
+    func setupNavigation() {
+        navigationItem.title = "\(habit.title ?? "")"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
+        
+        let closeButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(self.closeButtonTapped))
+        navigationItem.leftBarButtonItems = [closeButton]
+    }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        delegate?.close(viewController: self, item: habit)
+    @objc func closeButtonTapped() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     fileprivate func setupConstraints() {
-        //MARK: headerView constraints
-        headerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        headerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
+
         //MARK: tableview constraints
-        tableview.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
+        tableview.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableview.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableview.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         tableview.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -141,13 +134,6 @@ extension HabitDetailsTableViewController: UITableViewDataSource {
     }
     
     
-}
-
-extension HabitDetailsTableViewController: ModalHeaderActionsDelegate {
-    
-    func closeButtonTapped() {
-        delegate?.close(viewController: self, item: habit)
-    }
 }
 
 extension HabitDetailsTableViewController: DayCellActionsDelegate {

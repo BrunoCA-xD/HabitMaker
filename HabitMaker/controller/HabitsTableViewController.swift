@@ -49,7 +49,8 @@ class HabitsTableViewController: UITableViewController {
         vc.delegate = self
         vc.habit = habit
         tableView.deselectRow(at: indexPath, animated: true)
-        present(vc, animated: true)
+        let newNav = UINavigationController(rootViewController: vc)
+        self.present(newNav, animated: true, completion: nil)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -59,7 +60,6 @@ class HabitsTableViewController: UITableViewController {
         
         cell.titleLabel.text = habits[indexPath.row].title
         cell.streakLabel.text = "Streak: \(habits[indexPath.row].currStreak)"
-        cell.colorView.backgroundColor = .red
         
         return cell
     }
@@ -82,6 +82,7 @@ class HabitsTableViewController: UITableViewController {
     //MARK: - Setup's
     func setupNavigation() {
         navigationItem.title = "Habits"
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
         
