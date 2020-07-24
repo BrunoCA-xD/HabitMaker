@@ -16,20 +16,22 @@ class CalendarView: UIStackView {
     var weekdaysView: WeekDaysStackView!
     var daysCollection: DaysCollectionView?
     
-    var showingMonthIndex = 0 {
+    var showingMonthIndex = Date.currentMonth {
         didSet {
-            daysCollection?.numOfDaysByMonth = Date.numOfDaysByMonth(inYear: showingYear-1)
+            daysCollection?.firstWeekdayOfMonth = Date.firstWeekday(inMonth: showingMonthIndex+1, inYear: showingYear)
         }
     }
-    var showingYear = 0
+    var showingYear = Date.currentYear{
+        didSet {
+            if oldValue != showingYear {
+                daysCollection?.numOfDaysByMonth = Date.numOfDaysByMonth(inYear: showingYear)
+            }
+        }
+    }
     
     fileprivate func initializeAttributes() {
-        showingMonthIndex = Calendar.current.component(.month, from: Date())-1
-        showingYear = Calendar.current.component(.year, from: Date())
-        
         monthControl.updateMonthSymbol(monthIndex: showingMonthIndex, year: showingYear)
         daysCollection?.refreshData()
-        
     }
     
     private func commonInit() {
@@ -93,7 +95,7 @@ extension CalendarView: MonthControlActions {
             showingMonthIndex = 0
             showingYear += 1
         }
-       monthControl.updateMonthSymbol(monthIndex: showingMonthIndex, year: showingYear)
+        monthControl.updateMonthSymbol(monthIndex: showingMonthIndex, year: showingYear)
         daysCollection?.refreshData()
     }
     

@@ -23,10 +23,10 @@ class DaysCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
     weak var calendarView: CalendarView!
     
     var numOfDaysByMonth = Date.numOfDaysByMonth(inYear: nil)
-    var presentMonthIndex = 0
-    var presentYear = 0
+    var presentMonthIndex = Date.currentMonth
+    var presentYear = Date.currentYear
     var todaysDate = 0
-    var firstWeekdayOfMonth = 0 //(Sunday-Saturday 1-7)
+    var firstWeekdayOfMonth = Date.firstWeekday()
     
     weak var formattingDelegate: DaysCollectionViewFormattingDelegate?
 
@@ -44,22 +44,14 @@ class DaysCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
     func refreshData(){
         
         todaysDate = Calendar.current.component(.day, from: Date())
-        firstWeekdayOfMonth = getFirstWeekday()
         
-        presentMonthIndex = Calendar.current.component(.month, from: Date())-1
+        presentMonthIndex = Date.currentMonth
         
-        presentYear = Calendar.current.component(.year, from: Date())
+        presentYear = Date.currentYear
         
         reloadData()
     }
     
-    func getFirstWeekday() -> Int{
-        let monthDate = Calendar.current.date(from: DateComponents(year: calendarView.showingYear, month: calendarView.showingMonthIndex,day:1))!
-        
-        let day = Calendar.current.component(.weekday, from: monthDate )
-        
-        return day == 7 ? 1 : day
-    }
     
     //MARK: - Cell format methods
     fileprivate func formatTodaysCell(_ cell: CalendarDayCollectionViewCell) {

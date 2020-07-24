@@ -11,11 +11,25 @@ import Foundation
 extension Date {
     
     private var calendar: Calendar {
-        return Calendar.current
+        return Self.calendar
     }
     
     private static var calendar: Calendar {
         return Calendar.current
+    }
+    
+    static var currentMonth: Int {
+        return calendar.component(.month, from: Date())-1
+    }
+    static var currentYear: Int {
+        return calendar.component(.year, from: Date())
+    }
+    
+    private var currentMonth: Int {
+        return Self.currentMonth
+    }
+    private var currentYear: Int {
+        return Self.currentYear
     }
     
     var isToday: Bool {
@@ -29,7 +43,7 @@ extension Date {
     /// Discovers when is the next date by adding 1 day to self
     /// - Returns: a Date representing self adding 1 day
     func nextDate() -> Date? {
-        return Calendar.current.date(byAdding: DateComponents(day:1), to: self)
+        return calendar.date(byAdding: DateComponents(day:1), to: self)
     }
     
     /// Returns only the date part of a Date converted to String
@@ -71,5 +85,13 @@ extension Date {
             numOfDaysByMonth.append(numDays)
         }
         return numOfDaysByMonth
+    }
+    
+    static func firstWeekday(inMonth month: Int? = currentMonth+1, inYear year: Int? = currentYear) -> Int{
+        let monthDate = calendar.date(from: DateComponents(year: year!, month: month!, day:1))!
+        
+        let day = calendar.component(.weekday, from: monthDate )
+        
+        return day
     }
 }
