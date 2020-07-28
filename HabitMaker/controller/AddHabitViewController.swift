@@ -13,6 +13,10 @@ protocol AddHabitViewControllerDelegate {
     func addHabit(_ item: Habit)
 }
 
+protocol EditHabitViewControllerDelegate {
+    func editHabit(_ item: Habit)
+}
+
 class AddHabitViewController: UIViewController {
     
     //MARK: - Outlets
@@ -24,15 +28,17 @@ class AddHabitViewController: UIViewController {
     var confirmItem: UIBarButtonItem!
     
     //MARK: - Attributes
-    var delegate: AddHabitViewControllerDelegate!
+    var addDelegate: AddHabitViewControllerDelegate!
+    var editDelegate: EditHabitViewControllerDelegate!
     var habitDAO = HabitDAO()
-    var newHabit: Habit!
+    var habit: Habit!
     var successfullPhrase: String = ""
+    var isEditingHabit = false
     
     var selectedItem: GoalCriterion?{
         didSet {
             if selectedItem != nil {
-                newHabit.goalCriterion = selectedItem!.rawValue
+                habit.goalCriterion = selectedItem!.rawValue
                 tableview.reloadRows(at: [IndexPath(row: 1, section: 1)], with: .automatic)
                 updateSectionFooter()
             }
@@ -54,7 +60,7 @@ class AddHabitViewController: UIViewController {
         
         view.addSubview(tableview)
         
-        newHabit = habitDAO.genNew()
+        habit = habitDAO.genNew()
         setupNavigation()
         setupConstraints()
         
@@ -92,7 +98,7 @@ class AddHabitViewController: UIViewController {
             !textField.text!.isEmpty,
             let title = textField.text
         else{ return }
-        newHabit.title = title
+        habit.title = title
     }
     
     @objc func numberTextFieldDidChange(_ textField: UITextField) {
@@ -101,7 +107,7 @@ class AddHabitViewController: UIViewController {
             !textField.text!.isEmpty,
             let number = Double(textField.text!)
         else{ return }
-        newHabit.goalNumber = number
+        habit.goalNumber = number
         updateSectionFooter()
     }
     
@@ -110,7 +116,7 @@ class AddHabitViewController: UIViewController {
         guard textField.text != nil,
             !textField.text!.isEmpty
         else{ return }
-        newHabit.goalAction = textField.text!
+        habit.goalAction = textField.text!
         updateSectionFooter()
     }
     
@@ -119,7 +125,7 @@ class AddHabitViewController: UIViewController {
         guard textField.text != nil,
             !textField.text!.isEmpty
         else{ return }
-        newHabit.goalUnit = textField.text!
+        habit.goalUnit = textField.text!
         updateSectionFooter()
     }
     
@@ -128,7 +134,11 @@ class AddHabitViewController: UIViewController {
     }
     
     @objc func confirmTapped() {
-        delegate.addHabit(newHabit)
+        if isEditingHabit {
+            editDelegate.editHabit(habit)
+        }else {
+            addDelegate.addHabit(habit)
+        }
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -137,7 +147,7 @@ class AddHabitViewController: UIViewController {
         var indices: [IndexPath] = [
             IndexPath(row: 0, section: 0)
         ]
-        if newHabit.type == CompletionType.numeric.rawValue {
+        if habit.type == CompletionType.numeric.rawValue {
             indices.append(contentsOf: [
                 IndexPath(row: 0, section: 1),
                 IndexPath(row: 1, section: 1),
@@ -171,10 +181,10 @@ extension AddHabitViewController:  UITableViewDelegate {
         if indexPath.section == 0 && indexPath.row == 1 {
             let vc = HabitTypeSelectorTableViewController()
             vc.delegate = self
-            vc.selected = CompletionType(rawValue: newHabit.type)!
+            vc.selected = CompletionType(rawValue: habit.type)!
             navigationController?.show(vc, sender: self)
         }else if indexPath.section == 1 && indexPath.row == 1{
-            let itemSelected = GoalCriterion(rawValue: newHabit.goalCriterion ?? "") ?? GoalCriterion.lessThanOrEqual
+            let itemSelected = GoalCriterion(rawValue: habit.goalCriterion ?? "") ?? GoalCriterion.lessThanOrEqual
             pickerViewPresenter.selectedItem = GenericRow<GoalCriterion>(type:itemSelected, showText: itemSelected.showValue)
             pickerViewPresenter.showPicker()
         }
@@ -190,7 +200,7 @@ extension AddHabitViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if newHabit.type == CompletionType.yesNo.rawValue && section == 1 {
+        if habit.type == CompletionType.yesNo.rawValue && section == 1 {
             return 0
         }
         
@@ -206,11 +216,14 @@ extension AddHabitViewController: UITableViewDataSource {
                 cell.label.text = "Title"
                 cell.value.placeholder = "Habit title"
                 cell.value.addTarget(self, action: #selector(Self.titleTextFieldDidChange(_:)), for: .allEditingEvents)
+                if isEditingHabit {
+                    cell.value.text = habit.title
+                }
                 return cell
             }else{
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: "type")
                 cell.textLabel?.text = "Type"
-                cell.detailTextLabel?.text = CompletionType(rawValue: newHabit.type)?.description
+                cell.detailTextLabel?.text = CompletionType(rawValue: habit.type)?.description
                 cell.accessoryType = .disclosureIndicator
                 return cell
             }
@@ -226,7 +239,7 @@ extension AddHabitViewController: UITableViewDataSource {
             case 1 :
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: "metric")
                 cell.textLabel?.text = "Metric"
-                cell.detailTextLabel?.text = GoalCriterion(rawValue: newHabit.goalCriterion ?? GoalCriterion.lessThanOrEqual.rawValue)?.showValue
+                cell.detailTextLabel?.text = GoalCriterion(rawValue: habit.goalCriterion ?? GoalCriterion.lessThanOrEqual.rawValue)?.showValue
                 return cell
             case 2:
                 let cell = FormFieldTableViewCell()
@@ -235,13 +248,18 @@ extension AddHabitViewController: UITableViewDataSource {
                 cell.value.keyboardType = .numberPad
                 cell.value.addDoneButtonOnKeyboard()
                 cell.value.addTarget(self, action: #selector(Self.numberTextFieldDidChange(_:)), for: .allEditingEvents)
-                
+                if isEditingHabit {
+                    cell.value.text = "\(habit.goalNumber)"
+                }
                 return cell
             case 3:
                 let cell = FormFieldTableViewCell()
                 cell.label.text = "Unit"
                 cell.value.placeholder = "e.g: pages, cups, miles"
                 cell.value.addTarget(self, action: #selector(Self.unitTextFieldDidChange(_:)), for: .allEditingEvents)
+                if isEditingHabit {
+                    cell.value.text = habit.goalUnit
+                }
                 return cell
             default:
                 return UITableViewCell()
@@ -250,14 +268,14 @@ extension AddHabitViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 1 && newHabit.type == CompletionType.numeric.rawValue {
+        if section == 1 && habit.type == CompletionType.numeric.rawValue {
             return "When is a day successfull?"
         }
         return nil
     }
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        if section == 1 && newHabit.type == CompletionType.numeric.rawValue {
+        if section == 1 && habit.type == CompletionType.numeric.rawValue {
             return successfullPhrase
         }
         return nil
@@ -270,11 +288,11 @@ extension AddHabitViewController{
     
     private func updateSectionFooter() {
         
-        let action = newHabit.goalAction ?? "do"
-        let goalCriterion = GoalCriterion(rawValue: newHabit.goalCriterion ?? GoalCriterion.lessThanOrEqual.rawValue)
+        let action = habit.goalAction ?? "do"
+        let goalCriterion = GoalCriterion(rawValue: habit.goalCriterion ?? GoalCriterion.lessThanOrEqual.rawValue)
         let criterion = goalCriterion?.showValue ?? GoalCriterion.lessThanOrEqual.showValue
-        let number = newHabit.goalNumber
-        let unit = newHabit.goalUnit ?? "Units"
+        let number = habit.goalNumber
+        let unit = habit.goalUnit ?? "Units"
         
         successfullPhrase = "When I "
         
@@ -309,7 +327,7 @@ extension AddHabitViewController{
 extension AddHabitViewController: HabitTypeSelectorActions {
     //Item Selection on the view controller selector
     func didSelect( type: CompletionType) {
-        newHabit.type = type.rawValue
+        habit.type = type.rawValue
         updateTableView {
             self.tableview.reloadSections(IndexSet(arrayLiteral: 1), with: .automatic)
             self.tableview.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
@@ -323,8 +341,8 @@ extension AddHabitViewController: PickerViewPresenterDelegate {
     func selected(item: Any) {
         if let row = item as? GenericRow<GoalCriterion> {
             let criterion = row.type
-            if newHabit.goalCriterion != criterion.rawValue {
-                newHabit.goalCriterion = criterion.rawValue
+            if habit.goalCriterion != criterion.rawValue {
+                habit.goalCriterion = criterion.rawValue
                 self.tableview.reloadRows(at: [IndexPath(row: 1, section: 1)], with: .automatic)
             }
         }

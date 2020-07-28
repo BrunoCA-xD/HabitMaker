@@ -48,11 +48,24 @@ class HabitDetailsTableViewController: UIViewController {
         
         let closeButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(self.closeButtonTapped))
         navigationItem.leftBarButtonItems = [closeButton]
+        
+        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(self.editButtonTapped))
+        navigationItem.rightBarButtonItems = [editButton]
     }
     
     @objc func closeButtonTapped() {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    @objc func editButtonTapped() {
+        let vc  = AddHabitViewController()
+        vc.editDelegate = self
+        let newNav = UINavigationController(rootViewController: vc)
+        self.present(newNav, animated: true, completion: nil)
+        vc.habit = habit
+        vc.isEditingHabit = true
+    }
+    
     
     fileprivate func setupConstraints() {
 
@@ -209,8 +222,6 @@ extension HabitDetailsTableViewController: DaysCollectionViewFormattingDelegate 
             cell.imageBadgeIcon = nil
         }
     }
-    
-    
 }
 
 extension HabitDetailsTableViewController: AddNumericCompletionDelegate {
@@ -236,5 +247,12 @@ extension HabitDetailsTableViewController: AddNumericCompletionDelegate {
         reloadCalendar()
         
     }
-    
+}
+
+extension HabitDetailsTableViewController: EditHabitViewControllerDelegate {
+    func editHabit(_ item: Habit) {
+        habit = item
+        habitDAO.save()
+        print("saved")
+    }
 }

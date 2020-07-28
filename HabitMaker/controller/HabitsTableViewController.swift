@@ -98,7 +98,7 @@ class HabitsTableViewController: UITableViewController {
     //MARK: - Actions
     @objc func addHabitTapped() {
         let vc  = AddHabitViewController()
-        vc.delegate = self
+        vc.addDelegate = self
         let newNav = UINavigationController(rootViewController: vc)
         self.present(newNav, animated: true, completion: nil)
     }
