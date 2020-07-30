@@ -75,7 +75,9 @@ class AddNumericCompletionTableViewController: UITableViewController {
     }
     
     @objc func cancelTapped() {
-        habit?.removeFromCompletions(completion)
+        if oldCompletion == nil {
+            habit?.removeFromCompletions(completion)
+        }
         delegate?.didCancel(vc: self)
     }
     
@@ -95,32 +97,13 @@ class AddNumericCompletionTableViewController: UITableViewController {
     @objc func achivedNumberChanged(stepper: UIStepper) {
         let achievedNumber = stepper.value
         completion?.achievedNumber = achievedNumber
-        setIsAchived(achievedNumber)
+        completion.setIsAchived()
     }
     
     @objc func commentTextChanged(_ textView: UITextView) {
         completion?.comment = textView.text
     }
     
-    func setIsAchived(_ achievedNumber: Double) {
-        let goalNumber = completion?.habit?.goalNumber ?? 0.0
-        let criterionAsString = completion?.habit?.goalCriterion ?? ""
-        let goalCriterion = GoalCriterion(rawValue: criterionAsString)
-        var isAchieved = false
-        switch goalCriterion {
-        case .lessThanOrEqual:
-            isAchieved = achievedNumber <= goalNumber
-            break
-        case .greaterThanOrEqual:
-            isAchieved = achievedNumber >= goalNumber
-            break
-        default:
-            isAchieved =  achievedNumber == goalNumber
-        }
-        completion?.isAchived = isAchieved
-    }
-    
-   
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1

@@ -11,7 +11,11 @@ import UIKit
 class HabitsTableViewController: UITableViewController {
     
     //MARK: - Attributes
-    var habits:[Habit] = []
+    var habits: [Habit] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     var habitDAO = HabitDAO()
     
     //MARK: - view life Cycles
@@ -23,12 +27,11 @@ class HabitsTableViewController: UITableViewController {
         
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
-        
+        habits = habitDAO.listAll()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadHabits), name: NSNotification.Name(rawValue: "reloadHabits"), object: nil)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+    @objc func reloadHabits() {
         habits = habitDAO.listAll()
     }
     
@@ -97,14 +100,14 @@ class HabitsTableViewController: UITableViewController {
     
     //MARK: - Actions
     @objc func addHabitTapped() {
-        let vc  = AddHabitViewController()
-        vc.addDelegate = self
+        let vc  = AddOrEditHabitViewController()
+        vc.delegate = self
         let newNav = UINavigationController(rootViewController: vc)
         self.present(newNav, animated: true, completion: nil)
     }
 }
 
-extension HabitsTableViewController: AddHabitViewControllerDelegate{
+extension HabitsTableViewController: AddOrEditHabitViewControllerDelegate{
     func addHabit(_ item: Habit) {
         habitDAO.save()
         habits.append(item)

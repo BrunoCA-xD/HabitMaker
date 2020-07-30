@@ -20,6 +20,10 @@ public class Habit: NSManagedObject {
         }
     }
     
+    var goalCriterionLiteral: GoalCriterion? {
+        GoalCriterion(rawValue: self.goalCriterion ?? "")
+    }
+    
     public override func awakeFromInsert() {
         super.awakeFromInsert()
         self.createdAt = Date()
@@ -49,5 +53,38 @@ public class Habit: NSManagedObject {
                 return true
         }) as? Completion
         return completionFound
+    }
+    
+    func checkTheCompletionsAchived() {
+        if completions == nil || completions!.count == 0 { return }
+        let complets = completions?.compactMap{$0 as? Completion} ?? []
+        
+        complets.forEach { completion in
+            completion.setIsAchived()
+        }
+        calculateStreaks()
+    }
+    
+    /// Calculates the streaks of a habit before save it
+    /// - Parameter item: item to be calculated
+    func calculateStreaks() {
+          var complets = self.completions?.allObjects as! [Completion]
+          var longest = 0
+          var current = 0
+          
+          complets.sort { return $0.date! < $1.date! }
+          let filteredList = complets.filter{ return $0.isAchived }
+          let consecutiveList = filteredList.splitConsecutive()
+          if !consecutiveList.isEmpty {
+              for list in consecutiveList {
+                  if list.count > longest {
+                      longest = list.count
+                  }
+              }
+              current = consecutiveList.last!.count
+          }
+          
+          self.currStreak = Int64(current)
+          self.bestStreak = Int64(longest)
     }
 }

@@ -9,15 +9,17 @@
 import UIKit
 
 
-protocol AddHabitViewControllerDelegate {
+protocol AddOrEditHabitViewControllerDelegate: class {
     func addHabit(_ item: Habit)
-}
-
-protocol EditHabitViewControllerDelegate {
     func editHabit(_ item: Habit)
 }
 
-class AddHabitViewController: UIViewController {
+extension AddOrEditHabitViewControllerDelegate {
+    func addHabit(_ item: Habit) {}
+    func editHabit(_ item: Habit) {}
+}
+
+class AddOrEditHabitViewController: UIViewController {
     
     //MARK: - Outlets
     let tableview: UITableView = {
@@ -28,10 +30,16 @@ class AddHabitViewController: UIViewController {
     var confirmItem: UIBarButtonItem!
     
     //MARK: - Attributes
-    var addDelegate: AddHabitViewControllerDelegate!
-    var editDelegate: EditHabitViewControllerDelegate!
+    weak var delegate: AddOrEditHabitViewControllerDelegate?
     var habitDAO = HabitDAO()
-    var habit: Habit!
+    var canEdit = false
+    var habit: Habit! {
+        didSet{
+            if isEditingHabit {
+                canEdit = habit.completions!.count == 0
+            }
+        }
+    }
     var successfullPhrase: String = ""
     var isEditingHabit = false
     
@@ -59,8 +67,9 @@ class AddHabitViewController: UIViewController {
         self.modalTransitionStyle = .coverVertical
         
         view.addSubview(tableview)
-        
-        habit = habitDAO.genNew()
+        if !isEditingHabit {
+            habit = habitDAO.genNew()
+        }
         setupNavigation()
         setupConstraints()
         
@@ -72,9 +81,15 @@ class AddHabitViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        //reloads the tableviewData
+        super.viewWillAppear(animated)
+        tableview.reloadData()
+    }
+    
     //MARK: - Setup's
     func setupNavigation() {
-        navigationItem.title = "New Habit"
+        navigationItem.title = isEditingHabit ? "Editing Habit" : "New Habit"
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
         let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelTapped))
         self.navigationItem.leftBarButtonItems = [cancelItem]
@@ -135,9 +150,12 @@ class AddHabitViewController: UIViewController {
     
     @objc func confirmTapped() {
         if isEditingHabit {
-            editDelegate.editHabit(habit)
+            delegate?.editHabit(habit)
         }else {
-            addDelegate.addHabit(habit)
+            delegate?.addHabit(habit)
+        }
+        if habit.title == nil || habit.title!.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            habitDAO.delete(item: habit)
         }
         self.dismiss(animated: true, completion: nil)
     }
@@ -171,14 +189,17 @@ class AddHabitViewController: UIViewController {
 }
 
 //MARK: - UITableViewDelegate
-extension AddHabitViewController:  UITableViewDelegate {
+extension AddOrEditHabitViewController:  UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         if indexPath.section == 0 && indexPath.row == 1 {
+            if isEditingHabit && !canEdit {return}
             let vc = HabitTypeSelectorTableViewController()
             vc.delegate = self
             vc.selected = CompletionType(rawValue: habit.type)!
@@ -188,12 +209,15 @@ extension AddHabitViewController:  UITableViewDelegate {
             pickerViewPresenter.selectedItem = GenericRow<GoalCriterion>(type:itemSelected, showText: itemSelected.showValue)
             pickerViewPresenter.showPicker()
         }
-        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return section == 0 ? nil : UIView()
     }
 }
 
 //MARK: - UITableViewDataSource
-extension AddHabitViewController: UITableViewDataSource {
+extension AddOrEditHabitViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -235,6 +259,9 @@ extension AddHabitViewController: UITableViewDataSource {
                 cell.value.placeholder = "e.g: run, drink, read..."
                 cell.value.returnKeyType = .next
                 cell.value.addTarget(self, action: #selector(Self.actionTextFieldDidChange(_:)), for: .allEditingEvents)
+                if isEditingHabit {
+                    cell.value.text = habit.goalAction
+                }
                 return cell
             case 1 :
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: "metric")
@@ -284,7 +311,7 @@ extension AddHabitViewController: UITableViewDataSource {
 }
 
 //MARK: - TableView Helpers
-extension AddHabitViewController{
+extension AddOrEditHabitViewController{
     
     private func updateSectionFooter() {
         
@@ -324,7 +351,7 @@ extension AddHabitViewController{
     }
 }
 
-extension AddHabitViewController: HabitTypeSelectorActions {
+extension AddOrEditHabitViewController: HabitTypeSelectorActions {
     //Item Selection on the view controller selector
     func didSelect( type: CompletionType) {
         habit.type = type.rawValue
@@ -336,7 +363,7 @@ extension AddHabitViewController: HabitTypeSelectorActions {
     }
 }
 
-extension AddHabitViewController: PickerViewPresenterDelegate {
+extension AddOrEditHabitViewController: PickerViewPresenterDelegate {
     //Item Selection on pickerView
     func selected(item: Any) {
         if let row = item as? GenericRow<GoalCriterion> {

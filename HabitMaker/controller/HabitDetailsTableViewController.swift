@@ -24,7 +24,12 @@ class HabitDetailsTableViewController: UIViewController {
     weak var delegate: HabitDetailsTableViewControllerDelegate?
     
     var habitDAO = HabitDAO()
-    var habit: Habit!
+    var habit: Habit! {
+        didSet {
+            navigationItem.title = "\(habit.title ?? "")"
+            reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +48,6 @@ class HabitDetailsTableViewController: UIViewController {
         
     }
     func setupNavigation() {
-        navigationItem.title = "\(habit.title ?? "")"
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
         
         let closeButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(self.closeButtonTapped))
@@ -55,15 +59,17 @@ class HabitDetailsTableViewController: UIViewController {
     
     @objc func closeButtonTapped() {
         self.dismiss(animated: true, completion: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadHabits"), object: nil)
+
     }
     
     @objc func editButtonTapped() {
-        let vc  = AddHabitViewController()
-        vc.editDelegate = self
+        let vc  = AddOrEditHabitViewController()
+        vc.delegate = self
         let newNav = UINavigationController(rootViewController: vc)
         self.present(newNav, animated: true, completion: nil)
-        vc.habit = habit
         vc.isEditingHabit = true
+        vc.habit = habit
     }
     
     
@@ -192,7 +198,8 @@ extension HabitDetailsTableViewController: DayCellActionsDelegate {
                     CompletionDAO().delete(completion: completion!)
                 }
             }
-            habitDAO.calculateStreaks(habit)
+            habit.calculateStreaks()
+            habitDAO.save()
             reloadCalendar()
         }
     }
@@ -236,23 +243,26 @@ extension HabitDetailsTableViewController: AddNumericCompletionDelegate {
             habit.removeFromCompletions(oldCompletion!)
             habit.addToCompletions(newCompletion)
         }
-        habitDAO.calculateStreaks(habit)
+        habit.calculateStreaks()
+        habitDAO.save()
         reloadCalendar()
     }
     func didDelete(vc: AddNumericCompletionTableViewController, oldCompletion: Completion?) {
         vc.dismiss(animated: true, completion: nil)
         habit.removeFromCompletions(oldCompletion!)
         CompletionDAO().delete(completion: oldCompletion!)
-        habitDAO.calculateStreaks(habit)
+        habit.calculateStreaks()
+        habitDAO.save()
         reloadCalendar()
         
     }
 }
 
-extension HabitDetailsTableViewController: EditHabitViewControllerDelegate {
+extension HabitDetailsTableViewController: AddOrEditHabitViewControllerDelegate {
     func editHabit(_ item: Habit) {
         habit = item
+        habit.checkTheCompletionsAchived()
         habitDAO.save()
-        print("saved")
+        reloadCalendar()
     }
 }

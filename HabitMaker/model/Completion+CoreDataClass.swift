@@ -28,4 +28,21 @@ public class Completion: NSManagedObject {
         }
         return false
     }
+    
+    func setIsAchived() {
+        let goalNumber = habit?.goalNumber ?? 0.0
+        let goalCriterion = habit?.goalCriterionLiteral
+        var isAchieved = false
+        switch goalCriterion {
+        case .lessThanOrEqual:
+            isAchieved = achievedNumber <= goalNumber
+            break
+        case .greaterThanOrEqual:
+            isAchieved = achievedNumber >= goalNumber
+            break
+        default:
+            isAchieved =  achievedNumber == goalNumber
+        }
+        isAchived = isAchieved
+    }
 }
