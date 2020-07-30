@@ -11,11 +11,7 @@ import UIKit
 class HabitsTableViewController: UITableViewController {
     
     //MARK: - Attributes
-    var habits: [Habit] = [] {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    var habits: [Habit] = []
     var habitDAO = HabitDAO()
     
     //MARK: - view life Cycles
@@ -33,6 +29,7 @@ class HabitsTableViewController: UITableViewController {
     
     @objc func reloadHabits() {
         habits = habitDAO.listAll()
+        tableView.reloadData()
     }
     
     // MARK: - Table view data source
@@ -109,7 +106,7 @@ class HabitsTableViewController: UITableViewController {
 
 extension HabitsTableViewController: AddOrEditHabitViewControllerDelegate{
     func addHabit(_ item: Habit) {
-        habitDAO.save()
+        habitDAO.insert(item)
         habits.append(item)
         let index = IndexPath(row: habits.count-1, section: 0)
         tableView.insertRows(at: [index], with: .automatic)

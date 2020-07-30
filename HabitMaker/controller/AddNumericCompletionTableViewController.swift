@@ -82,6 +82,7 @@ class AddNumericCompletionTableViewController: UITableViewController {
     }
     
     @objc func confirmTapped() {
+        completion.setIsAchived()
         delegate?.didSave(vc: self, newCompletion: completion, oldCompletion: oldCompletion )
     }
     

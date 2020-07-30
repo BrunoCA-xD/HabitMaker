@@ -58,6 +58,7 @@ class AddOrEditHabitViewController: UIViewController {
         }
         let pickerViewPresenter = PickerViewPresenter<GoalCriterion>(withItems: items)
         pickerViewPresenter.pickerDelegate = self
+        pickerViewPresenter.selectedItem = items.first
         return pickerViewPresenter
     }()
     
@@ -94,7 +95,9 @@ class AddOrEditHabitViewController: UIViewController {
         let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelTapped))
         self.navigationItem.leftBarButtonItems = [cancelItem]
         confirmItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.confirmTapped))
-        confirmItem.isEnabled = false
+        if !isEditingHabit {
+            confirmItem.isEnabled = false
+        }
         self.navigationItem.rightBarButtonItems = [confirmItem]
     }
     
@@ -152,10 +155,11 @@ class AddOrEditHabitViewController: UIViewController {
         if isEditingHabit {
             delegate?.editHabit(habit)
         }else {
+            if habit.goalCriterion == nil || habit.goalCriterion?.count == 0 {
+                let criterion = pickerViewPresenter.selectedItem?.type
+                habit.goalCriterion = criterion?.rawValue
+            }
             delegate?.addHabit(habit)
-        }
-        if habit.title == nil || habit.title!.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            habitDAO.delete(item: habit)
         }
         self.dismiss(animated: true, completion: nil)
     }

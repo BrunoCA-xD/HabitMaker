@@ -29,10 +29,15 @@ class HabitDAO {
     /// Generates a new habit using its entity and the context
     /// - Returns: a new habit to be used
     func genNew() -> Habit {
-        return Habit(entity: Habit.entity(), insertInto: context)
+        return Habit(entity: Habit.entity(), insertInto: nil)
     }
     
     /// Calls the generic method to save the database context
+    func insert(_ item: Habit) {
+        context.insert(item)
+        save()
+    }
+    
     func save() {
         CoreDataDAO.shared.saveContext()
     }

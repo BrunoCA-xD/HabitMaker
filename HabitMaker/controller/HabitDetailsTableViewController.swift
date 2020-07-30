@@ -59,8 +59,11 @@ class HabitDetailsTableViewController: UIViewController {
     
     @objc func closeButtonTapped() {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadHabits"), object: nil)
-
     }
     
     @objc func editButtonTapped() {
