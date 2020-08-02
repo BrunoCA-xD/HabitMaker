@@ -71,9 +71,12 @@ class HabitsTableViewController: UITableViewController {
         let habit = habits[indexPath.row]
         switch editingStyle {
         case .delete:
-            habits.remove(at: indexPath.row)
-            habitDAO.delete(item: habit)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+            AlertUtility.destructiveConfirmation(self, message: "All data related to this habit will permanently be deleted. Want to proceed?", style: .actionSheet) { _ in
+                    
+                    self.habits.remove(at: indexPath.row)
+                    self.habitDAO.delete(item: habit)
+                    self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
         default:
             break
         }

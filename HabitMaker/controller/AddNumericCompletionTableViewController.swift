@@ -87,7 +87,9 @@ class AddNumericCompletionTableViewController: UITableViewController {
     }
     
     @objc func deleteTapped() {
-        delegate?.didDelete(vc: self, oldCompletion: oldCompletion)
+        AlertUtility.destructiveConfirmation(self, message: "The data related to this date will be deleted permanently. Want to proceed?", style: .actionSheet) { _ in
+            self.delegate?.didDelete(vc: self, oldCompletion: self.oldCompletion)
+        }
     }
     
     @objc func editTapped() {

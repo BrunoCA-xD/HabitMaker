@@ -8,18 +8,29 @@
 
 import Foundation
 import UIKit
-//TODO: I'm not using this utility class anymore
+
 class AlertUtility {
     
-    /// Shows a standard information alert 
+    /// Shows a standard destructive dialog, can be an Alert or an ActionSheet
     /// - Parameters:
-    ///   - title: alert title
-    ///   - message: alert message
-    ///   - viewController: who'll present the alert
-    static func alertWithTitle(title: String!, message: String, viewController: UIViewController) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        alert.addAction(action)
-        viewController.present(alert, animated: true, completion: nil)
+    ///   - viewController: the vc where the dialog will be presented
+    ///   - title: The title for the dialog
+    ///   - message: Something to explain why it has appeared and the effects of the following actions
+    ///   - style: of the dialog, can be an actionSheet or Alert
+    ///   - cancelAction: handler to be used when user cancels
+    ///   - confirmAction: handler to be used when user confirms
+    static func destructiveConfirmation(_ viewController: UIViewController,
+                                        title: String = "Confirmation",
+                                        message: String,
+                                        style: UIAlertController.Style,
+                                        cancelAction:  ((UIAlertAction) -> Void)? = nil,
+                                        confirmAction: ((UIAlertAction) -> Void)? = nil) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: style)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: cancelAction)
+        let confirmAction = UIAlertAction(title: "Delete", style: .destructive, handler: confirmAction)
+        alert.addAction(cancelAction)
+        alert.addAction(confirmAction)
+        viewController.present(alert, animated: true)
     }
 }
