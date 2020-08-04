@@ -180,8 +180,8 @@
 				56D07DE524983D520011FFFF /* Completion+CoreDataProperties.swift */,
 				569DB5C2245FB68900EE326E /* CompletionType.swift */,
 				5691004E2471E76900F58A7D /* GoalCriterion.swift */,
-				5602D3542481DAEB007436C1 /* Habit+CoreDataProperties.swift */,
 				560C41442451D6A400588859 /* Habit+CoreDataClass.swift */,
+				5602D3542481DAEB007436C1 /* Habit+CoreDataProperties.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";

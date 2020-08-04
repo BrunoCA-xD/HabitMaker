@@ -46,7 +46,7 @@ class AddOrEditHabitViewController: UIViewController {
     var selectedItem: GoalCriterion?{
         didSet {
             if selectedItem != nil {
-                habit.goalCriterionPrimitive = selectedItem!.rawValue
+                habit.goalCriterion = selectedItem!
                 tableview.reloadRows(at: [IndexPath(row: 1, section: 1)], with: .automatic)
                 updateSectionFooter()
             }
@@ -155,9 +155,9 @@ class AddOrEditHabitViewController: UIViewController {
         if isEditingHabit {
             delegate?.editHabit(habit)
         }else {
-            if habit.goalCriterionPrimitive == nil || habit.goalCriterionPrimitive?.count == 0 {
+            if habit.goalCriterion == nil  {
                 let criterion = pickerViewPresenter.selectedItem?.type
-                habit.goalCriterionPrimitive = criterion?.rawValue
+                habit.goalCriterion = criterion
             }
             delegate?.addHabit(habit)
         }
@@ -169,7 +169,7 @@ class AddOrEditHabitViewController: UIViewController {
         var indices: [IndexPath] = [
             IndexPath(row: 0, section: 0)
         ]
-        if habit.typePrimitive == CompletionType.numeric.rawValue {
+        if habit.completionType == .numeric {
             indices.append(contentsOf: [
                 IndexPath(row: 0, section: 1),
                 IndexPath(row: 1, section: 1),
@@ -206,10 +206,10 @@ extension AddOrEditHabitViewController:  UITableViewDelegate {
             if isEditingHabit && !canEdit {return}
             let vc = HabitTypeSelectorTableViewController()
             vc.delegate = self
-            vc.selected = CompletionType(rawValue: habit.typePrimitive)!
+            vc.selected = habit.completionType
             navigationController?.show(vc, sender: self)
         }else if indexPath.section == 1 && indexPath.row == 1{
-            let itemSelected = GoalCriterion(rawValue: habit.goalCriterionPrimitive ?? "") ?? GoalCriterion.lessThanOrEqual
+            let itemSelected = habit.goalCriterion ?? GoalCriterion.lessThanOrEqual
             pickerViewPresenter.selectedItem = GenericRow<GoalCriterion>(type:itemSelected, showText: itemSelected.showValue)
             pickerViewPresenter.showPicker()
         }
@@ -228,7 +228,7 @@ extension AddOrEditHabitViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if habit.typePrimitive == CompletionType.yesNo.rawValue && section == 1 {
+        if habit.completionType == .yesNo && section == 1 {
             return 0
         }
         
@@ -251,7 +251,7 @@ extension AddOrEditHabitViewController: UITableViewDataSource {
             }else{
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: "type")
                 cell.textLabel?.text = "Type"
-                cell.detailTextLabel?.text = CompletionType(rawValue: habit.typePrimitive)?.description
+                cell.detailTextLabel?.text = habit.completionType.description
                 cell.accessoryType = .disclosureIndicator
                 return cell
             }
@@ -270,7 +270,7 @@ extension AddOrEditHabitViewController: UITableViewDataSource {
             case 1 :
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: "metric")
                 cell.textLabel?.text = "Metric"
-                cell.detailTextLabel?.text = GoalCriterion(rawValue: habit.goalCriterionPrimitive ?? GoalCriterion.lessThanOrEqual.rawValue)?.showValue
+                cell.detailTextLabel?.text = (habit.goalCriterion ?? GoalCriterion.lessThanOrEqual).showValue
                 return cell
             case 2:
                 let cell = FormFieldTableViewCell()
@@ -299,14 +299,14 @@ extension AddOrEditHabitViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 1 && habit.typePrimitive == CompletionType.numeric.rawValue {
+        if section == 1 && habit.completionType == .numeric {
             return "When is a day successfull?"
         }
         return nil
     }
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        if section == 1 && habit.typePrimitive == CompletionType.numeric.rawValue {
+        if section == 1 && habit.completionType == .numeric {
             return successfullPhrase
         }
         return nil
@@ -320,8 +320,8 @@ extension AddOrEditHabitViewController{
     private func updateSectionFooter() {
         
         let action = habit.goalAction ?? "do"
-        let goalCriterion = GoalCriterion(rawValue: habit.goalCriterionPrimitive ?? GoalCriterion.lessThanOrEqual.rawValue)
-        let criterion = goalCriterion?.showValue ?? GoalCriterion.lessThanOrEqual.showValue
+        let goalCriterion = habit.goalCriterion ?? GoalCriterion.lessThanOrEqual
+        let criterion = goalCriterion.showValue
         let number = habit.goalNumber
         let unit = habit.goalUnit ?? "Units"
         
@@ -358,7 +358,7 @@ extension AddOrEditHabitViewController{
 extension AddOrEditHabitViewController: HabitTypeSelectorActions {
     //Item Selection on the view controller selector
     func didSelect( type: CompletionType) {
-        habit.typePrimitive = type.rawValue
+        habit.completionType = type
         updateTableView {
             self.tableview.reloadSections(IndexSet(arrayLiteral: 1), with: .automatic)
             self.tableview.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
@@ -372,8 +372,8 @@ extension AddOrEditHabitViewController: PickerViewPresenterDelegate {
     func selected(item: Any) {
         if let row = item as? GenericRow<GoalCriterion> {
             let criterion = row.type
-            if habit.goalCriterionPrimitive != criterion.rawValue {
-                habit.goalCriterionPrimitive = criterion.rawValue
+            if habit.goalCriterion != criterion {
+                habit.goalCriterion = criterion
                 self.tableview.reloadRows(at: [IndexPath(row: 1, section: 1)], with: .automatic)
             }
         }

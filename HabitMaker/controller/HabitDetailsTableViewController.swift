@@ -169,12 +169,8 @@ extension HabitDetailsTableViewController: DayCellActionsDelegate {
     
     func dayCellTapped(date: Date) {
         
-        guard let completionType = CompletionType(rawValue: habit.typePrimitive) else {
-            print("error on type")
-            return
-        }
         var completion = habit.findCompletion(withDate: date)
-        if completionType == .numeric {
+        if habit.completionType == .numeric {
             let vc = AddNumericCompletionTableViewController()
             vc.habit = habit
             vc.date = date

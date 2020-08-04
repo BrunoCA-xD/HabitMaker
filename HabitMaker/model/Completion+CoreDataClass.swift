@@ -31,7 +31,7 @@ public class Completion: NSManagedObject {
     
     func setIsAchived() {
         let goalNumber = habit?.goalNumber ?? 0.0
-        let goalCriterion = habit?.goalCriterionLiteral
+        let goalCriterion = habit?.goalCriterion
         var isAchieved = false
         switch goalCriterion {
         case .lessThanOrEqual:

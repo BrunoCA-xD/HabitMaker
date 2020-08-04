@@ -19,9 +19,31 @@ public class Habit: NSManagedObject {
             return completions?.count ?? 0
         }
     }
+    //Enum property accessors/writers
+    var completionType: CompletionType {
+        get {
+            willAccessValue(forKey: "completionType")
+            defer { didAccessValue(forKey: "completionType") }
+            return CompletionType(rawValue: typePrimitive)!
+        }
+        set {
+            willChangeValue(forKey: "completionType")
+            defer { didChangeValue(forKey: "completionType") }
+            typePrimitive = newValue.rawValue
+        }
+    }
     
-    var goalCriterionLiteral: GoalCriterion? {
-        GoalCriterion(rawValue: self.goalCriterionPrimitive ?? "")
+    var goalCriterion: GoalCriterion? {
+        get {
+            willAccessValue(forKey: "goalCriterion")
+            defer { didAccessValue(forKey: "goalCriterion") }
+            return GoalCriterion(rawValue: goalCriterionPrimitive ?? "")
+        }
+        set {
+            willChangeValue(forKey: "goalCriterion")
+            defer { didChangeValue(forKey: "goalCriterion") }
+            goalCriterionPrimitive = newValue?.rawValue
+        }
     }
     
     public override func awakeFromInsert() {
@@ -65,7 +87,7 @@ public class Habit: NSManagedObject {
         calculateStreaks()
     }
     
-    /// Calculates the streaks of a habit before save it
+    /// Calculates the streaks of a habit 
     /// - Parameter item: item to be calculated
     func calculateStreaks() {
           var complets = self.completions?.allObjects as! [Completion]

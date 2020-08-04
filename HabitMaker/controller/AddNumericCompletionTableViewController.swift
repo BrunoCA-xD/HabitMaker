@@ -170,8 +170,8 @@ class AddNumericCompletionTableViewController: UITableViewController {
     private func updateSectionHeader() {
         
         let action = habit?.goalAction ?? "do"
-        let goalCriterion = GoalCriterion(rawValue: habit?.goalCriterionPrimitive ?? GoalCriterion.lessThanOrEqual.rawValue)
-        let criterion = goalCriterion?.showValue ?? GoalCriterion.lessThanOrEqual.showValue
+        let goalCriterion = habit?.goalCriterion ?? GoalCriterion.lessThanOrEqual
+        let criterion = goalCriterion.showValue
         let number = habit?.goalNumber ?? 0.0
         let unit = habit?.goalUnit ?? "Units"
         
