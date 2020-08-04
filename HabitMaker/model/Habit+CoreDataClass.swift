@@ -21,7 +21,7 @@ public class Habit: NSManagedObject {
     }
     
     var goalCriterionLiteral: GoalCriterion? {
-        GoalCriterion(rawValue: self.goalCriterion ?? "")
+        GoalCriterion(rawValue: self.goalCriterionPrimitive ?? "")
     }
     
     public override func awakeFromInsert() {

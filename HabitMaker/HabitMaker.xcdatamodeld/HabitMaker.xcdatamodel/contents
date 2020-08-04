@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19G73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Completion" representedClassName=".Completion" syncable="YES">
         <attribute name="achievedNumber" optional="YES" attributeType="Double" minValueString="0" usesScalarValueType="YES"/>
         <attribute name="comment" optional="YES" attributeType="String"/>
@@ -12,11 +12,11 @@
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="currStreak" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="goalAction" optional="YES" attributeType="String"/>
-        <attribute name="goalCriterion" optional="YES" attributeType="String"/>
+        <attribute name="goalCriterionPrimitive" optional="YES" attributeType="String"/>
         <attribute name="goalNumber" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="goalUnit" optional="YES" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
-        <attribute name="type" attributeType="Integer 16" valueTransformerName="CompletionTypeTransformer" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="typePrimitive" attributeType="Integer 16" valueTransformerName="CompletionTypeTransformer" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="completions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Completion" inverseName="habit" inverseEntity="Completion"/>
     </entity>
     <elements>

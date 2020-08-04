@@ -169,7 +169,7 @@ extension HabitDetailsTableViewController: DayCellActionsDelegate {
     
     func dayCellTapped(date: Date) {
         
-        guard let completionType = CompletionType(rawValue: habit.type) else {
+        guard let completionType = CompletionType(rawValue: habit.typePrimitive) else {
             print("error on type")
             return
         }

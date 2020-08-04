@@ -21,11 +21,11 @@ extension Habit {
     @NSManaged public var createdAt: Date?
     @NSManaged public var currStreak: Int64
     @NSManaged public var goalAction: String?
-    @NSManaged public var goalCriterion: String?
+    @NSManaged public var goalCriterionPrimitive: String?
     @NSManaged public var goalNumber: Double
     @NSManaged public var goalUnit: String?
     @NSManaged public var title: String?
-    @NSManaged public var type: Int16
+    @NSManaged public var typePrimitive: Int16
     @NSManaged public var completions: NSSet?
 
 }
