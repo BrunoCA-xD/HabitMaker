@@ -13,12 +13,29 @@ import CoreData
 
 public class Habit: NSManagedObject {
     
-    /// Returns the number of time that this habit was tracked
-    var numberOfCompletions: Int{
-        get {
-            return completions?.count ?? 0
-        }
+    /// Returns the completions as a Completion collection in descending order
+    private var completionsSorted: [Completion] {
+        (self.completions?.allObjects as? [Completion] ?? []).sorted { return $0.date! < $1.date! }
     }
+    
+    /// Returns total of data tracked
+    var numberOfCompletions: Int{
+        completions?.count ?? 0
+    }
+    /// Calculates longest achived streak
+    var longestStreak: Int{
+        completionsSorted
+            .filter{ $0.isAchived }
+            .splitConsecutive()
+            .max{ $0.count-1 < $1.count-1 }?.count ?? 0
+    }
+    /// Calculates current achived streak
+    var currentStreak: Int{
+        completionsSorted
+            .filter{ $0.isAchived }
+            .splitConsecutive().last?.count ?? 0
+    }
+    
     //Enum property accessors/writers
     var completionType: CompletionType {
         get {
@@ -55,9 +72,8 @@ public class Habit: NSManagedObject {
     /// - Parameter date: date to be found
     /// - Returns: true if date was found, otherwise, false
     func completionsContains(_ date: Date) -> Bool{
-        guard let elements = completions else {return false}
-        let dates = elements.map { element -> Date in
-            return (element as! Completion).date!
+        let dates = completionsSorted.map { element -> Date in
+            return element.date!
         }
         return dates.contains(date)
     }
@@ -67,46 +83,22 @@ public class Habit: NSManagedObject {
     /// - Returns: a completion that was on the given Date
     func findCompletion(withDate date: Date) -> Completion? {
         var completionFound: Completion? = nil
-        
-        completionFound = completions?.first(where:
-            { element -> Bool in
-                guard let completion = element as? Completion,
-                    completion.date == date else {return false}
-                return true
-        }) as? Completion
+        completionFound = completionsSorted.first(where: { element -> Bool in
+            element.date == date
+        })
+        /*        completionFound = completions?.first(where:
+        //            { element -> Bool in
+        //                guard let completion = element as? Completion,
+        //                    completion.date == date else {return false}
+        //                return true
+                }) as? Completion */
         return completionFound
     }
     
     func checkTheCompletionsAchived() {
-        if completions == nil || completions!.count == 0 { return }
-        let complets = completions?.compactMap{$0 as? Completion} ?? []
-        
-        complets.forEach { completion in
+        if completionsSorted.count == 0 {return}
+        completionsSorted.forEach { completion in
             completion.setIsAchived()
         }
-        calculateStreaks()
-    }
-    
-    /// Calculates the streaks of a habit 
-    /// - Parameter item: item to be calculated
-    func calculateStreaks() {
-          var complets = self.completions?.allObjects as! [Completion]
-          var longest = 0
-          var current = 0
-          
-          complets.sort { return $0.date! < $1.date! }
-          let filteredList = complets.filter{ return $0.isAchived }
-          let consecutiveList = filteredList.splitConsecutive()
-          if !consecutiveList.isEmpty {
-              for list in consecutiveList {
-                  if list.count > longest {
-                      longest = list.count
-                  }
-              }
-              current = consecutiveList.last!.count
-          }
-          
-          self.currStreak = Int64(current)
-          self.bestStreak = Int64(longest)
     }
 }

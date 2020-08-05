@@ -17,9 +17,7 @@ extension Habit {
         return NSFetchRequest<Habit>(entityName: "Habit")
     }
 
-    @NSManaged public var bestStreak: Int64
     @NSManaged public var createdAt: Date?
-    @NSManaged public var currStreak: Int64
     @NSManaged public var goalAction: String?
     @NSManaged public var goalCriterionPrimitive: String?
     @NSManaged public var goalNumber: Double

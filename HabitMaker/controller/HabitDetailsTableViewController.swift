@@ -131,12 +131,12 @@ extension HabitDetailsTableViewController: UITableViewDataSource {
             case 0:
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: "current")
                 cell.textLabel?.text = "Current Streak"
-                cell.detailTextLabel?.text = "\(habit.currStreak)"
+                cell.detailTextLabel?.text = "\(habit.currentStreak)"
                 return cell
             case 1:
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: "Best")
                 cell.textLabel?.text = "Best Streak"
-                cell.detailTextLabel?.text = "\(habit.bestStreak)"
+                cell.detailTextLabel?.text = "\(habit.longestStreak)"
                 return cell
             case 2:
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: "total")
@@ -169,6 +169,8 @@ extension HabitDetailsTableViewController: DayCellActionsDelegate {
     
     func dayCellTapped(date: Date) {
         
+        
+        
         var completion = habit.findCompletion(withDate: date)
         if habit.completionType == .numeric {
             let vc = AddNumericCompletionTableViewController()
@@ -197,7 +199,6 @@ extension HabitDetailsTableViewController: DayCellActionsDelegate {
                     CompletionDAO().delete(completion: completion!)
                 }
             }
-            habit.calculateStreaks()
             habitDAO.save()
             reloadCalendar()
         }
@@ -242,7 +243,6 @@ extension HabitDetailsTableViewController: AddNumericCompletionDelegate {
             habit.removeFromCompletions(oldCompletion!)
             habit.addToCompletions(newCompletion)
         }
-        habit.calculateStreaks()
         habitDAO.save()
         reloadCalendar()
     }
@@ -250,7 +250,6 @@ extension HabitDetailsTableViewController: AddNumericCompletionDelegate {
         vc.dismiss(animated: true, completion: nil)
         habit.removeFromCompletions(oldCompletion!)
         CompletionDAO().delete(completion: oldCompletion!)
-        habit.calculateStreaks()
         habitDAO.save()
         reloadCalendar()
         
