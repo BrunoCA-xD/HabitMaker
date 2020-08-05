@@ -19,7 +19,7 @@ extension Date {
     }
     
     static var currentMonth: Int {
-        return calendar.component(.month, from: Date())-1
+        return calendar.component(.month, from: Date())
     }
     static var currentYear: Int {
         return calendar.component(.year, from: Date())
@@ -87,7 +87,7 @@ extension Date {
         return numOfDaysByMonth
     }
     
-    static func firstWeekday(inMonth month: Int? = currentMonth+1, inYear year: Int? = currentYear) -> Int{
+    static func firstWeekday(inMonth month: Int? = currentMonth, inYear year: Int? = currentYear) -> Int{
         let monthDate = calendar.date(from: DateComponents(year: year!, month: month!, day:1))!
         
         let day = calendar.component(.weekday, from: monthDate )

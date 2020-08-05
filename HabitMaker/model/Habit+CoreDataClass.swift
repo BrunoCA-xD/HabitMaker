@@ -86,12 +86,6 @@ public class Habit: NSManagedObject {
         completionFound = completionsSorted.first(where: { element -> Bool in
             element.date == date
         })
-        /*        completionFound = completions?.first(where:
-        //            { element -> Bool in
-        //                guard let completion = element as? Completion,
-        //                    completion.date == date else {return false}
-        //                return true
-                }) as? Completion */
         return completionFound
     }
     

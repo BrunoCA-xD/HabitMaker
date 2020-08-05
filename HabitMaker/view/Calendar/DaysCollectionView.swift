@@ -68,8 +68,7 @@ class DaysCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
     //MARK: - CollectionView Delegate & DataSource
     fileprivate func itemsDayIsToday(_ item: CalendarDayCollectionViewCell) -> Bool {
         guard let itemsDate = item.date else {return false}
-        let rightDate = Calendar.current.date(byAdding: .month, value: 1, to: itemsDate)
-        return rightDate?.isToday == true
+        return itemsDate.isToday == true
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -102,7 +101,7 @@ class DaysCollectionView: UICollectionView, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let numDays = numOfDaysByMonth[calendarView.showingMonthIndex]
+        let numDays = numOfDaysByMonth[calendarView.showingMonthIndex-1]
         let num = numDays + firstWeekdayOfMonth-1
         return num
     }

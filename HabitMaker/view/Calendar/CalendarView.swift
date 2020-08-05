@@ -18,13 +18,18 @@ class CalendarView: UIStackView {
     
     var showingMonthIndex = Date.currentMonth {
         didSet {
-            daysCollection?.firstWeekdayOfMonth = Date.firstWeekday(inMonth: showingMonthIndex+1, inYear: showingYear)
+            UpdateFirstweekDay()
         }
     }
+    fileprivate func UpdateFirstweekDay() {
+        daysCollection?.firstWeekdayOfMonth = Date.firstWeekday(inMonth: showingMonthIndex, inYear: showingYear)
+    }
+    
     var showingYear = Date.currentYear{
         didSet {
             if oldValue != showingYear {
                 daysCollection?.numOfDaysByMonth = Date.numOfDaysByMonth(inYear: showingYear)
+                UpdateFirstweekDay()
             }
         }
     }
@@ -80,8 +85,8 @@ extension CalendarView: MonthControlActions {
     /// Changes the viewing month to the previous of the current
     func previousMonthTapped() {
         showingMonthIndex -= 1
-        if showingMonthIndex < 0  {
-            showingMonthIndex = 11
+        if showingMonthIndex < 1  {
+            showingMonthIndex = 12
             showingYear -= 1
         }
         monthControl.updateMonthSymbol(monthIndex: showingMonthIndex, year: showingYear)
@@ -91,8 +96,8 @@ extension CalendarView: MonthControlActions {
     /// Changes the viewing month to the next of the current
     func nextMonthTapped() {
         showingMonthIndex += 1
-        if(showingMonthIndex > 11){
-            showingMonthIndex = 0
+        if(showingMonthIndex > 12){
+            showingMonthIndex = 1
             showingYear += 1
         }
         monthControl.updateMonthSymbol(monthIndex: showingMonthIndex, year: showingYear)
