@@ -15,9 +15,9 @@ class CalendarViewTableViewCell: UITableViewCell {
     private func commonInit() {
         calendarView = CalendarView()
         calendarView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(calendarView)
-        calendarView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
-        calendarView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        contentView.addSubview(calendarView)
+        calendarView.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
+        calendarView.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
     }
     
     

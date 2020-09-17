@@ -47,17 +47,17 @@ class CalendarDayCollectionViewCell: UICollectionViewCell, Identifiable {
     
     private func commonInit() {
         self.clipsToBounds = false
-        addSubview(lbl)
-        addSubview(imageViewBadge)
+        contentView.addSubview(lbl)
+        contentView.addSubview(imageViewBadge)
         
-        lbl.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        lbl.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        lbl.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        lbl.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
         
         imageViewBadge.widthAnchor.constraint(equalToConstant: 18).isActive = true
         imageViewBadge.heightAnchor.constraint(equalToConstant: 16).isActive = true
-        imageViewBadge.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        imageViewBadge.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        imageViewBadge.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        imageViewBadge.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         
     }
     

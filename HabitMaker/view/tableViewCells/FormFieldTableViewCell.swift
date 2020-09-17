@@ -41,19 +41,19 @@ class FormFieldTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         
         label.setContentHuggingPriority(.init(251), for: .horizontal)
+        contentView.addSubview(label)
+        contentView.addSubview(value)
         
-        addSubview(label)
-        addSubview(value)
-        
-        label.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding).isActive = true
+        label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding).isActive = true
         label.trailingAnchor.constraint(equalTo: value.leadingAnchor, constant: -10).isActive = true
         
-        value.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding).isActive = true
-        value.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        value.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding).isActive = true
+        value.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         
         value.textAlignment = .right
         value.clearButtonMode = .whileEditing
+        
     }
     
     /// Toggles its UITextField isEnable
