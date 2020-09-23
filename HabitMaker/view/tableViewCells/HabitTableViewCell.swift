@@ -16,50 +16,50 @@ class HabitTableViewCell: UITableViewCell,Identifiable {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.dynamicFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.headline)
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
-        label.textColor =  UIColor.label
+        label.textColor = UIColor.label
         return label
     }()
     let streakLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Streak: 0"
-        label.dynamicFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.caption1)
-
-
+        label.dynamicFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.subheadline)
         label.adjustsFontForContentSizeCategory = true
-        label.textColor =  UIColor.label
+        label.textColor = UIColor.secondaryLabel
         return label
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    fileprivate func commonInit() {
         self.backgroundColor = .secondarySystemBackground
-
-        addSubview(titleLabel)
-        addSubview(streakLabel)
+        let layoutStackView = UIStackView(arrangedSubviews: [titleLabel,streakLabel])
+        layoutStackView.translatesAutoresizingMaskIntoConstraints = false
+        layoutStackView.axis = .vertical
+        layoutStackView.alignment = .leading
+        layoutStackView.distribution = .fillEqually
         
-        clipsToBounds = true
-        let heightConstraint = heightAnchor.constraint(greaterThanOrEqualToConstant: 71)
-            
+        //cell height constraint
+        let heightConstraint = contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 71)
         heightConstraint.priority = .init(UILayoutPriority .defaultHigh.rawValue-1)
-        
         heightConstraint.isActive = true
         
+        contentView.addSubview(layoutStackView)
         
-        titleLabel.topAnchor.constraint(equalTo: titleLabel.superview!.topAnchor, constant: 10).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: titleLabel.superview!.trailingAnchor, constant: -10).isActive = true
+        //layoutStackView constraints
+        layoutStackView.setConstraints(toFill: contentView, horizontalConstant: 20)
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        streakLabel.topAnchor.constraint(lessThanOrEqualTo: titleLabel.bottomAnchor, constant: 10).isActive = true
-        streakLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor).isActive = true
-        streakLabel.bottomAnchor.constraint(equalTo: streakLabel.superview!.bottomAnchor, constant: -10).isActive = true
+        commonInit()
         
+    }
+    
+    func config(with habit: Habit) {
+        titleLabel.text = habit.title?.capitalized
+        streakLabel.text = "\(HabitsTableViewCellStrings.streakLabel.localized()): \(habit.currentStreak)"
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
 }

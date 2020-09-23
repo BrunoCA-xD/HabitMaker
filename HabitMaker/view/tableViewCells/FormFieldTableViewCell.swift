@@ -37,19 +37,15 @@ class FormFieldTableViewCell: UITableViewCell {
     func commonInit() {
         selectionStyle = .none
         
-        value.translatesAutoresizingMaskIntoConstraints = false
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
         label.setContentHuggingPriority(.init(251), for: .horizontal)
-        contentView.addSubview(label)
-        contentView.addSubview(value)
         
-        label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding).isActive = true
-        label.trailingAnchor.constraint(equalTo: value.leadingAnchor, constant: -10).isActive = true
+        let layoutStackView = UIStackView(arrangedSubviews: [label,value])
+        layoutStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        value.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding).isActive = true
-        value.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        contentView.addSubview(layoutStackView)
+        
+        layoutStackView.setConstraints(toFill: contentView, horizontalConstant: 20, verticalConstant: 0)
+        layoutStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).isActive = true
         
         value.textAlignment = .right
         value.clearButtonMode = .whileEditing

@@ -5,3 +5,60 @@
   Created by Bruno Cardoso Ambrosio on 16/09/20.
   Copyright © 2020 Bruno Cardoso Ambrosio. All rights reserved.
 */
+
+
+//MARK: HabitDetailsLabels
+"HabitDetailStrings_currentStreak" = "Current streak";
+"HabitDetailStrings_bestStreak" = "Best streak";
+"HabitDetailStrings_daysTracked" = "Days tracked";
+"HabitDetailStrings_startedAt" = "Started at";
+
+
+//MARK: AddOrEditHabit
+"AddOrEditHabitStrings_fieldTitle" = "Title";
+"AddOrEditHabitStrings_fieldType" = "Type";
+"AddOrEditHabitStrings_fieldAction" = "Action";
+"AddOrEditHabitStrings_fieldMetric" = "Metric";
+"AddOrEditHabitStrings_fieldNumber" = "Number";
+"AddOrEditHabitStrings_fieldUnit" = "Unit";
+"AddOrEditHabitStrings_placeholderTitle" = "Habit title";
+"AddOrEditHabitStrings_placeholderAction" = "e.g: run, drink, read...";
+"AddOrEditHabitStrings_placeholderNumber" = "e.g: 5, 10, 20";
+"AddOrEditHabitStrings_placeholderUnit" = "e.g: pages, cups, hours";
+"AddOrEditHabitStrings_addModeTitle" = "New Habit";
+"AddOrEditHabitStrings_editModeTitle" = "Editing Habit";
+"AddOrEditHabitStrings_successfullPhrasePrefix" = "When I";
+"AddOrEditHabitStrings_goalQuestion" = "When is a day successfull?";
+
+
+//MARK: CompletionType
+"completionType_yes/no" = "I did/didn't";
+"completionType_numeric" = "Numeric goal";
+
+//MARK: GoalCriterion
+"lessThanOrEqual" = "No more than";
+"exactly" = "Exactly";
+"greaterThanOrEqual" = "At least";
+
+//MARK: HabitsTableView
+"HabitsTableView_navigationTitle" = "Habits";
+
+//MARK: AlertMessages
+"AlertMessages_habitDataDeletion" = "All data related to this habit will permanently be deleted. Want to proceed?";
+"AlertMessages_completionDataDeletion" = "The data related to this date will be deleted permanently. Want to proceed?";
+
+//MARK: AlertButtons
+"AlertButtons_delete" = "Delete";
+"AlertButtons_cancel" = "Cancel";
+
+//MARK: AlertTitles
+"AlertTitles_confirmation"= "Confirm action";
+
+//MARK: HabitsTableViewCellStrings
+"HabitsTableViewCell_streakLabel" = "Streak";
+
+//MARK: AddNumericCompletion
+"AddNumericCompletion_navigationTitle" = "Achieved number";
+"AddNumericCompletion_labelComment" = "Comment";
+"AddNumericCompletion_labelDate" = "Date";
+"AddNumericCompletion_labelGoal" = "Goal:";

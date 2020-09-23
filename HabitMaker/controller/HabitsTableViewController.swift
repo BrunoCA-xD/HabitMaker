@@ -33,15 +33,11 @@ class HabitsTableViewController: UITableViewController {
     }
     
     // MARK: - Table view data source
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return habits.count
+        habits.count
     }
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return UIView()
+        UIView()
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let habit = habits[indexPath.row]
@@ -58,33 +54,32 @@ class HabitsTableViewController: UITableViewController {
             fatalError("HabitTableViewCell could not load")
         }
         
-        cell.titleLabel.text = habits[indexPath.row].title
-        cell.streakLabel.text = "Streak: \(habits[indexPath.row].currentStreak)"
+        cell.config(with: habits[indexPath.row])
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+        true
     }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         let habit = habits[indexPath.row]
         switch editingStyle {
-        case .delete:
-            AlertUtility.destructiveConfirmation(self, message: "All data related to this habit will permanently be deleted. Want to proceed?", style: .actionSheet, confirmAction:  { _ in
-                
-                self.habits.remove(at: indexPath.row)
-                self.habitDAO.delete(item: habit)
-                self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            })
-        default:
-            break
+            case .delete:
+                AlertUtility.destructiveConfirmation(self, message: AlertMessages.habitDataDeletion.localized(), style: .actionSheet, confirmAction:  { _ in
+                    
+                    self.habits.remove(at: indexPath.row)
+                    self.habitDAO.delete(item: habit)
+                    self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                })
+            default:
+                break
         }
     }
     
     //MARK: - Setup's
     func setupNavigation() {
-        navigationItem.title = "Habits"
+        navigationItem.title = HabitsTableView.navigationTitle.localized()
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label]

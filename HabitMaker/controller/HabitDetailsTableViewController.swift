@@ -128,28 +128,28 @@ extension HabitDetailsTableViewController: UITableViewDataSource {
             return cell
         }else if indexPath.section == 1 {
             switch indexPath.row {
-            case 0:
-                let cell = UITableViewCell(style: .value1, reuseIdentifier: "current")
-                cell.textLabel?.text = "Current Streak"
-                cell.detailTextLabel?.text = "\(habit.currentStreak)"
-                return cell
-            case 1:
-                let cell = UITableViewCell(style: .value1, reuseIdentifier: "Best")
-                cell.textLabel?.text = "Best Streak"
-                cell.detailTextLabel?.text = "\(habit.longestStreak)"
-                return cell
-            case 2:
-                let cell = UITableViewCell(style: .value1, reuseIdentifier: "total")
-                cell.textLabel?.text = "Days Tracked"
-                cell.detailTextLabel?.text = "\(habit.numberOfCompletions)"
-                return cell
-            case 3:
-                let cell = UITableViewCell(style: .value1, reuseIdentifier: "total")
-                cell.textLabel?.text = "Started at"
-                cell.detailTextLabel?.text = habit.createdAt?.dateValue
-                return cell
-            default:
-                break
+                case 0:
+                    let cell = UITableViewCell(style: .value1, reuseIdentifier: "current")
+                    cell.textLabel?.text = HabitDetailStrings.currentStreak.localized()
+                    cell.detailTextLabel?.text = "\(habit.currentStreak)"
+                    return cell
+                case 1:
+                    let cell = UITableViewCell(style: .value1, reuseIdentifier: "Best")
+                    cell.textLabel?.text = HabitDetailStrings.bestStreak.localized()
+                    cell.detailTextLabel?.text = "\(habit.longestStreak)"
+                    return cell
+                case 2:
+                    let cell = UITableViewCell(style: .value1, reuseIdentifier: "total")
+                    cell.textLabel?.text = HabitDetailStrings.daysTracked.localized()
+                    cell.detailTextLabel?.text = "\(habit.numberOfCompletions)"
+                    return cell
+                case 3:
+                    let cell = UITableViewCell(style: .value1, reuseIdentifier: "started")
+                    cell.textLabel?.text = HabitDetailStrings.startedAt.localized()
+                    cell.detailTextLabel?.text = habit.createdAt?.dateValue
+                    return cell
+                default:
+                    break
             }
         }
         return UITableViewCell()

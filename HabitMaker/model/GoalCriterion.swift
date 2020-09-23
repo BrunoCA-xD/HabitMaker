@@ -8,19 +8,12 @@
 
 import Foundation
 
-enum GoalCriterion: String, CaseIterable{
+enum GoalCriterion: String, CaseIterable, Localizable{
     case lessThanOrEqual
     case exactly
     case greaterThanOrEqual
     
     var showValue: String  {
-        switch self {
-        case .lessThanOrEqual:
-            return "No more than"
-        case .exactly:
-            return "Exactly"
-        case .greaterThanOrEqual:
-            return "At least"
-        }
+        self.localized()
     }
 }

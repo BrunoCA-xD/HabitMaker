@@ -20,15 +20,15 @@ class AlertUtility {
     ///   - cancelAction: handler to be used when user cancels
     ///   - confirmAction: handler to be used when user confirms
     static func destructiveConfirmation(_ viewController: UIViewController,
-                                        title: String = "Confirmation",
+                                        title: String = AlertTitles.confirmation.localized(),
                                         message: String,
                                         style: UIAlertController.Style,
                                         cancelAction:  ((UIAlertAction) -> Void)? = nil,
                                         confirmAction: ((UIAlertAction) -> Void)? = nil) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: style)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: cancelAction)
-        let confirmAction = UIAlertAction(title: "Delete", style: .destructive, handler: confirmAction)
+        let cancelAction = UIAlertAction(title: AlertButtons.cancel.localized(), style: .cancel, handler: cancelAction)
+        let confirmAction = UIAlertAction(title: AlertButtons.delete.localized(), style: .destructive, handler: confirmAction)
         alert.addAction(cancelAction)
         alert.addAction(confirmAction)
         viewController.present(alert, animated: true)

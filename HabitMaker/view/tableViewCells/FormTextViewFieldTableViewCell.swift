@@ -36,21 +36,12 @@ class FormTextViewFieldTableViewCell: UITableViewCell {
         selectionStyle = .none
         value.font = label.font
         
-        value.translatesAutoresizingMaskIntoConstraints = false
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
         label.setContentCompressionResistancePriority(.init(1000), for: .horizontal)
         
-        addSubview(label)
-        addSubview(value)
-        
-        label.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding).isActive = true
-        label.trailingAnchor.constraint(equalTo: value.leadingAnchor, constant: -10).isActive = true
-        
-        value.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding).isActive = true
-        value.topAnchor.constraint(equalTo: topAnchor, constant: 5).isActive = true
-        value.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5).isActive = true
+        let layoutStackView = UIStackView(arrangedSubviews: [label,value])
+        layoutStackView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(layoutStackView)
+        layoutStackView.setConstraints(toFill: contentView, horizontalConstant: 20, verticalConstant: 0)
         
         value.textAlignment = .right
         value.isScrollEnabled = false

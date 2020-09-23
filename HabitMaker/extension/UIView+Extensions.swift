@@ -17,4 +17,11 @@ extension UIView {
         layer.add(animation, forKey: "shake")
         UIDevice.vibrate()
     }
+    
+    func setConstraints(toFill parent: UIView, horizontalConstant: CGFloat = 0, verticalConstant: CGFloat = 0) {
+        self.topAnchor.constraint(equalTo: parent.topAnchor,  constant: verticalConstant).isActive = true
+        self.bottomAnchor.constraint(equalTo: parent.bottomAnchor, constant: -verticalConstant).isActive = true
+        self.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: horizontalConstant).isActive = true
+        self.trailingAnchor.constraint(equalTo: parent.trailingAnchor, constant: -horizontalConstant).isActive = true
+    }
 }

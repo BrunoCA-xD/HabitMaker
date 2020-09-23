@@ -63,7 +63,7 @@ class AddNumericCompletionTableViewController: UITableViewController {
     }
     
     func setupNavigation() {
-        navigationItem.title = "Set number"
+        navigationItem.title = AddNumericCompletion.navigationTitle.localized()
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
         let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelTapped))
         self.navigationItem.leftBarButtonItems = [cancelItem]
@@ -87,7 +87,7 @@ class AddNumericCompletionTableViewController: UITableViewController {
     }
     
     @objc func deleteTapped() {
-        AlertUtility.destructiveConfirmation(self, message: "The data related to this date will be deleted permanently. Want to proceed?", style: .actionSheet, confirmAction:  { _ in
+        AlertUtility.destructiveConfirmation(self, message: AlertMessages.completionDataDeletion.localized(), style: .actionSheet, confirmAction:  { _ in
             self.delegate?.didDelete(vc: self, oldCompletion: self.oldCompletion)
         })
     }
@@ -143,7 +143,7 @@ class AddNumericCompletionTableViewController: UITableViewController {
             resultCell = cell
         case 3:
             let cell  = FormTextViewFieldTableViewCell()
-            cell.label.text = "Comment"
+            cell.label.text = AddNumericCompletion.labelComment.localized()
             cell.value.text = completion.comment
             cell.value.delegate = self
             if oldCompletion != nil {
@@ -152,28 +152,27 @@ class AddNumericCompletionTableViewController: UITableViewController {
             resultCell = cell
         case 2:
             resultCell = UITableViewCell(style: .value1, reuseIdentifier: "")
-            resultCell.selectionStyle = .none
-            resultCell.textLabel?.text = "Date"
+            resultCell.textLabel?.text = AddNumericCompletion.labelDate.localized()
             resultCell.detailTextLabel?.text = date?.dateValue
         default: //0
             resultCell = UITableViewCell(style: .subtitle, reuseIdentifier: "")
-            resultCell.selectionStyle = .none
-            resultCell.textLabel?.text = "Goal:"
+            resultCell.textLabel?.text = AddNumericCompletion.labelGoal.localized()
             resultCell.textLabel?.dynamicFont = UIFont.systemFont(ofSize: 20)
             let mainTextSize = resultCell.textLabel?.font.pointSize ?? 16
             resultCell.detailTextLabel?.dynamicFont = UIFont.systemFont(ofSize: mainTextSize-2)
             resultCell.detailTextLabel?.text = successfullPhrase
         }
+        resultCell.selectionStyle = .none
         return resultCell
     }
 
     private func updateSectionHeader() {
         
-        let action = habit?.goalAction ?? "do"
+        let action = habit?.goalAction ?? ""
         let goalCriterion = habit?.goalCriterion ?? GoalCriterion.lessThanOrEqual
         let criterion = goalCriterion.showValue
         let number = habit?.goalNumber ?? 0.0
-        let unit = habit?.goalUnit ?? "Units"
+        let unit = habit?.goalUnit ?? ""
         
         successfullPhrase = ""
         

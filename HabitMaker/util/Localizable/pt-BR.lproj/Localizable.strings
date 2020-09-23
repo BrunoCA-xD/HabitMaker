@@ -5,3 +5,60 @@
   Created by Bruno Cardoso Ambrosio on 16/09/20.
   Copyright © 2020 Bruno Cardoso Ambrosio. All rights reserved.
 */
+
+
+//MARK: HabitDetailsLabels
+"HabitDetailStrings_currentStreak" = "Sequência atual";
+"HabitDetailStrings_bestStreak" = "Melhor sequência";
+"HabitDetailStrings_daysTracked" = "Dias em registro";
+"HabitDetailStrings_startedAt" = "Iniciado em";
+
+
+//MARK: AddOrEditHabit
+"AddOrEditHabitStrings_fieldTitle" = "Título";
+"AddOrEditHabitStrings_fieldType" = "Tipo";
+"AddOrEditHabitStrings_fieldAction" = "Ação";
+"AddOrEditHabitStrings_fieldMetric" = "Critério";
+"AddOrEditHabitStrings_fieldNumber" = "Número";
+"AddOrEditHabitStrings_fieldUnit" = "Unidade";
+"AddOrEditHabitStrings_placeholderTitle" = "Título do hábito";
+"AddOrEditHabitStrings_placeholderAction" = "ex: correr, beber, ler...";
+"AddOrEditHabitStrings_placeholderNumber" = "ex: 5, 10, 20";
+"AddOrEditHabitStrings_placeholderUnit" = "ex: paginas, copos, horas";
+"AddOrEditHabitStrings_addModeTitle" = "Novo hábito";
+"AddOrEditHabitStrings_editModeTitle" = "Editando hábito";
+"AddOrEditHabitStrings_successfullPhrasePrefix" = "Quando eu";
+"AddOrEditHabitStrings_goalQuestion" = "Como é um dia bem-sucedido?";
+
+
+//MARK: CompletionType
+"completionType_yes/no" = "Fiz/não fiz";
+"completionType_numeric" = "Meta numérica";
+
+//MARK: GoalCriterion
+"lessThanOrEqual" = "Não mais que";
+"exactly" = "Exatamente";
+"greaterThanOrEqual" = "Ao menos";
+
+//MARK: HabitsTableView
+"HabitsTableView_navigationTitle" = "Hábitos";
+
+//MARK: AlertMessages
+"AlertMessages_habitDataDeletion" = "Todos os dados relacionados a este hábito serão permanentemente excluidos. Deseja continuar?";
+"AlertMessages_completionDataDeletion" = "Todos os dados relacionado a esta data serão permanentemente excluidos. Deseja continuar?";
+
+//MARK: AlertButtons
+"AlertButtons_delete" = "Apagar";
+"AlertButtons_cancel" = "Cancelar";
+
+//MARK: AlertTitles
+"AlertTitles_confirmation"= "Confirmar ação";
+
+//MARK: HabitsTableViewCellStrings
+"HabitsTableViewCell_streakLabel" = "Dias em sequência";
+
+//MARK: AddNumericCompletion
+"AddNumericCompletion_navigationTitle" = "Número alcançado";
+"AddNumericCompletion_labelComment" = "Observações";
+"AddNumericCompletion_labelDate" = "Data";
+"AddNumericCompletion_labelGoal" = "Meta:";

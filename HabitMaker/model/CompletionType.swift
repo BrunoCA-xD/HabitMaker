@@ -15,9 +15,9 @@ enum CompletionType: Int16, CaseIterable {
     var description: String  {
         switch self {
         case .yesNo:
-            return "Yes/No"
+            return NSLocalizedString("completionType_yes/no", comment: "")
         case .numeric:
-            return "Numeric"
+            return NSLocalizedString("completionType_numeric", comment: "")
         }
     }
 }

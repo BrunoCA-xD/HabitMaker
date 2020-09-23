@@ -90,7 +90,8 @@ class AddOrEditHabitViewController: UIViewController {
     
     //MARK: - Setup's
     func setupNavigation() {
-        navigationItem.title = isEditingHabit ? "Editing Habit" : "New Habit"
+        let titleEnumOption: AddOrEditHabitStrings = isEditingHabit ? .editModeTitle : .addModeTitle
+        navigationItem.title = titleEnumOption.localized()
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
         let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelTapped))
         self.navigationItem.leftBarButtonItems = [cancelItem]
@@ -214,17 +215,13 @@ extension AddOrEditHabitViewController:  UITableViewDelegate {
             pickerViewPresenter.showPicker()
         }
     }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return section == 0 ? nil : UIView()
-    }
 }
 
 //MARK: - UITableViewDataSource
 extension AddOrEditHabitViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -241,8 +238,8 @@ extension AddOrEditHabitViewController: UITableViewDataSource {
         if section == 0 {
             if row == 0{
                 let cell = FormFieldTableViewCell()
-                cell.label.text = "Title"
-                cell.value.placeholder = "Habit title"
+                cell.label.text = AddOrEditHabitStrings.fieldTitle.localized()
+                cell.value.placeholder = AddOrEditHabitStrings.placeholderTitle.localized()
                 cell.value.addTarget(self, action: #selector(Self.titleTextFieldDidChange(_:)), for: .allEditingEvents)
                 if isEditingHabit {
                     cell.value.text = habit.title
@@ -250,57 +247,68 @@ extension AddOrEditHabitViewController: UITableViewDataSource {
                 return cell
             }else{
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: "type")
-                cell.textLabel?.text = "Type"
+                cell.textLabel?.text = AddOrEditHabitStrings.fieldType.localized()
                 cell.detailTextLabel?.text = habit.completionType.description
                 cell.accessoryType = .disclosureIndicator
                 return cell
             }
         }else {
             switch row {
-            case 0:
-                let cell = FormFieldTableViewCell()
-                cell.label.text = "Action"
-                cell.value.placeholder = "e.g: run, drink, read..."
-                cell.value.returnKeyType = .next
-                cell.value.addTarget(self, action: #selector(Self.actionTextFieldDidChange(_:)), for: .allEditingEvents)
-                if isEditingHabit {
-                    cell.value.text = habit.goalAction
-                }
-                return cell
-            case 1 :
-                let cell = UITableViewCell(style: .value1, reuseIdentifier: "metric")
-                cell.textLabel?.text = "Metric"
-                cell.detailTextLabel?.text = (habit.goalCriterion ?? GoalCriterion.lessThanOrEqual).showValue
-                return cell
-            case 2:
-                let cell = FormFieldTableViewCell()
-                cell.label.text = "Number"
-                cell.value.placeholder = "e.g: 5, 10, 20"
-                cell.value.keyboardType = .numberPad
-                cell.value.addDoneButtonOnKeyboard()
-                cell.value.addTarget(self, action: #selector(Self.numberTextFieldDidChange(_:)), for: .allEditingEvents)
-                if isEditingHabit {
-                    cell.value.text = "\(habit.goalNumber)"
-                }
-                return cell
-            case 3:
-                let cell = FormFieldTableViewCell()
-                cell.label.text = "Unit"
-                cell.value.placeholder = "e.g: pages, cups, miles"
-                cell.value.addTarget(self, action: #selector(Self.unitTextFieldDidChange(_:)), for: .allEditingEvents)
-                if isEditingHabit {
-                    cell.value.text = habit.goalUnit
-                }
-                return cell
-            default:
-                return UITableViewCell()
+                case 0:
+                    let cell = FormFieldTableViewCell()
+                    cell.label.text = AddOrEditHabitStrings.fieldAction.localized()
+                    cell.value.placeholder = AddOrEditHabitStrings.placeholderAction.localized()
+                    cell.value.returnKeyType = .next
+                    cell.value.addTarget(self, action: #selector(Self.actionTextFieldDidChange(_:)), for: .allEditingEvents)
+                    if isEditingHabit {
+                        cell.value.text = habit.goalAction
+                    }
+                    return cell
+                case 1 :
+                    let cell = UITableViewCell(style: .value1, reuseIdentifier: "metric")
+                    cell.textLabel?.text = AddOrEditHabitStrings.fieldMetric.localized()
+                    cell.detailTextLabel?.text = (habit.goalCriterion ?? GoalCriterion.lessThanOrEqual).showValue
+                    return cell
+                case 2:
+                    let cell = FormFieldTableViewCell()
+                    cell.label.text = AddOrEditHabitStrings.fieldNumber.localized()
+                    cell.value.placeholder = AddOrEditHabitStrings.placeholderNumber.localized()
+                    cell.value.keyboardType = .numberPad
+                    cell.value.addDoneButtonOnKeyboard()
+                    cell.value.addTarget(self, action: #selector(Self.numberTextFieldDidChange(_:)), for: .allEditingEvents)
+                    if isEditingHabit {
+                        cell.value.text = "\(habit.goalNumber)"
+                    }
+                    return cell
+                case 3:
+                    let cell = FormFieldTableViewCell()
+                    cell.label.text = AddOrEditHabitStrings.fieldUnit.localized()
+                    cell.value.placeholder = AddOrEditHabitStrings.placeholderUnit.localized()
+                    cell.value.addTarget(self, action: #selector(Self.unitTextFieldDidChange(_:)), for: .allEditingEvents)
+                    if isEditingHabit {
+                        cell.value.text = habit.goalUnit
+                    }
+                    return cell
+                default:
+                    return UITableViewCell()
             }
         }
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+           return 0
+        }
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let label = UILabel()
         if section == 1 && habit.completionType == .numeric {
-            return "When is a day successfull?"
+            label.text = AddOrEditHabitStrings.goalQuestion.localized()
+            label.tintColor = .secondaryLabel
+            label.dynamicFont = UIFont.preferredFont(forTextStyle: .footnote)
+            return label
         }
         return nil
     }
@@ -319,13 +327,14 @@ extension AddOrEditHabitViewController{
     
     private func updateSectionFooter() {
         
-        let action = habit.goalAction ?? "do"
+        let action = habit.goalAction ?? " "
         let goalCriterion = habit.goalCriterion ?? GoalCriterion.lessThanOrEqual
         let criterion = goalCriterion.showValue
         let number = habit.goalNumber
-        let unit = habit.goalUnit ?? "Units"
+        let unit = habit.goalUnit ?? " "
+        let phrasePrefix = AddOrEditHabitStrings.successfullPhrasePrefix.localized()
         
-        successfullPhrase = "When I "
+        successfullPhrase = "\(phrasePrefix) "
         
         successfullPhrase += action + " "
         successfullPhrase += criterion + " "

@@ -43,33 +43,56 @@ public class StepperTableViewCell: UITableViewCell {
     }
     
     fileprivate func setConstraints() {
-        imgView.translatesAutoresizingMaskIntoConstraints = false
-        value.translatesAutoresizingMaskIntoConstraints = false
-        stepper.translatesAutoresizingMaskIntoConstraints = false
         
-        imgView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
-        imgView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        let layoutStackView = UIStackView(arrangedSubviews: [imgView,value,stepper])
+        
+        contentView.addSubview(layoutStackView)
+        layoutStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).isActive = true
+        layoutStackView.setConstraints(toFill: contentView, horizontalConstant: 20)
+        
+        
+        
+        imgView.translatesAutoresizingMaskIntoConstraints = false
+//        value.translatesAutoresizingMaskIntoConstraints = false
+//        stepper.translatesAutoresizingMaskIntoConstraints = false
+//
+//        imgView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
+//        imgView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         imgView.heightAnchor.constraint(equalToConstant: 20).isActive = true
         imgView.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        imgView.setContentHuggingPriority(.init(251), for: .horizontal)
+//        imgView.setContentHuggingPriority(.init(251), for: .horizontal)
+//        value.setContentHuggingPriority(.init(251), for: .horizontal)
+//        value.leadingAnchor.constraint(equalTo: imgView.trailingAnchor, constant: 10).isActive = true
+//        value.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+//        value.trailingAnchor.constraint(equalTo: stepper.leadingAnchor, constant: -padding).isActive = true
+//
+//        stepper.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+//        stepper.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding).isActive = true
+    }
+    
+    fileprivate func setLayout() {
+        let layoutStackView = UIStackView(arrangedSubviews: [imgView, value, stepper])
+        layoutStackView.translatesAutoresizingMaskIntoConstraints = false
+        layoutStackView.alignment = .center
+        layoutStackView.spacing = 10
         
-        value.setContentHuggingPriority(.init(251), for: .horizontal)
-        value.leadingAnchor.constraint(equalTo: imgView.trailingAnchor, constant: 10).isActive = true
-        value.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        value.trailingAnchor.constraint(equalTo: stepper.leadingAnchor, constant: -padding).isActive = true
+        contentView.addSubview(layoutStackView)
+
+        contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).isActive = true
+        layoutStackView.setConstraints(toFill: contentView, horizontalConstant: 20)
+
+        imgView.translatesAutoresizingMaskIntoConstraints = false
+        imgView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        imgView.widthAnchor.constraint(equalToConstant: 20).isActive = true
         
-        stepper.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        stepper.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding).isActive = true
     }
     
     func commonInit() {
         selectionStyle = .none
         
-        addSubview(imgView)
-        addSubview(value)
-        addSubview(stepper)
+        setLayout()
         
-        setConstraints()
+        
         value.delegate = self
         value.keyboardType = .decimalPad
         value.returnKeyType = .done
